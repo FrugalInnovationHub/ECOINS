@@ -14,8 +14,7 @@ class main_menu extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/cocina_blur.png"),
-              fit: BoxFit.cover),
+              image: AssetImage("assets/images/cocina.png"), fit: BoxFit.cover),
         ),
         child: Center(
           child: Card(
@@ -42,9 +41,6 @@ class main_menu extends StatelessWidget {
                             builder: (context) => GameWidget(
                                   game: EcoinsGame(),
                                 )));
-                        // gameRef.startGamePlay();
-                        // gameRef.overlays.remove(MainMenu.id);
-                        // gameRef.overlays.add(Hud.id);
                       },
                       child: const Text(
                         'Play',

@@ -3,13 +3,6 @@ import 'game.dart';
 import 'screens/main_menu.dart';
 
 void main() {
-  // final game = EcoinsGame();
-  // runApp(
-  //   GameWidget(
-  //     game: game,
-  //   ),
-  // );
-  
   runApp(app());
   
 }

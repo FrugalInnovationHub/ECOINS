@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'banda_t_hole.dart';
 import 'basureros.dart';
+import 'basureros_hbox.dart';
 
 class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, CollisionCallbacks {
   late MoveEffect h_move_effect;
@@ -57,7 +58,19 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
   void onCollision(Set<Vector2> points, PositionComponent other) {
     if (other is Banda_T_Hole) {
       is_colliding = true;
-    } else if (other is Basureros) {
+    } else if (other is Basureros_HBox) {
+      // print("Hit ${other.type}");
+      if(other.type == Type.Green) {
+
+      } else if(other.type == Type.Blue) {
+
+      } else if(other.type == Type.Yellow) {
+
+      } else if(other.type == Type.Grey) {
+
+      } else {
+
+      }
       removeFromParent();
     }
   }

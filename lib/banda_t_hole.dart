@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame_svg/flame_svg.dart';
 
-import 'trash_items.dart';
+import 'botella_plastico.dart';
 
 class Banda_T_Hole extends SpriteComponent with HasGameRef{
   @override

@@ -20,15 +20,14 @@ lib/generated_plugin_registrant.dart
 #pubspec.lock
 
 # Android related
-/android
-/android/**/gradle-wrapper.jar
-/android/.gradle
-/android/captures/
-/android/gradlew
-/android/gradlew.bat
-/android/key.properties
-/android/local.properties
-/android/**/GeneratedPluginRegistrant.java
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/key.properties
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
@@ -278,14 +277,3 @@ hs_err_pid*
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/flutter,androidstudio,intellij+all
-
-.idea
-.vscode
-/ios
-/linux
-/macos
-/test
-/web
-/windows
-.metadata
-analysis_options.yaml

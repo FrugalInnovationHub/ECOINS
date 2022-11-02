@@ -3,18 +3,24 @@ import 'dart:io';
 
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flame/components.dart';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'cocina.dart';
 import 'banda_t.dart';
 import 'trash_items.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
+import 'pause_btn.dart';
 
 class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   Cocina _cocina = Cocina();
   Banda_T _banda_t = Banda_T();
   Botella_Plastico _bp = Botella_Plastico();
   Basureros _basureros = Basureros();
+  Pause_Btn _pause_btn = Pause_Btn();
 
   var hole_pos = [
     Vector2(850, 100),
@@ -42,5 +48,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     await add(_basureros);
     await add(_bp);
+    await add(_pause_btn);
   }
 }

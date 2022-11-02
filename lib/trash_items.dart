@@ -19,7 +19,7 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
   Future<void> onLoad() async {
     super.onLoad();
     sprite = await gameRef.loadSprite('botella_plastico.png');
-    position = Vector2(0, 50);
+    position = Vector2(-20, 50);
     size = Vector2(18, 50);
 
     add(RectangleHitbox());
@@ -27,9 +27,10 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, 50),
       EffectController(
-        duration: 15,
+        duration: 10,
         infinite: true,
-        curve: Curves.ease,
+        alternate: true
+        // curve: Curves.ease,
       ),
     );
 
@@ -61,17 +62,16 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
     } else if (other is Basureros_HBox) {
       // print("Hit ${other.type}");
       if(other.type == Type.Green) {
-
+        position = Vector2(position.x, position.y - 100);
       } else if(other.type == Type.Blue) {
-
+        removeFromParent();
       } else if(other.type == Type.Yellow) {
-
+        position = Vector2(position.x, position.y - 100);
       } else if(other.type == Type.Grey) {
-
+        position = Vector2(position.x, position.y - 100);
       } else {
 
       }
-      removeFromParent();
     }
   }
 

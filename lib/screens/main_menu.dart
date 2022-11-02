@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ecoins/game.dart';
+
 import 'package:flame/game.dart';
+
+import 'package:ecoins/game.dart';
+import 'package:ecoins/screens/pause_menu.dart';
 
 class main_menu extends StatelessWidget {
   const main_menu({Key? key}) : super(key: key);
@@ -39,8 +42,13 @@ class main_menu extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => GameWidget(
-                                  game: EcoinsGame(),
-                                )));
+                                    game: EcoinsGame(),
+                                    overlayBuilderMap: {
+                                      'PauseMenu':
+                                          (BuildContext context, EcoinsGame game) {
+                                        return pause_menu(game: game);
+                                      }
+                                    })));
                       },
                       child: const Text(
                         'Play',

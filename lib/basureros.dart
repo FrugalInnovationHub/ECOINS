@@ -4,7 +4,6 @@ import 'package:flame_svg/flame_svg.dart';
 import 'package:flutter/material.dart';
 
 import 'basureros_hbox.dart';
-import 'trash_items.dart';
 
 class Basureros extends SpriteComponent with HasGameRef{
   @override

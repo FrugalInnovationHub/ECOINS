@@ -33,6 +33,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     super.onLoad();
     // debugMode = true;
     await add(_cocina);
+    await add(_pause_btn);
+
 
     var _banda_t_holes = [];
 
@@ -48,6 +50,5 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     await add(_basureros);
     await add(_bp);
-    await add(_pause_btn);
   }
 }

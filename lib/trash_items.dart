@@ -30,7 +30,6 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
         duration: 10,
         infinite: true,
         alternate: true
-        // curve: Curves.ease,
       ),
     );
 
@@ -39,12 +38,11 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
 
   @override
   bool onTapDown(TapDownInfo info) {
+    // info.handled = true;
     if(is_colliding) {
       position = Vector2(position.x, position.y + 100);
-      return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   update_move() {

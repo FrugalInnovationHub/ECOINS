@@ -5,6 +5,8 @@ import 'package:flame/input.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
+import 'package:flame/rendering.dart';
+// import 'package:flame/gestures.dart';
 
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,7 @@ import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'screens/pause_menu.dart';
 
-class Pause_Btn extends RectangleComponent with HasGameRef, Tappable{
+class Pause_Btn extends PositionComponent with HasGameRef, Tappable {
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -27,24 +29,29 @@ class Pause_Btn extends RectangleComponent with HasGameRef, Tappable{
 
     position = Vector2(0, 0);
     size = Vector2(50, 60);
-    // setColor(Colors.white);
 
     TextComponent _txt = TextComponent(
         text: '||',
         textRenderer: _paint,
-        // size: Vector2(50, 60)
-        position: Vector2(10, 0)
+        position: Vector2(13, 0)
+    );
+    Paint _rect_paint = Paint();
+    _rect_paint.color = Colors.white;
+    RectangleComponent _rect = RectangleComponent(
+      size: Vector2(50, 60),
+      paint: _rect_paint
     );
 
+    add(_rect);
     add(_txt);
   }
 
   @override
   bool onTapDown(TapDownInfo info) {
-    print("Tapped");
+    // info.handled = true;
     // Marks 'PauseMenu' to be rendered.
     gameRef.overlays.add(pause_menu.pauseOverlayIdentifier);
     gameRef.pauseEngine();
-    return true;
+    return false;
   }
 }

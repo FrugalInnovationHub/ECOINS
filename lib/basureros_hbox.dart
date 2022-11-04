@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'palette.dart';
 
-enum Type {
+enum BHBox_Type {
   Green,
   Blue,
   Yellow,

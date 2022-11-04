@@ -8,6 +8,8 @@ import 'package:flame/components.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:collection/collection.dart';
+
 import 'cocina.dart';
 import 'banda_t.dart';
 import 'trash_items.dart';
@@ -18,14 +20,14 @@ import 'pause_btn.dart';
 class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   Cocina _cocina = Cocina();
   Banda_T _banda_t = Banda_T();
-  Botella_Plastico _bp = Botella_Plastico();
   Basureros _basureros = Basureros();
   Pause_Btn _pause_btn = Pause_Btn();
 
   var hole_pos = [
     Vector2(850, 100),
     Vector2(350, 200),
-    Vector2(700, 300)
+    Vector2(700, 300),
+    Vector2(800, 300)
   ];
 
   @override
@@ -34,7 +36,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     // debugMode = true;
     await add(_cocina);
     await add(_pause_btn);
-
 
     var _banda_t_holes = [];
 
@@ -49,6 +50,16 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     }
 
     await add(_basureros);
-    await add(_bp);
+
+    var _trash_items = [];
+
+    Trash_Type.values.forEachIndexed((index, _type) {
+      Trash_Item t = Trash_Item(_type, index);
+      _trash_items.add(t);
+    });
+
+    for(Trash_Item i in _trash_items) {
+      await add(i);
+    }
   }
 }

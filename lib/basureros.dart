@@ -14,7 +14,7 @@ class Basureros extends SpriteComponent with HasGameRef{
     size = Vector2(200, 100);
 
     var g_h_box = Basureros_HBox(
-      Type.Green,
+      BHBox_Type.Green,
       size: Vector2(45,100),
       position: Vector2(2, 0)
     );
@@ -22,7 +22,7 @@ class Basureros extends SpriteComponent with HasGameRef{
     add(g_h_box);
 
     var b_h_box = Basureros_HBox(
-        Type.Blue,
+        BHBox_Type.Blue,
         size: Vector2(45,100),
         position: Vector2(52, 0)
     );
@@ -30,7 +30,7 @@ class Basureros extends SpriteComponent with HasGameRef{
     add(b_h_box);
 
     var y_h_box = Basureros_HBox(
-        Type.Yellow,
+        BHBox_Type.Yellow,
         size: Vector2(45,100),
         position: Vector2(102, 0)
     );
@@ -38,7 +38,7 @@ class Basureros extends SpriteComponent with HasGameRef{
     add(y_h_box);
 
     var grey_h_box = Basureros_HBox(
-        Type.Grey,
+        BHBox_Type.Grey,
         size: Vector2(45,100),
         position: Vector2(152, 0)
     );

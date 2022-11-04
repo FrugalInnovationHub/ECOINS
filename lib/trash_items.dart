@@ -10,15 +10,42 @@ import 'banda_t_hole.dart';
 import 'basureros.dart';
 import 'basureros_hbox.dart';
 
-class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, CollisionCallbacks {
+enum Trash_Type implements Comparable<Trash_Type> {
+  Botella_Plastico(src: 'botella_plastico.png'),
+  Botella_Vidrio(src: 'botella_vidrio.png'),
+  Caja_Jugo(src: 'caja_jugo.png'),
+  Caja_Leche(src: 'caja_leche.png'),
+  Caja_Leche_Purp(src: 'caja_leche_purp.png');
+
+  const Trash_Type({
+    required this.src
+  });
+
+  final src;
+
+  @override
+  int compareTo(Trash_Type other) {
+    if (src == other.src) {
+      return 0;
+    } else {
+      return -1;
+    }
+  }
+}
+
+class Trash_Item extends SpriteComponent with HasGameRef, Tappable, CollisionCallbacks {
   late MoveEffect h_move_effect;
   bool is_moving = true;
   bool is_colliding = false;
+  Trash_Type type;
+  int delay;
+
+  Trash_Item(Trash_Type type, int delay) : this.type = type, this.delay = delay;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    sprite = await gameRef.loadSprite('botella_plastico.png');
+    sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-20, 50);
     size = Vector2(18, 50);
 
@@ -27,6 +54,7 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, 50),
       EffectController(
+        startDelay: (1*delay) as double,
         duration: 10,
         infinite: true,
         alternate: true
@@ -58,18 +86,46 @@ class Botella_Plastico extends SpriteComponent with HasGameRef, Tappable, Collis
     if (other is Banda_T_Hole) {
       is_colliding = true;
     } else if (other is Basureros_HBox) {
-      // print("Hit ${other.type}");
-      if(other.type == Type.Green) {
-        position = Vector2(position.x, position.y - 100);
-      } else if(other.type == Type.Blue) {
-        removeFromParent();
-      } else if(other.type == Type.Yellow) {
-        position = Vector2(position.x, position.y - 100);
-      } else if(other.type == Type.Grey) {
-        position = Vector2(position.x, position.y - 100);
-      } else {
-
+      switch(other.type) {
+        case BHBox_Type.Green:
+          if(this.type == Trash_Type.Botella_Vidrio) {
+            this.is_moving = false;
+            update_move();
+          } else {
+            position = Vector2(position.x, position.y - 100);
+          }
+          break;
+        case BHBox_Type.Blue:
+          if(this.type == Trash_Type.Botella_Plastico) {
+            this.is_moving = false;
+            update_move();
+          } else {
+            position = Vector2(position.x, position.y - 100);
+          }
+          // removeFromParent();
+          break;
+        case BHBox_Type.Yellow:
+          // if(this.type != Trash_Type.Botella_Plastico) {
+          position = Vector2(position.x, position.y - 100);
+          // }
+          break;
+        case BHBox_Type.Grey:
+          if (
+            this.type == Trash_Type.Caja_Jugo ||
+            this.type == Trash_Type.Caja_Leche ||
+            this.type == Trash_Type.Caja_Leche_Purp
+          ) {
+            this.is_moving = false;
+            update_move();
+          } else {
+            position = Vector2(position.x, position.y - 100);
+          }
+          break;
+        default:
+          {}
       }
+    } else {
+
     }
   }
 

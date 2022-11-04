@@ -16,12 +16,14 @@ import 'trash_items.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
 import 'pause_btn.dart';
+import 'score_disp.dart';
 
 class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
-  Cocina _cocina = Cocina();
-  Banda_T _banda_t = Banda_T();
-  Basureros _basureros = Basureros();
-  Pause_Btn _pause_btn = Pause_Btn();
+  final Cocina _cocina = Cocina();
+  // final Banda_T _banda_t = Banda_T();
+  final Basureros _basureros = Basureros();
+  final Pause_Btn _pause_btn = Pause_Btn();
+  final Score_Disp _score_disp = Score_Disp();
 
   var hole_pos = [
     Vector2(850, 100),
@@ -33,9 +35,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    children.register<PositionComponent>();
     // debugMode = true;
     await add(_cocina);
     await add(_pause_btn);
+    await add(_score_disp);
 
     var _banda_t_holes = [];
 

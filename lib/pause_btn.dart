@@ -6,7 +6,6 @@ import 'package:flame/collisions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
 import 'package:flame/rendering.dart';
-// import 'package:flame/gestures.dart';
 
 import 'package:flutter/material.dart';
 

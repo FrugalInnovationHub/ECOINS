@@ -38,15 +38,6 @@ class pause_menu extends StatelessWidget{
                   onPressed: () {
                     this.game.overlays.remove(pauseOverlayIdentifier);
                     this.game.resumeEngine();
-                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    //     builder: (context) => GameWidget(
-                    //         game: EcoinsGame(),
-                    //         overlayBuilderMap: {
-                    //           'PauseMenu':
-                    //               (BuildContext context, EcoinsGame game) {
-                    //             return pause_menu();
-                    //           }
-                    //         })));
                   },
                   child: const Text(
                     'Resume',

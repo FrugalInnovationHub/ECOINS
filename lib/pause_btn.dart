@@ -22,23 +22,23 @@ class Pause_Btn extends PositionComponent with HasGameRef, Tappable {
 
     final _style = TextStyle(
         color: BasicPalette.lightOrange.color,
-        fontSize: 48.0,
+        fontSize: 30.0,
         fontWeight: FontWeight.bold
     );
     final _paint = TextPaint(style: _style);
 
     position = Vector2(0, 0);
-    size = Vector2(50, 60);
+    size = Vector2(30, 40);
 
     TextComponent _txt = TextComponent(
         text: '||',
         textRenderer: _paint,
-        position: Vector2(13, 0)
+        position: Vector2(7, 0)
     );
     Paint _rect_paint = Paint();
     _rect_paint.color = Colors.white;
     RectangleComponent _rect = RectangleComponent(
-      size: Vector2(50, 60),
+      size: Vector2(30, 40),
       paint: _rect_paint
     );
 

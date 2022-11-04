@@ -31,6 +31,9 @@ class pause_menu extends StatelessWidget{
                     color: Colors.white,
                   ),
                 ),
+                SizedBox(
+                  height: 50,
+                ),
                 ElevatedButton(
                   onPressed: () {
                     this.game.overlays.remove(pauseOverlayIdentifier);

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -20,10 +21,11 @@ import 'score_disp.dart';
 
 class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   final Cocina _cocina = Cocina();
-  // final Banda_T _banda_t = Banda_T();
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
   final Score_Disp _score_disp = Score_Disp();
+  final _random = new Random();
+  final double _trash_start_y = 50;
 
   var hole_pos = [
     Vector2(850, 100),
@@ -56,11 +58,20 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(_basureros);
 
     var _trash_items = [];
+    var indexes = Trash_Type.values.mapIndexed((index, element) => index).toList();
 
-    Trash_Type.values.forEachIndexed((index, _type) {
-      Trash_Item t = Trash_Item(_type, index);
-      _trash_items.add(t);
-    });
+    // Generate 3 levels of trash items
+    for(int i=0;i<3;i++) {
+      indexes.shuffle();
+      Trash_Type.values.forEachIndexed((index, _type) {
+        Trash_Item t = Trash_Item(
+          _type,
+          indexes[index]+_random.nextDouble(),
+          _trash_start_y + (100*i)
+        );
+        _trash_items.add(t);
+      });
+    }
 
     for(Trash_Item i in _trash_items) {
       await add(i);

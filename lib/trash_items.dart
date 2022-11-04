@@ -35,29 +35,32 @@ enum Trash_Type implements Comparable<Trash_Type> {
   }
 }
 
-class Trash_Item extends SpriteComponent with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
+class Trash_Item extends SpriteComponent
+    with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
   late MoveEffect h_move_effect;
   bool is_moving = true;
   bool is_colliding = false;
   bool scored = false;
   Trash_Type type;
-  int delay;
+  double delay;
+  double y_loc;
 
-  Trash_Item(Trash_Type type, int delay) : this.type = type, this.delay = delay;
+  Trash_Item(Trash_Type type, double delay, double y_loc) :
+        this.type = type, this.delay = delay, this.y_loc = y_loc;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     sprite = await gameRef.loadSprite(type.src);
-    position = Vector2(-20, 50);
+    position = Vector2(-20, y_loc);
     size = Vector2(18, 50);
 
     add(RectangleHitbox());
 
     h_move_effect = MoveEffect.to(
-      Vector2(gameRef.size.length, 50),
+      Vector2(gameRef.size.length, y_loc),
       EffectController(
-        startDelay: (1*delay) as double,
+        startDelay: 1*delay,
         duration: 10,
         infinite: true,
         alternate: true
@@ -88,10 +91,11 @@ class Trash_Item extends SpriteComponent with HasGameRef, Tappable, CollisionCal
   void onCollision(Set<Vector2> points, PositionComponent other) {
     if (other is Banda_T_Hole) {
       is_colliding = true;
+    } else if (other is Trash_Item ) {
+      // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
       if (!scored) {
-        final allPositionComponents = parent.children.query<
-            PositionComponent>();
+        final allPositionComponents = parent.children.query<PositionComponent>();
         Score_Disp ?score;
         for (PositionComponent p in allPositionComponents) {
           if (p is Score_Disp) {

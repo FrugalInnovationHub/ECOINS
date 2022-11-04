@@ -31,12 +31,12 @@ class main_menu extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
-                      'ECOINS',
-                      style: TextStyle(
-                        fontSize: 50,
-                        color: Colors.white,
-                      ),
+                    Image.asset(
+                      'images/ecoins_logo.png',
+                      width: 400,
+                    ),
+                    SizedBox(
+                      height: 50,
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -51,7 +51,7 @@ class main_menu extends StatelessWidget {
                                     })));
                       },
                       child: const Text(
-                        'Play',
+                        'Start',
                         style: TextStyle(
                           fontSize: 30,
                         ),

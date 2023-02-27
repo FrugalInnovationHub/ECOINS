@@ -31,7 +31,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     Vector2(850, 100),
     Vector2(350, 200),
     Vector2(700, 300),
-    Vector2(800, 300)
+    // Vector2(800, 300)
+  ];
+  var banda_t_info = [
+    [Vector2(0, 200), Vector2(350, 20)],
   ];
 
   @override
@@ -39,23 +42,47 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     super.onLoad();
     children.register<PositionComponent>();
     // debugMode = true;
+
     await add(_cocina);
     await add(_pause_btn);
     await add(_score_disp);
+    await add(_basureros);
 
     var _banda_t_holes = [];
+    var _banda_ts = [];
 
     for(Vector2 pos in hole_pos) {
       Banda_T_Hole _banda_t_hole = Banda_T_Hole();
       _banda_t_hole.position = pos;
       _banda_t_holes.add(_banda_t_hole);
+      var _banda_1_info = [
+        Vector2(0, _banda_t_hole.position.y),
+        Vector2(_banda_t_hole.position.x, 20)
+      ];
+
+      var next_x = _banda_t_hole.position.x+_banda_t_hole.size.x;
+
+      var _banda_2_info = [
+        Vector2(next_x, _banda_t_hole.position.y),
+        Vector2(this.size.length-next_x, 20)
+      ];
+
+      banda_t_info.add(_banda_1_info);
+      banda_t_info.add(_banda_2_info);
     }
 
     for (Banda_T_Hole _hole in _banda_t_holes) {
       await add(_hole);
     }
 
-    await add(_basureros);
+    for(List info in banda_t_info) {
+      Banda_T _bt = Banda_T(position: info[0], size: info[1]);
+      _banda_ts.add(_bt);
+    }
+
+    for(Banda_T _bt in _banda_ts) {
+      await add(_bt);
+    }
 
     var _trash_items = [];
     var indexes = Trash_Type.values.mapIndexed((index, element) => index).toList();

@@ -60,8 +60,8 @@ class Trash_Item extends SpriteComponent
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y_loc),
       EffectController(
-        startDelay: 1*delay,
-        duration: 10,
+        startDelay: 1.5*delay,
+        duration: 20,
         infinite: true,
         alternate: true
       ),
@@ -135,7 +135,7 @@ class Trash_Item extends SpriteComponent
             break;
           case BHBox_Type.Grey:
             if (
-            this.type == Trash_Type.Caja_Jugo ||
+                this.type == Trash_Type.Caja_Jugo ||
                 this.type == Trash_Type.Caja_Leche ||
                 this.type == Trash_Type.Caja_Leche_Purp
             ) {

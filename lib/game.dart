@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:ecoins/blue_basureros.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/components.dart';
@@ -18,10 +19,19 @@ import 'banda_t_hole.dart';
 import 'basureros.dart';
 import 'pause_btn.dart';
 import 'score_disp.dart';
+import 'green_basureros.dart';
+import 'blue_basureros.dart';
+import 'yellow_basureros.dart';
+import 'grey_basureros.dart';
 
 class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   final Cocina _cocina = Cocina();
-  final Basureros _basureros = Basureros();
+  // final Basureros _basureros = Basureros();
+  final GreenBasureros _greenbasureros = GreenBasureros();
+  final BlueBasureros _bluebasureros = BlueBasureros();
+  final YellowBasureros _yellowBasureros = YellowBasureros();
+  final GreyBasureros _greyBasureros = GreyBasureros();
+
   final Pause_Btn _pause_btn = Pause_Btn();
   final Score_Disp _score_disp = Score_Disp();
   final _random = new Random();
@@ -34,7 +44,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     // Vector2(800, 300)
   ];
   var banda_t_info = [
-    [Vector2(0, 200), Vector2(350, 20)],
+    // [Vector2(0, 200), Vector2(350, 20)],
   ];
 
   @override
@@ -46,7 +56,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(_cocina);
     await add(_pause_btn);
     await add(_score_disp);
-    await add(_basureros);
+    // await add(_basureros);
+    await add(_greenbasureros);
+    await add(_bluebasureros);
+    await add(_yellowBasureros);
+    await add(_greyBasureros);
 
     var _banda_t_holes = [];
     var _banda_ts = [];

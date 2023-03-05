@@ -1,14 +1,54 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
-import 'package:flame_svg/flame_svg.dart';
+import 'package:flame/flame.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flame/sprite.dart';
+import 'dart:ui';
+
 
 import 'basureros_hbox.dart';
 
 class Basureros extends SpriteComponent with HasGameRef{
+
+  SpriteComponent Blue = SpriteComponent();
+  SpriteComponent Green = SpriteComponent();
+  SpriteComponent Yellow = SpriteComponent();
+  SpriteComponent Grey = SpriteComponent();
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    Blue
+      ..sprite = await gameRef.loadSprite('blue_basureros.png')
+      ..size = Vector2(45, 100)
+      ..position = Vector2(700, 350);
+
+    // add(Blue);
+
+    Green
+      ..sprite = await gameRef.loadSprite('green_basureros.png')
+      ..size = Vector2(45, 100)
+      ..position = Vector2(750, 350);
+
+    // add(Green);
+
+    Yellow
+      ..sprite = await gameRef.loadSprite('yellow_basureros.png')
+      ..size = Vector2(45, 100)
+      ..position = Vector2(800, 350);
+
+    // add(Yellow);
+
+    Grey
+      ..sprite = await gameRef.loadSprite('grey_basureros.png')
+      ..size = Vector2(45, 100)
+      ..position = Vector2(850, 350);
+
+    // add(Grey);
+
+
+
     sprite = await gameRef.loadSprite('basureros.png');
     position = Vector2(700, 400);
     size = Vector2(200, 100);
@@ -44,5 +84,7 @@ class Basureros extends SpriteComponent with HasGameRef{
     );
     grey_h_box.debugColor = Color(0xFFFFFFFF);
     add(grey_h_box);
+
+
   }
 }

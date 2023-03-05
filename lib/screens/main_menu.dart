@@ -17,7 +17,7 @@ class main_menu extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/cocina.png"), fit: BoxFit.cover),
+              image: AssetImage("assets/images/Cocina.png"), fit: BoxFit.cover),
         ),
         child: Center(
           child: Card(

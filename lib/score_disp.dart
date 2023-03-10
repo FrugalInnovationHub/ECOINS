@@ -47,6 +47,7 @@ class Score_Disp extends PositionComponent with HasGameRef {
     this._score_val.score = this.score;
     return true;
   }
+
 }
 
 class ScoreVal extends TextComponent with HasGameRef {

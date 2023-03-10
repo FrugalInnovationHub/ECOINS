@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:ecoins/yellow_score.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/components.dart';
@@ -11,8 +12,11 @@ import 'package:flutter/material.dart';
 
 import 'package:collection/collection.dart';
 
+import 'blue_score.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
+import 'gray_score.dart';
+import 'green_score.dart';
 import 'trash_items.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
@@ -24,6 +28,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
   final Score_Disp _score_disp = Score_Disp();
+  final Green_Score_Disp _green_score_disp = Green_Score_Disp();
+  final Blue_Score_Disp _blue_score_disp = Blue_Score_Disp();
+  final Yellow_Score_Disp _yellow_score_disp = Yellow_Score_Disp();
+  final Gray_Score_Disp _gray_score_disp = Gray_Score_Disp();
   final _random = new Random();
   final double _trash_start_y = 50;
 
@@ -46,6 +54,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(_cocina);
     await add(_pause_btn);
     await add(_score_disp);
+    await add(_green_score_disp);
+    await add(_blue_score_disp);
+    await add(_yellow_score_disp);
+    await add(_gray_score_disp);
     await add(_basureros);
 
     var _banda_t_holes = [];

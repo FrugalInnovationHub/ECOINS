@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
 import 'basureros_hbox.dart';
+import 'blue_score.dart';
 import 'game.dart';
+import 'green_score.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
@@ -41,6 +43,8 @@ class Trash_Item extends SpriteComponent
   bool is_moving = true;
   bool is_colliding = false;
   bool scored = false;
+  bool green_scored = false;
+  bool blue_scored = false;
   Trash_Type type;
   double delay;
   double y_loc;
@@ -94,6 +98,67 @@ class Trash_Item extends SpriteComponent
     } else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
+
+      if (!green_scored) {
+        final allPositionComponents = parent.children.query<PositionComponent>();
+        Green_Score_Disp ?green_score;
+        for (PositionComponent p in allPositionComponents) {
+          if (p is Green_Score_Disp) {
+            green_score = p;
+          }
+        }
+        switch (other.type) {
+          case BHBox_Type.Green:
+            if (this.type == Trash_Type.Botella_Vidrio) {
+              this.is_moving = false;
+              update_move();
+              if (green_score != null) {
+                green_scored = true;
+                green_score.green_updateScore(1);
+
+              }
+            } else {
+              // position = Vector2(position.x, position.y - 100);
+            }
+            // green_scored = false;
+            break;
+
+          default:
+            {}
+        }
+      }
+
+
+      if (!blue_scored) {
+        final allPositionComponents = parent.children.query<PositionComponent>();
+        Blue_Score_Disp ?blue_score;
+        for (PositionComponent p in allPositionComponents) {
+          if (p is Blue_Score_Disp) {
+            blue_score = p;
+          }
+        }
+        switch (other.type) {
+          case BHBox_Type.Blue:
+            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Caja_Jugo) {
+              this.is_moving = false;
+              update_move();
+              if (blue_score != null) {
+                blue_scored = true;
+                blue_score.blue_updateScore(1);
+              }
+            } else {
+              // position = Vector2(position.x, position.y - 100);
+            }
+            // blue_scored = false;
+            break;
+
+          default:
+            {}
+        }
+      }
+
+
+
       if (!scored) {
         final allPositionComponents = parent.children.query<PositionComponent>();
         Score_Disp ?score;
@@ -116,7 +181,7 @@ class Trash_Item extends SpriteComponent
             }
             break;
           case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico) {
+            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Caja_Jugo ) {
               this.is_moving = false;
               update_move();
               if (score != null) {

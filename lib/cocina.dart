@@ -4,7 +4,7 @@ class Cocina extends SpriteComponent with HasGameRef {
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    sprite = await gameRef.loadSprite('cocina_blur.png');
+    sprite = await gameRef.loadSprite('Cocina.png');
     size = gameRef.size;
   }
 }

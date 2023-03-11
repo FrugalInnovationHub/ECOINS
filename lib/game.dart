@@ -1,31 +1,34 @@
-import 'dart:ui';
-import 'dart:io';
 import 'dart:math';
-
+import 'package:ecoins/yellow_score.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/components.dart';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import 'package:collection/collection.dart';
-
+import 'blue_score.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
+import 'gray_score.dart';
+import 'green_score.dart';
 import 'trash_items.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
 import 'pause_btn.dart';
 import 'score_disp.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   final Cocina _cocina = Cocina();
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
   final Score_Disp _score_disp = Score_Disp();
+  final Green_Score_Disp _green_score_disp = Green_Score_Disp();
+  final Blue_Score_Disp _blue_score_disp = Blue_Score_Disp();
+  final Yellow_Score_Disp _yellow_score_disp = Yellow_Score_Disp();
+  final Gray_Score_Disp _gray_score_disp = Gray_Score_Disp();
   final _random = new Random();
   final double _trash_start_y = 50;
+
+  bool musicPlaying = false;
 
   var hole_pos = [
     Vector2(850, 100),
@@ -46,11 +49,20 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(_cocina);
     await add(_pause_btn);
     await add(_score_disp);
+    await add(_green_score_disp);
+    await add(_blue_score_disp);
+    await add(_yellow_score_disp);
+    await add(_gray_score_disp);
     await add(_basureros);
 
     var _banda_t_holes = [];
     var _banda_ts = [];
 
+    FlameAudio.bgm.initialize();
+    if (!musicPlaying) {
+      FlameAudio.bgm.play("MUSICGAME.mp3");
+      musicPlaying = true;
+    }
     for(Vector2 pos in hole_pos) {
       Banda_T_Hole _banda_t_hole = Banda_T_Hole();
       _banda_t_hole.position = pos;
@@ -92,9 +104,9 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       indexes.shuffle();
       Trash_Type.values.forEachIndexed((index, _type) {
         Trash_Item t = Trash_Item(
-          _type,
-          indexes[index]+_random.nextDouble(),
-          _trash_start_y + (100*i)
+            _type,
+            indexes[index]+_random.nextDouble(),
+            _trash_start_y + (100*i)
         );
         _trash_items.add(t);
       });

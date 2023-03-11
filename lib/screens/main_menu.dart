@@ -1,8 +1,8 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:video_player_web/video_player_web.dart';
 import 'package:flame/game.dart';
-
 import 'package:ecoins/game.dart';
 import 'package:ecoins/screens/pause_menu.dart';
 
@@ -11,6 +11,7 @@ class main_menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlameAudio.bgm.initialize();
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,

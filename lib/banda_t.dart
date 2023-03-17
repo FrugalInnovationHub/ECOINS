@@ -12,7 +12,7 @@ class Banda_T extends SpriteComponent with HasGameRef {
   Future<void> onLoad() async {
     super.onLoad();
 
-    sprite = await gameRef.loadSprite('banda_transportadora.png');
+    sprite = await gameRef.loadSprite('uno_banda_transportadora.png');
   }
 
 }

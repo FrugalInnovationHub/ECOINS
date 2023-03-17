@@ -57,7 +57,7 @@ class Trash_Item extends SpriteComponent
     super.onLoad();
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-20, y_loc);
-    size = Vector2(18, 50);
+    size = Vector2(20, 50);
 
     add(RectangleHitbox());
 
@@ -76,7 +76,8 @@ class Trash_Item extends SpriteComponent
 
   @override
   bool onTapDown(TapDownInfo info) {
-    // info.handled = true;
+    // info.handled = true
+
     if(is_colliding) {
       position = Vector2(position.x, position.y + 100);
     }

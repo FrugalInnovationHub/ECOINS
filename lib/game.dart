@@ -31,13 +31,13 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   bool musicPlaying = false;
 
   var hole_pos = [
-    Vector2(850, 100),
-    Vector2(350, 200),
-    Vector2(700, 300),
+    // Vector2(850, 100),
+    // Vector2(350, 200),
+    // Vector2(700, 300),
     // Vector2(800, 300)
   ];
   var banda_t_info = [
-    [Vector2(0, 200), Vector2(350, 20)],
+    // [Vector2(0, 200), Vector2(350, 20)],
   ];
 
   @override
@@ -58,38 +58,79 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     var _banda_t_holes = [];
     var _banda_ts = [];
 
+    hole_pos.add(Vector2(2*this.size[0]/3, this.size[1]/8));
+    hole_pos.add(Vector2(1*this.size[0]/3, this.size[1]/4));
+    for(var i=0; i<4; i++){
+      hole_pos.add(Vector2(this.size[0]/4 + i*this.size[1]/4,this.size[1]/2.5));
+    }
+
     FlameAudio.bgm.initialize();
     if (!musicPlaying) {
       FlameAudio.bgm.play("MUSICGAME.mp3");
       musicPlaying = true;
     }
-    for(Vector2 pos in hole_pos) {
+
+    Banda_T_Hole _banda_t_hole = Banda_T_Hole();
+    _banda_t_hole.position = hole_pos[0];
+    _banda_t_hole.size = Vector2(this.size[1]/4, 20);
+    _banda_t_holes.add(_banda_t_hole);
+    banda_t_info.add([Vector2(0, _banda_t_hole.position.y), Vector2(_banda_t_hole.position.x, 20)]);
+    var last_y = _banda_t_hole.position.y;
+    var last_x = _banda_t_hole.position.x+_banda_t_hole.size.x;
+    for(Vector2 pos in hole_pos.sublist(1)) {
       Banda_T_Hole _banda_t_hole = Banda_T_Hole();
       _banda_t_hole.position = pos;
+      _banda_t_hole.size = Vector2(this.size[1]/4, 20);
       _banda_t_holes.add(_banda_t_hole);
-      var _banda_1_info = [
-        Vector2(0, _banda_t_hole.position.y),
-        Vector2(_banda_t_hole.position.x, 20)
-      ];
+      // var _banda_1_info = [
+      //   Vector2(0, _banda_t_hole.position.y),
+      //   Vector2(_banda_t_hole.position.x, 20)
+      // ];
+      var _banda_info;
+      if(last_y == _banda_t_hole.position.y){
+        _banda_info = [
+          Vector2(last_x, _banda_t_hole.position.y),
+          Vector2(_banda_t_hole.position.x, 20)
+        ];
+      }
+      else {
+        banda_t_info.add([
+          Vector2(last_x, last_y),
+          Vector2(this.size.length, 20)
+        ]);
+        _banda_info = [
+          Vector2(0, _banda_t_hole.position.y),
+          Vector2(_banda_t_hole.position.x, 20)
+        ];
+      }
+      last_y = _banda_t_hole.position.y;
+      last_x = _banda_t_hole.position.x+_banda_t_hole.size.x;
 
-      var next_x = _banda_t_hole.position.x+_banda_t_hole.size.x;
-
-      var _banda_2_info = [
-        Vector2(next_x, _banda_t_hole.position.y),
-        Vector2(this.size.length-next_x, 20)
-      ];
-
-      banda_t_info.add(_banda_1_info);
-      banda_t_info.add(_banda_2_info);
+      // var _banda_2_info = [
+      //   Vector2(next_x, _banda_t_hole.position.y),
+      //   Vector2(this.size.length, 20)
+      // ];
+      banda_t_info.add(_banda_info);
+      // banda_t_info.add(_banda_2_info);
     }
+
+    banda_t_info.add([
+      Vector2(last_x, last_y),
+      Vector2(this.size.length, 20)
+    ]);
 
     for (Banda_T_Hole _hole in _banda_t_holes) {
       await add(_hole);
     }
 
     for(List info in banda_t_info) {
-      Banda_T _bt = Banda_T(position: info[0], size: info[1]);
-      _banda_ts.add(_bt);
+      var start_x = info[0][0];
+      var end_x = info[1][0];
+      while(start_x < end_x){
+        Banda_T _bt = Banda_T(position: Vector2(start_x, info[0][1]), size: Vector2(12, info[1][1]));
+        _banda_ts.add(_bt);
+        start_x += 12;
+      }
     }
 
     for(Banda_T _bt in _banda_ts) {
@@ -100,13 +141,13 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     var indexes = Trash_Type.values.mapIndexed((index, element) => index).toList();
 
     // Generate 3 levels of trash items
-    for(int i=0;i<3;i++) {
+    for(int i=1;i<4;i++) {
       indexes.shuffle();
       Trash_Type.values.forEachIndexed((index, _type) {
         Trash_Item t = Trash_Item(
             _type,
             indexes[index]+_random.nextDouble(),
-            _trash_start_y + (100*i)
+            (i*this.size[1]/8) - _trash_start_y
         );
         _trash_items.add(t);
       });

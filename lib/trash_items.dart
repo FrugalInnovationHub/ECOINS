@@ -1,3 +1,4 @@
+import 'package:ecoins/gray_score.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
@@ -45,6 +46,7 @@ class Trash_Item extends SpriteComponent
   bool scored = false;
   bool green_scored = false;
   bool blue_scored = false;
+  bool grey_scored = false;
   Trash_Type type;
   double delay;
   double y_loc;
@@ -79,7 +81,15 @@ class Trash_Item extends SpriteComponent
     // info.handled = true
 
     if(is_colliding) {
-      position = Vector2(position.x, position.y + 100);
+      if((gameRef.size[1]/8 - 50) == position.y) {
+        position = Vector2(position.x, gameRef.size[1]/8 - 50);
+      }
+      else if((gameRef.size[1]/4 - 50) == position.y) {
+        position = Vector2(position.x, gameRef.size[1]/2.5 - 50);
+      }
+      else{
+        position = Vector2(position.x, position.y + 100);
+      }
     }
     return false;
   }
@@ -94,6 +104,7 @@ class Trash_Item extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
+
     if (other is Banda_T_Hole) {
       is_colliding = true;
     } else if (other is Trash_Item ) {
@@ -157,6 +168,36 @@ class Trash_Item extends SpriteComponent
             {}
         }
       }
+
+      if (!grey_scored) {
+        final allPositionComponents = parent.children.query<PositionComponent>();
+        Gray_Score_Disp ?grey_score;
+        for (PositionComponent p in allPositionComponents) {
+          if (p is Gray_Score_Disp) {
+            grey_score = p;
+          }
+        }
+        switch (other.type) {
+          case BHBox_Type.Grey:
+            if (this.type == Trash_Type.Caja_Leche || this.type == Trash_Type.Caja_Jugo || this.type == Trash_Type.Caja_Leche_Purp) {
+              this.is_moving = false;
+              update_move();
+              if (grey_score != null) {
+                grey_scored = true;
+                grey_score.updateScore(1);
+              }
+            } else {
+              // position = Vector2(position.x, position.y - 100);
+            }
+            // blue_scored = false;
+            break;
+
+          default:
+            {}
+        }
+      }
+
+
 
 
 

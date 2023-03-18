@@ -16,6 +16,7 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    var gameSize = gameRef.size;
 
     final _style = TextStyle(
         color: BasicPalette.white.color,
@@ -24,7 +25,7 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
     );
     final _paint = TextPaint(style: _style);
 
-    position = Vector2(725, 500);
+    position = Vector2(gameSize[0]/4 + 2*gameSize[1]/4, gameSize[0]/4 + gameSize[1]/2);
     size = Vector2(30, 40);
 
     // TextComponent _green_score_txt = TextComponent(

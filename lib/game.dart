@@ -61,7 +61,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     hole_pos.add(Vector2(2*this.size[0]/3, this.size[1]/8));
     hole_pos.add(Vector2(1*this.size[0]/3, this.size[1]/4));
     for(var i=0; i<4; i++){
-      hole_pos.add(Vector2(this.size[0]/4 + i*this.size[1]/4,this.size[1]/2.5));
+      hole_pos.add(Vector2(this.size[0]/4 + i*this.size[1]/4 + 10,this.size[1]/2.5));
     }
 
     FlameAudio.bgm.initialize();
@@ -72,7 +72,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
     _banda_t_hole.position = hole_pos[0];
-    _banda_t_hole.size = Vector2(this.size[1]/4, 20);
+    _banda_t_hole.size = Vector2(this.size[1]/4 - 20, 20);
     _banda_t_holes.add(_banda_t_hole);
     banda_t_info.add([Vector2(0, _banda_t_hole.position.y), Vector2(_banda_t_hole.position.x, 20)]);
     var last_y = _banda_t_hole.position.y;
@@ -80,7 +80,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     for(Vector2 pos in hole_pos.sublist(1)) {
       Banda_T_Hole _banda_t_hole = Banda_T_Hole();
       _banda_t_hole.position = pos;
-      _banda_t_hole.size = Vector2(this.size[1]/4, 20);
+      _banda_t_hole.size = Vector2(this.size[1]/4 - 20, 20);
       _banda_t_holes.add(_banda_t_hole);
       // var _banda_1_info = [
       //   Vector2(0, _banda_t_hole.position.y),
@@ -144,11 +144,21 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     for(int i=1;i<4;i++) {
       indexes.shuffle();
       Trash_Type.values.forEachIndexed((index, _type) {
-        Trash_Item t = Trash_Item(
-            _type,
-            indexes[index]+_random.nextDouble(),
-            (i*this.size[1]/8) - _trash_start_y
-        );
+        Trash_Item t;
+        if(i == 3){
+          t = Trash_Item(
+              _type,
+              indexes[index] + _random.nextDouble(),
+              (this.size[1] / 2.5) - _trash_start_y
+          );
+        }
+        else {
+          t = Trash_Item(
+              _type,
+              indexes[index] + _random.nextDouble(),
+              (i * this.size[1] / 8) - _trash_start_y
+          );
+        }
         _trash_items.add(t);
       });
     }

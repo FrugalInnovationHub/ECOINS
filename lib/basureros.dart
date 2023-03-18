@@ -57,7 +57,7 @@ class Basureros extends PositionComponent with HasGameRef{
     var g_h_box = Basureros_HBox(
       BHBox_Type.Green,
       size: Vector2(gameSize[1]/4, gameSize[0]/4),
-      position: Vector2(gameSize[0]/4, (gameSize[1]/2) - 100)
+      position: Vector2(gameSize[0]/4, (gameSize[1]/2))
     );
     g_h_box.debugColor = Color(0xFF00FF00);
     add(g_h_box);

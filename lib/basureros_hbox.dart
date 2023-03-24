@@ -9,7 +9,8 @@ enum BHBox_Type {
   Green,
   Blue,
   Yellow,
-  Grey
+  Grey,
+  powerup
 }
 
 class Basureros_HBox extends RectangleComponent {

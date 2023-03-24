@@ -30,7 +30,7 @@ dependencies:
 
   flutter:
     sdk: flutter
-  flame: ^1.6.0
+  flame: 1.6.0
   flame_svg: any
 
 

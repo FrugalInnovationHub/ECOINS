@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:ecoins/powerUpComponent.dart';
 import 'package:ecoins/yellow_score.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -7,6 +8,7 @@ import 'package:collection/collection.dart';
 import 'blue_score.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
+import 'globals.dart';
 import 'gray_score.dart';
 import 'green_score.dart';
 import 'trash_items.dart';
@@ -27,6 +29,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   final Gray_Score_Disp _gray_score_disp = Gray_Score_Disp();
   final _random = new Random();
   final double _trash_start_y = 50;
+  final double _powerup_start_y = -30;
 
   bool musicPlaying = false;
 
@@ -39,6 +42,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   var banda_t_info = [
     // [Vector2(0, 200), Vector2(350, 20)],
   ];
+
 
   @override
   Future<void> onLoad() async {
@@ -58,17 +62,25 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     var _banda_t_holes = [];
     var _banda_ts = [];
 
+
+
     hole_pos.add(Vector2(2*this.size[0]/3, this.size[1]/8));
     hole_pos.add(Vector2(1*this.size[0]/3, this.size[1]/4));
     for(var i=0; i<4; i++){
       hole_pos.add(Vector2(this.size[0]/4 + i*this.size[1]/4 + 10,this.size[1]/2.5));
     }
 
-    FlameAudio.bgm.initialize();
-    if (!musicPlaying) {
-      FlameAudio.bgm.play("MUSICGAME.mp3");
-      musicPlaying = true;
-    }
+    await FlameAudio.audioCache.loadAll(
+      [
+        Globals.itemGrabSound,
+      ],
+    );
+
+    // FlameAudio.bgm.initialize();
+    // if (!musicPlaying) {
+    //   FlameAudio.bgm.play("MUSICGAME.mp3");
+    //   musicPlaying = true;
+    // }
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
     _banda_t_hole.position = hole_pos[0];
@@ -153,6 +165,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           );
         }
         else {
+
           t = Trash_Item(
               _type,
               indexes[index] + _random.nextDouble(),
@@ -164,6 +177,28 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     }
 
     for(Trash_Item i in _trash_items) {
+      await add(i);
+    }
+
+    var _powerup_items = [];
+    var indexes_powerup = PowerUp_Type_Comp.values.mapIndexed((index, element) => index).toList();
+    indexes.shuffle();
+    PowerUp_Type_Comp.values.forEachIndexed((index, _type) {
+      PowerUpComponent t;
+        t = PowerUpComponent(
+            _type,
+            indexes_powerup[index] + _random.nextDouble(),
+            (this.size[1] / 2.5)
+        );
+        t = PowerUpComponent(
+            _type,
+            indexes_powerup[index] + _random.nextDouble(),
+            (this.size[1] / 8)
+        );
+
+      _powerup_items.add(t);
+    });
+    for(PowerUpComponent i in _powerup_items) {
       await add(i);
     }
   }

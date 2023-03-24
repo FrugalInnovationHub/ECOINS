@@ -4,7 +4,6 @@ import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flame/collisions.dart';
-import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
 
@@ -13,7 +12,6 @@ import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'blue_score.dart';
 import 'game.dart';
-import 'globals.dart';
 import 'green_score.dart';
 import 'score_disp.dart';
 
@@ -45,7 +43,6 @@ class Trash_Item extends SpriteComponent
   late MoveEffect h_move_effect;
   bool is_moving = true;
   bool is_colliding = false;
-  bool is_tap = false;
   bool scored = false;
   bool green_scored = false;
   bool blue_scored = false;
@@ -56,47 +53,42 @@ class Trash_Item extends SpriteComponent
 
   Trash_Item(Trash_Type type, double delay, double y_loc) :
         this.type = type, this.delay = delay, this.y_loc = y_loc;
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
     sprite = await gameRef.loadSprite(type.src);
-    position = Vector2(-40, y_loc);
-    size = Vector2(30, 70);
+    position = Vector2(-20, y_loc);
+    size = Vector2(20, 50);
 
     add(RectangleHitbox());
 
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y_loc),
       EffectController(
-        startDelay: 5*delay,
+        startDelay: 1.5*delay,
         duration: 20,
         infinite: true,
         alternate: true
       ),
     );
 
-
     update_move();
   }
 
   @override
   bool onTapDown(TapDownInfo info) {
-    print(gameRef.size[1]/8);
-    print(gameRef.size[1]/4);
-    print(position.y);
     // info.handled = true
+
     if(is_colliding) {
       if((gameRef.size[1]/8 - 50) == position.y) {
-        position = Vector2(position.x, gameRef.size[1]/4 - 50);
-        FlameAudio.play(Globals.itemGrabSound);
+        position = Vector2(position.x, gameRef.size[1]/8 - 50);
       }
       else if((gameRef.size[1]/4 - 50) == position.y) {
         position = Vector2(position.x, gameRef.size[1]/2.5 - 50);
-        FlameAudio.play(Globals.itemGrabSound);
       }
       else{
         position = Vector2(position.x, position.y + 100);
-
       }
     }
     return false;
@@ -112,12 +104,13 @@ class Trash_Item extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
+
     if (other is Banda_T_Hole) {
       is_colliding = true;
-    }
-    else if (other is Trash_Item ) {
+    } else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
+
       if (!green_scored) {
         final allPositionComponents = parent.children.query<PositionComponent>();
         Green_Score_Disp ?green_score;
@@ -164,7 +157,6 @@ class Trash_Item extends SpriteComponent
               if (blue_score != null) {
                 blue_scored = true;
                 blue_score.blue_updateScore(1);
-
               }
             } else {
               // position = Vector2(position.x, position.y - 100);
@@ -183,7 +175,6 @@ class Trash_Item extends SpriteComponent
         for (PositionComponent p in allPositionComponents) {
           if (p is Gray_Score_Disp) {
             grey_score = p;
-
           }
         }
         switch (other.type) {
@@ -226,7 +217,6 @@ class Trash_Item extends SpriteComponent
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
-
               }
             } else {
               position = Vector2(position.x, position.y - 100);
@@ -239,7 +229,6 @@ class Trash_Item extends SpriteComponent
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
-
               }
             } else {
               position = Vector2(position.x, position.y - 100);
@@ -262,24 +251,6 @@ class Trash_Item extends SpriteComponent
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
-
-              }
-            } else {
-              position = Vector2(position.x, position.y - 100);
-            }
-            break;
-          case BHBox_Type.powerup:
-            if (
-            this.type == Trash_Type.Caja_Jugo ||
-                this.type == Trash_Type.Caja_Leche ||
-                this.type == Trash_Type.Caja_Leche_Purp
-            ) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-
               }
             } else {
               position = Vector2(position.x, position.y - 100);
@@ -287,7 +258,6 @@ class Trash_Item extends SpriteComponent
             break;
           default:
             {}
-
         }
       } else {
 
@@ -298,7 +268,6 @@ class Trash_Item extends SpriteComponent
   @override
   void onCollisionEnd(PositionComponent other) {
     if (other is Banda_T_Hole) {
-
       is_colliding = false;
     }
   }

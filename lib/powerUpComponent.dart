@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:ecoins/game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
@@ -7,6 +6,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:flutter/animation.dart';
 
 import 'globals.dart';
 
@@ -32,16 +32,19 @@ enum PowerUp_Type_Comp implements Comparable<PowerUp_Type_Comp>{
 }
 
 class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<EcoinsGame>,Tappable,CollisionCallbacks {
-  final double _spriteHeight = 150.0;
-  final double _spriteWidth = 800.0;
+  final double _spriteHeight = 100.0;
+  final double _spriteWidth = 550.0;
   final Random _random = Random();
   late RemoveEffect h_remove_effect;
+  late ScaleEffect h_scale_effect;
+  late var name;
   late OpacityEffect h_opacity_effect;
+  late OpacityEffect h_opacity_blick_effect;
   PowerUp_Type_Comp type;
   double delay;
   double y_loc;
   bool is_colliding = false;
-
+  late EffectController effectController;
 
   PowerUpComponent(PowerUp_Type_Comp type, double delay, double y_loc) :
         this.type = type, this.delay = delay, this.y_loc = y_loc;
@@ -50,6 +53,7 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   Future<void> onLoad() async {
     await super.onLoad();
     sprite = await gameRef.loadSprite(type.src);
+
     height = _spriteHeight;
     width = _spriteWidth;
     anchor = Anchor.center;
@@ -58,7 +62,11 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
     position = _createRandomPosition();
     add(RectangleHitbox());
 
-    h_remove_effect = RemoveEffect(delay: 5);
+
+    h_opacity_blick_effect = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 5));
+    h_scale_effect = ScaleEffect.by(Vector2.all(1.5), EffectController(duration: 0.7));
+    h_remove_effect = RemoveEffect(delay: 8);
+    // h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 5));
 
     update_move();
   }
@@ -74,7 +82,11 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   }
 
   update_move() {
-  add(h_remove_effect);
+
+    add(h_scale_effect);
+    add(h_opacity_blick_effect);
+    add(h_remove_effect);
+    // add(h_opacity_effect);
   Future.delayed(Duration(seconds: 10), () {
     gameRef.add(PowerUpComponent(type, delay, y_loc));
   });

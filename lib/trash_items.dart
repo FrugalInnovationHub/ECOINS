@@ -4,6 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flame/collisions.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
 
@@ -12,11 +13,20 @@ import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'blue_score.dart';
 import 'game.dart';
+import 'globals.dart';
 import 'green_score.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
   Botella_Plastico(src: 'botella_plastico.png'),
+  Botella_agua_grande(src: 'Botella_agua_grande.png'),
+  Botella_jabon(src: 'Botella_jabon.png'),
+  Botella_Refresco(src: 'Botella_Refresco.png'),
+  Botella_Agua(src: 'Botella_Agua.png'),
+  Bola_papel(src: 'Bola_papel.png'),
+  Caja_Carton(src: 'Caja_Carton.png'),
+  Lata_aluminio(src: 'Lata_aluminio.png'),
+  Cilindro_papel(src: 'Cilindro_papel.png'),
   Botella_Vidrio(src: 'botella_vidrio.png'),
   Caja_Jugo(src: 'caja_jugo.png'),
   Caja_Leche(src: 'caja_leche.png'),
@@ -82,10 +92,12 @@ class Trash_Item extends SpriteComponent
 
     if(is_colliding) {
       if((gameRef.size[1]/8 - 50) == position.y) {
-        position = Vector2(position.x, gameRef.size[1]/8 - 50);
+        position = Vector2(position.x, gameRef.size[1]/4 - 50);
+        FlameAudio.play(Globals.itemGrabSound);
       }
       else if((gameRef.size[1]/4 - 50) == position.y) {
         position = Vector2(position.x, gameRef.size[1]/2.5 - 50);
+        FlameAudio.play(Globals.itemGrabSound);
       }
       else{
         position = Vector2(position.x, position.y + 100);

@@ -82,7 +82,7 @@ class Trash_Item extends SpriteComponent
 
     if(is_colliding) {
       if((gameRef.size[1]/8 - 50) == position.y) {
-        position = Vector2(position.x, gameRef.size[1]/8 - 50);
+        position = Vector2(position.x, gameRef.size[1]/4 - 50);
       }
       else if((gameRef.size[1]/4 - 50) == position.y) {
         position = Vector2(position.x, gameRef.size[1]/2.5 - 50);

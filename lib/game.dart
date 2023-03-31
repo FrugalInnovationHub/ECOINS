@@ -180,26 +180,26 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       await add(i);
     }
 
-    var _powerup_items = [];
-    var indexes_powerup = PowerUp_Type_Comp.values.mapIndexed((index, element) => index).toList();
-    indexes.shuffle();
-    PowerUp_Type_Comp.values.forEachIndexed((index, _type) {
-      PowerUpComponent t;
-        t = PowerUpComponent(
-            _type,
-            indexes_powerup[index] + _random.nextDouble(),
-            (this.size[1] / 2.5)
-        );
-        t = PowerUpComponent(
-            _type,
-            indexes_powerup[index] + _random.nextDouble(),
-            (this.size[1] / 8)
-        );
-
-      _powerup_items.add(t);
-    });
-    for(PowerUpComponent i in _powerup_items) {
-      await add(i);
-    }
+    // var _powerup_items = [];
+    // var indexes_powerup = PowerUp_Type_Comp.values.mapIndexed((index, element) => index).toList();
+    // indexes.shuffle();
+    // PowerUp_Type_Comp.values.forEachIndexed((index, _type) {
+    //   PowerUpComponent t;
+    //     t = PowerUpComponent(
+    //         _type,
+    //         indexes_powerup[index] + _random.nextDouble(),
+    //         (this.size[1] / 2.5)
+    //     );
+    //     t = PowerUpComponent(
+    //         _type,
+    //         indexes_powerup[index] + _random.nextDouble(),
+    //         (this.size[1] / 8)
+    //     );
+    //
+    //   _powerup_items.add(t);
+    // });
+    // for(PowerUpComponent i in _powerup_items) {
+    //   await add(i);
+    // }
   }
 }

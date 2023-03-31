@@ -1,3 +1,4 @@
+import 'package:ecoins/screens/videoPlayerScreen.dart';
 import 'package:flutter/material.dart';
 import 'game.dart';
 import 'screens/main_menu.dart';
@@ -14,7 +15,11 @@ class app extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "ECOINS",
-      home: main_menu(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) =>  VideoPlayerScreen(),
+        '/main-menu': (context) => main_menu(),
+      },
     );
   }
 }

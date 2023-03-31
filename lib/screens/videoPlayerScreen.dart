@@ -96,6 +96,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            heroTag: "Skip",
+            tooltip: "Skip",
             onPressed: () {
               // Wrap the play or pause in a call to `setState`. This ensures the
               // correct icon is shown.
@@ -114,6 +116,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             height: 10,
           ),
           FloatingActionButton(
+            heroTag: "Play/Pause",
+            tooltip: _controller.value.isPlaying ? "Pause" : "Play",
             onPressed: () {
               // Wrap the play or pause in a call to `setState`. This ensures the
               // correct icon is shown.

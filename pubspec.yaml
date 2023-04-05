@@ -74,6 +74,7 @@ flutter:
   - assets/images/
   - assets/audio/
   - assets/videos/
+  - assets/images/wheel.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

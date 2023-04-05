@@ -6,7 +6,7 @@ import 'dart:ui';
 
 class Banda_T extends SpriteComponent with HasGameRef {
 
-  Banda_T({super.position, super.size});
+  Banda_T({super.position, super.size, super.angle});
 
   @override
   Future<void> onLoad() async {

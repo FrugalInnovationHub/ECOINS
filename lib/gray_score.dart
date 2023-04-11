@@ -25,7 +25,7 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
     );
     final _paint = TextPaint(style: _style);
 
-    position = Vector2(gameSize[0]/4 + 3*gameSize[1]/4, gameSize[0]/4 + gameSize[1]/2);
+    position = Vector2(gameSize[0]*0.19 + 3*gameSize[1]*0.25, gameSize[0]*0.25 + gameSize[1]*0.5);
     size = Vector2(30, 40);
 
     // TextComponent _green_score_txt = TextComponent(

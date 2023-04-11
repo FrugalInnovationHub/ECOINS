@@ -20,31 +20,31 @@ class Basureros extends PositionComponent with HasGameRef{
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    Green
-      ..sprite = await gameRef.loadSprite('green_basureros.png')
-      ..size = Vector2(gameSize[1]/4, gameSize[0]/4)
-      ..position = Vector2(gameSize[0]/4, gameSize[1]/2);
-
-    add(Green);
+    // Green
+    //   ..sprite = await gameRef.loadSprite('green_basureros.png')
+    //   ..size = Vector2(gameSize[1]/4, gameSize[0]/4)
+    //   ..position = Vector2(gameSize[0]/4, gameSize[1]/2);
+    //
+    // add(Green);
 
     Blue
       ..sprite = await gameRef.loadSprite('blue_basureros.png')
-      ..size = Vector2(gameSize[1]/4, gameSize[0]/4)
-      ..position = Vector2(gameSize[0]/4 + gameSize[1]/4, gameSize[1]/2);
+      ..size = Vector2(gameSize[1]*0.2, gameSize[0]*0.2)
+      ..position = Vector2(gameSize[0]*0.20 + gameSize[1]*0.25, gameSize[1]*0.58);
 
     add(Blue);
 
     Yellow
       ..sprite = await gameRef.loadSprite('yellow_basureros.png')
-      ..size = Vector2(gameSize[1]/4, gameSize[0]/4)
-      ..position = Vector2(gameSize[0]/4 + 2*gameSize[1]/4, gameSize[1]/2);
+      ..size = Vector2(gameSize[1]*0.2, gameSize[0]*0.2)
+      ..position = Vector2(gameSize[0]*0.20 + 2*gameSize[1]*0.25, gameSize[1]*0.58);
 
     add(Yellow);
 
     Grey
       ..sprite = await gameRef.loadSprite('grey_basureros.png')
-      ..size = Vector2(gameSize[1]/4, gameSize[0]/4)
-      ..position = Vector2(gameSize[0]/4 + 3*gameSize[1]/4, gameSize[1]/2);
+      ..size = Vector2(gameSize[1]*0.2, gameSize[0]*0.2)
+      ..position = Vector2(gameSize[0]*0.20 + 3*gameSize[1]*0.25, gameSize[1]*0.58);
 
     add(Grey);
 
@@ -54,13 +54,13 @@ class Basureros extends PositionComponent with HasGameRef{
     // position = Vector2(700, 400);
     // size = Vector2(200, 100);
 
-    var g_h_box = Basureros_HBox(
-      BHBox_Type.Green,
-      size: Vector2(gameSize[1]/4, gameSize[0]/4),
-      position: Vector2(gameSize[0]/4, (gameSize[1]/2))
-    );
-    g_h_box.debugColor = Color(0xFF00FF00);
-    add(g_h_box);
+    // var g_h_box = Basureros_HBox(
+    //   BHBox_Type.Green,
+    //   size: Vector2(gameSize[1]/4, gameSize[0]/4),
+    //   position: Vector2(gameSize[0]/4, (gameSize[1]/2))
+    // );
+    // g_h_box.debugColor = Color(0xFF00FF00);
+    // add(g_h_box);
 
     var b_h_box = Basureros_HBox(
         BHBox_Type.Blue,

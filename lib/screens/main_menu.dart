@@ -41,15 +41,7 @@ class main_menu extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => GameWidget(
-                                    game: EcoinsGame(),
-                                    overlayBuilderMap: {
-                                      'PauseMenu':
-                                          (BuildContext context, EcoinsGame game) {
-                                        return pause_menu(game: game);
-                                      }
-                                    })));
+                        Navigator.pushReplacementNamed(context, '/game');
                       },
                       child: const Text(
                         'Start',

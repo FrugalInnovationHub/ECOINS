@@ -5,18 +5,15 @@ import 'package:flutter/material.dart';
 
 import 'palette.dart';
 
-enum BHBox_Type {
-  Green,
-  Blue,
-  Yellow,
-  Grey
+enum Powerup_Type {
+  Sol,
+  Gota_Agua
 }
 
-class Basureros_HBox extends RectangleComponent {
+class Powerup_HBox extends CircleComponent {
   var type;
-  Basureros_HBox(type, {
+  Powerup_HBox(type, {
     super.position,
-    super.size,
     super.angle,
     super.anchor,
     super.priority,
@@ -26,7 +23,7 @@ class Basureros_HBox extends RectangleComponent {
   Future<void> onLoad() async {
     super.onLoad();
     this.paint = Palette.transp.paint();
-    var h_box = RectangleHitbox();
+    var h_box = CircleHitbox();
     add(h_box);
   }
 }

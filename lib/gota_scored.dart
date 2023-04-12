@@ -9,18 +9,13 @@ import 'package:flame/rendering.dart';
 
 import 'package:flutter/material.dart';
 
-class Sol_Score_Disp extends PositionComponent with HasGameRef {
-  late Sol_ScoreVal _sol_score_val;
-  int sol_score = 0;
-
-  // Sol_Score_Disp(int sol_score){
-  //   this.sol_score = sol_score;
-  // }
+class Gota_Score_Disp extends PositionComponent with HasGameRef {
+  late Gota_ScoreVal _gota_score_val;
+  int gota_score = 0;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    var gameSize = gameRef.size;
     final _style = TextStyle(
         color: BasicPalette.white.color,
         fontSize: 30.0,
@@ -28,7 +23,7 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
     );
     final _paint = TextPaint(style: _style);
 
-    position = Vector2(40, 425);
+    position = Vector2(40, 500);
     size = Vector2(30, 40);
 
     // TextComponent _green_score_txt = TextComponent(
@@ -37,29 +32,29 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
     //     position: Vector2(0, 0)
     // );
 
-    _sol_score_val = Sol_ScoreVal(
+    _gota_score_val = Gota_ScoreVal(
         textRenderer: _paint,
         position: Vector2(90, 1)
     );
 
     // await add(_green_score_txt);
-    await add(_sol_score_val);
+    await add(_gota_score_val);
   }
 
-  bool sol_updateScore(int sol_newScore) {
-    this._sol_score_val.sol_score += sol_newScore;
+  bool gota_updateScore(int gota_newScore) {
+    this._gota_score_val.gota_score += gota_newScore;
     // print(this._sol_score_val.sol_score);
     return true;
   }
 }
 
-class Sol_ScoreVal extends TextComponent with HasGameRef {
-  late int sol_score;
+class Gota_ScoreVal extends TextComponent with HasGameRef {
+  late int gota_score;
 
-  Sol_ScoreVal({super.textRenderer, super.position}) : sol_score = 0;
+  Gota_ScoreVal({super.textRenderer, super.position}) : gota_score = 0;
 
   @override
   void render(Canvas canvas) {
-    textRenderer.render(canvas, '$sol_score', Vector2.zero());
+    textRenderer.render(canvas, '$gota_score', Vector2.zero());
   }
 }

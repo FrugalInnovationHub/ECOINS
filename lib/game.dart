@@ -1,14 +1,19 @@
 import 'dart:math';
+import 'dart:ui';
 import 'package:ecoins/powerUpComponent.dart';
+import 'package:ecoins/score_board.dart';
+import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/yellow_score.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/components.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'blue_score.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
 import 'globals.dart';
+import 'gota_scored.dart';
 import 'gray_score.dart';
 import 'green_score.dart';
 import 'trash_items.dart';
@@ -18,18 +23,22 @@ import 'pause_btn.dart';
 import 'score_disp.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
+class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, HasGameRef{
   final Cocina _cocina = Cocina();
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
   final Score_Disp _score_disp = Score_Disp();
   final Green_Score_Disp _green_score_disp = Green_Score_Disp();
+  final Sol_Score_Disp _sol_score_disp = Sol_Score_Disp();
+  final Gota_Score_Disp _gota_score_disp = Gota_Score_Disp();
   final Blue_Score_Disp _blue_score_disp = Blue_Score_Disp();
   final Yellow_Score_Disp _yellow_score_disp = Yellow_Score_Disp();
   final Gray_Score_Disp _gray_score_disp = Gray_Score_Disp();
+  final Score_Board _score_board = Score_Board();
   final _random = new Random();
   final double _trash_start_y = 50;
   final double _powerup_start_y = -30;
+  late PowerUp_Type_Comp type;
 
   bool musicPlaying = false;
 
@@ -51,17 +60,19 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     // debugMode = true;
 
     await add(_cocina);
+    await add(_score_board);
     await add(_pause_btn);
     await add(_score_disp);
     await add(_green_score_disp);
     await add(_blue_score_disp);
+    await add(_sol_score_disp);
+    await add(_gota_score_disp);
     await add(_yellow_score_disp);
     await add(_gray_score_disp);
     await add(_basureros);
 
     var _banda_t_holes = [];
     var _banda_ts = [];
-
 
 
     hole_pos.add(Vector2(2*this.size[0]/3, this.size[1]/8));

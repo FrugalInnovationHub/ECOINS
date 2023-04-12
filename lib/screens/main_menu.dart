@@ -6,6 +6,7 @@ import 'package:flame/game.dart';
 import 'package:ecoins/game.dart';
 import 'package:ecoins/screens/pause_menu.dart';
 
+
 class main_menu extends StatelessWidget {
   const main_menu({Key? key}) : super(key: key);
 

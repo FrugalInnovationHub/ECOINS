@@ -23,8 +23,8 @@ enum Trash_Type implements Comparable<Trash_Type> {
   Botella_jabon(src: 'Botella_jabon.png'),
   Botella_Refresco(src: 'Botella_Refresco.png'),
   Botella_Agua(src: 'Botella_Agua.png'),
-  Bola_papel(src: 'Bola_papel.png'),
-  Caja_Carton(src: 'Caja_Carton.png'),
+  // Bola_papel(src: 'Bola_papel.png'),
+  // Caja_Carton(src: 'Caja_Carton.png'),
   Lata_aluminio(src: 'Lata_aluminio.png'),
   Cilindro_papel(src: 'Cilindro_papel.png'),
   Botella_Vidrio(src: 'botella_vidrio.png'),
@@ -208,11 +208,6 @@ class Trash_Item extends SpriteComponent
             {}
         }
       }
-
-
-
-
-
       if (!scored) {
         final allPositionComponents = parent.children.query<PositionComponent>();
         Score_Disp ?score;

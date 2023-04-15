@@ -91,14 +91,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     _banda_t_holes.add(_banda_t_hole);
     banda_t_info.add([Vector2(25, _banda_t_hole.position.y), Vector2(_banda_t_hole.position.x-25, 10)]);
     banda_t_info.add([Vector2(25, _banda_t_hole.position.y + 20), Vector2(_banda_t_hole.position.x-25, 10)]);
-    Wheel _wheel = Wheel(position: Vector2(0, _banda_t_hole.position.y), size: Vector2(30, 30));
+    Wheel _wheel = Wheel(position: Vector2(0, _banda_t_hole.position.y/2), size: Vector2(30, 30));
     add(_wheel);
-    _wheel = Wheel(position: Vector2(_banda_t_hole.position.x-25, _banda_t_hole.position.y), size: Vector2(30, 30));
+    _wheel = Wheel(position: Vector2(1*this.size[0]/3 - 12, _banda_t_hole.position.y/2), size: Vector2(30, 30));
     add(_wheel);
-    // final wheelImage = await images.load('Tuerca_transparencia.gif');
-    // final _wheel = SpriteComponent.fromImage(wheelImage);
-    // _wheel.position = Vector2(0, _banda_t_hole.position.y + 10);
-    // _wheel.size = Vector2(200, 200);
     _banda_wheels.add(_wheel);
     var last_y = _banda_t_hole.position.y;
     var last_x = _banda_t_hole.position.x+_banda_t_hole.size.x;

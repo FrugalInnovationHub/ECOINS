@@ -1,4 +1,6 @@
+import 'package:ecoins/screens/home_screen.dart';
 import 'package:ecoins/screens/videoPlayerScreen.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'game.dart';
 import 'screens/main_menu.dart';
@@ -17,7 +19,7 @@ class app extends StatelessWidget {
       title: "ECOINS",
       initialRoute: "/",
       routes: {
-        '/': (context) => main_menu(),
+        '/': (context) => GameWidget(game: HomeScreen()),
         "/game": (context) =>  VideoPlayerScreen(),
       },
     );

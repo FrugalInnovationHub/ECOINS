@@ -6,6 +6,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/animation.dart';
@@ -49,7 +50,7 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   double y_loc;
   bool is_colliding_sol = false;
   late EffectController effectController;
-
+  
 
   PowerUpComponent(PowerUp_Type_Comp type, double delay, double y_loc) :
         this.type = type, this.delay = delay, this.y_loc = y_loc;
@@ -63,6 +64,8 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
     width = _spriteWidth;
     anchor = Anchor.center;
     position = gameRef.size / 2;
+
+
 
 
     position = _createRandomPosition();
@@ -96,14 +99,12 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
       // Check which gem was clicked on
       switch (type) {
         case PowerUp_Type_Comp.Gota_Agua:
-          print("this is gota");
           gota_score?.gota_updateScore(10);
           break;
         // Handle GotaAgua gem click
           break;
         case PowerUp_Type_Comp.Sol:
         // Handle Sol gem click
-          print("this is sol");
           sol_score?.sol_updateScore(10);
           break;
       }

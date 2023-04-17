@@ -1,10 +1,8 @@
-import 'package:ecoins/gray_score.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flame/collisions.dart';
-import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
 
@@ -13,20 +11,11 @@ import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'blue_score.dart';
 import 'game.dart';
-import 'globals.dart';
 import 'green_score.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
   Botella_Plastico(src: 'botella_plastico.png'),
-  Botella_agua_grande(src: 'Botella_agua_grande.png'),
-  Botella_jabon(src: 'Botella_jabon.png'),
-  Botella_Refresco(src: 'Botella_Refresco.png'),
-  Botella_Agua(src: 'Botella_Agua.png'),
-  // Bola_papel(src: 'Bola_papel.png'),
-  // Caja_Carton(src: 'Caja_Carton.png'),
-  Lata_aluminio(src: 'Lata_aluminio.png'),
-  Cilindro_papel(src: 'Cilindro_papel.png'),
   Botella_Vidrio(src: 'botella_vidrio.png'),
   Caja_Jugo(src: 'caja_jugo.png'),
   Caja_Leche(src: 'caja_leche.png'),
@@ -56,10 +45,10 @@ class Trash_Item extends SpriteComponent
   bool scored = false;
   bool green_scored = false;
   bool blue_scored = false;
-  bool grey_scored = false;
   Trash_Type type;
   double delay;
   double y_loc;
+  late OpacityEffect h_opacity_effect;
 
   Trash_Item(Trash_Type type, double delay, double y_loc) :
         this.type = type, this.delay = delay, this.y_loc = y_loc;
@@ -69,10 +58,10 @@ class Trash_Item extends SpriteComponent
     super.onLoad();
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-20, y_loc);
-    size = Vector2(20, 50);
+    size = Vector2(18, 50);
 
     add(RectangleHitbox());
-
+    h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y_loc),
       EffectController(
@@ -88,20 +77,9 @@ class Trash_Item extends SpriteComponent
 
   @override
   bool onTapDown(TapDownInfo info) {
-    // info.handled = true
-
+    // info.handled = true;
     if(is_colliding) {
-      if((gameRef.size[1]/8 - 50) == position.y) {
-        position = Vector2(position.x, gameRef.size[1]/4 - 50);
-        FlameAudio.play(Globals.itemGrabSound);
-      }
-      else if((gameRef.size[1]/4 - 50) == position.y) {
-        position = Vector2(position.x, gameRef.size[1]/2.5 - 50);
-        FlameAudio.play(Globals.itemGrabSound);
-      }
-      else{
-        position = Vector2(position.x, position.y + 100);
-      }
+      position = Vector2(position.x, position.y + 100);
     }
     return false;
   }
@@ -116,7 +94,6 @@ class Trash_Item extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
-
     if (other is Banda_T_Hole) {
       is_colliding = true;
     } else if (other is Trash_Item ) {
@@ -136,10 +113,11 @@ class Trash_Item extends SpriteComponent
             if (this.type == Trash_Type.Botella_Vidrio) {
               this.is_moving = false;
               update_move();
+
               if (green_score != null) {
                 green_scored = true;
                 green_score.green_updateScore(1);
-
+                add(h_opacity_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - 100);
@@ -169,6 +147,7 @@ class Trash_Item extends SpriteComponent
               if (blue_score != null) {
                 blue_scored = true;
                 blue_score.blue_updateScore(1);
+                add(h_opacity_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - 100);
@@ -181,33 +160,8 @@ class Trash_Item extends SpriteComponent
         }
       }
 
-      if (!grey_scored) {
-        final allPositionComponents = parent.children.query<PositionComponent>();
-        Gray_Score_Disp ?grey_score;
-        for (PositionComponent p in allPositionComponents) {
-          if (p is Gray_Score_Disp) {
-            grey_score = p;
-          }
-        }
-        switch (other.type) {
-          case BHBox_Type.Grey:
-            if (this.type == Trash_Type.Caja_Leche || this.type == Trash_Type.Caja_Jugo || this.type == Trash_Type.Caja_Leche_Purp) {
-              this.is_moving = false;
-              update_move();
-              if (grey_score != null) {
-                grey_scored = true;
-                grey_score.updateScore(1);
-              }
-            } else {
-              // position = Vector2(position.x, position.y - 100);
-            }
-            // blue_scored = false;
-            break;
 
-          default:
-            {}
-        }
-      }
+
       if (!scored) {
         final allPositionComponents = parent.children.query<PositionComponent>();
         Score_Disp ?score;

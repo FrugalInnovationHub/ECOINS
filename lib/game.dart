@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 import 'package:ecoins/powerUpComponent.dart';
 import 'package:ecoins/score_board.dart';
 import 'package:ecoins/sol_scored.dart';
@@ -8,11 +7,9 @@ import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/components.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'blue_score.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
-import 'globals.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';
 import 'green_score.dart';
@@ -81,17 +78,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
       hole_pos.add(Vector2(this.size[0]/4 + i*this.size[1]/4 + 10,this.size[1]/2.5));
     }
 
-    await FlameAudio.audioCache.loadAll(
-      [
-        Globals.itemGrabSound,
-      ],
-    );
+    FlameAudio.bgm.play("MUSICGAME.mp3");
 
-    // FlameAudio.bgm.initialize();
-    // if (!musicPlaying) {
-    //   FlameAudio.bgm.play("MUSICGAME.mp3");
-    //   musicPlaying = true;
-    // }
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
     _banda_t_hole.position = hole_pos[0];

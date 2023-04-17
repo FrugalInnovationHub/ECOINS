@@ -48,7 +48,6 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
 
   bool sol_updateScore(int sol_newScore) {
     this._sol_score_val.sol_score += sol_newScore;
-    // print(this._sol_score_val.sol_score);
     return true;
   }
 }

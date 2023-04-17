@@ -6,15 +6,18 @@ import 'package:flame/collisions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
 import 'package:flame/rendering.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
 
+import 'audio_player_component.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'screens/pause_menu.dart';
 
 class Pause_Btn extends PositionComponent with HasGameRef, Tappable {
+  final AudioPlayerComponent _audioPlayerComponent = AudioPlayerComponent();
   @override
   Future<void> onLoad() async {
     super.onLoad();
@@ -51,6 +54,7 @@ class Pause_Btn extends PositionComponent with HasGameRef, Tappable {
     // Marks 'PauseMenu' to be rendered.
     gameRef.overlays.add(pause_menu.pauseOverlayIdentifier);
     gameRef.pauseEngine();
+    FlameAudio.bgm.pause();
     return false;
   }
 }

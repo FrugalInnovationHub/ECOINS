@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,7 @@ class pause_menu extends StatelessWidget{
                   onPressed: () {
                     this.game.overlays.remove(pauseOverlayIdentifier);
                     this.game.resumeEngine();
+                    FlameAudio.bgm.play('MUSICGAME.mp3');
                   },
                   child: const Text(
                     'Resume',

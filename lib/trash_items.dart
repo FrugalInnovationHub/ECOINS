@@ -50,6 +50,7 @@ class Trash_Item extends SpriteComponent
   Trash_Type type;
   double delay;
   double y_loc;
+  late OpacityEffect h_opacity_effect;
 
   Trash_Item(Trash_Type type, double delay, double y_loc) :
         this.type = type, this.delay = delay, this.y_loc = y_loc;
@@ -62,7 +63,7 @@ class Trash_Item extends SpriteComponent
     size = Vector2(20, 50);
 
     add(RectangleHitbox());
-
+    h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y_loc),
       EffectController(
@@ -127,7 +128,7 @@ class Trash_Item extends SpriteComponent
               if (green_score != null) {
                 green_scored = true;
                 green_score.green_updateScore(1);
-
+                add(h_opacity_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - 100);
@@ -157,6 +158,7 @@ class Trash_Item extends SpriteComponent
               if (blue_score != null) {
                 blue_scored = true;
                 blue_score.blue_updateScore(1);
+                add(h_opacity_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - 100);

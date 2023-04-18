@@ -1,11 +1,15 @@
-
-import 'dart:ui';
-
 import 'package:ecoins/components/ImageSprite.dart';
+import 'package:ecoins/components/playButton.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
 
-class HomeScreen extends FlameGame {
+class HomeScreen extends FlameGame with HasTappables {
+
+  late BuildContext context;
+
+  HomeScreen({ required this.context });
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
 
@@ -22,12 +26,18 @@ class HomeScreen extends FlameGame {
     final ImageSprite girl = ImageSprite(asset: 'GIRL.png', position: Vector2(ratio*615,ratio*50), size: Vector2(ratio*165,ratio*410));
     final ImageSprite whale = ImageSprite(asset: 'WHALE.png', position: Vector2(ratio*300,ratio*175), size: Vector2(ratio*150,ratio*500), angle: -2.25);
     final ImageSprite turtle = ImageSprite(asset: 'Turtle.png', position: Vector2(ratio*685,ratio*380), size: Vector2(ratio*160,ratio*80));
-    final ImageSprite pelican = ImageSprite(asset: 'Pelican.png', position: Vector2(ratio*405,ratio*125), size: Vector2(this.size[0]*0.1,this.size[1]*0.19));
+    final ImageSprite pelican = ImageSprite(asset: 'Pelican.png', position: Vector2(ratio*405,ratio*125), size: Vector2(ratio*80,ratio*89));
+
+    Paint blue = Paint()..color = const Color(0xFF3A9BDC);
+    Paint green = Paint()..color = const Color(0xFF00FF00);
+    final PlayButton button = PlayButton(radius: ratio*30, position: Vector2(ratio*450, ratio*260), paint: blue, context: this.context);
+    final triangle = PolygonComponent([Vector2(0, 0), Vector2(50, 25), Vector2(0, 50)], position: Vector2(ratio*470, ratio*275), paint: green, size: Vector2(ratio*10, ratio*10));
 
     turtle.flipHorizontally();
     dolphin1.flipVertically();
     dolphin2.flipVertically();
     whale.flipVertically();
+
     await add(ecoins);
     await add(cangrejo1);
     await add(cangrejo2);
@@ -39,6 +49,8 @@ class HomeScreen extends FlameGame {
     await add(whale);
 
     await add(pelican);
+    await add(button);
+    await add(triangle);
 
   }
 }

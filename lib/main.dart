@@ -19,7 +19,7 @@ class app extends StatelessWidget {
       title: "ECOINS",
       initialRoute: "/",
       routes: {
-        '/': (context) => GameWidget(game: HomeScreen()),
+        '/': (context) => GameWidget(game: HomeScreen(context: context)),
         "/game": (context) =>  VideoPlayerScreen(),
       },
     );

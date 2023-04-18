@@ -25,10 +25,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
   final Score_Disp _score_disp = Score_Disp();
-  final Green_Score_Disp _green_score_disp = Green_Score_Disp();
-  final Blue_Score_Disp _blue_score_disp = Blue_Score_Disp();
-  final Yellow_Score_Disp _yellow_score_disp = Yellow_Score_Disp();
-  final Gray_Score_Disp _gray_score_disp = Gray_Score_Disp();
   final Score_Board _score_board = Score_Board();
   final _random = new Random();
   final double _trash_start_y = 50;
@@ -58,12 +54,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(_score_board);
     await add(_pause_btn);
     await add(_score_disp);
-    await add(_green_score_disp);
-    await add(_blue_score_disp);
-    await add(_sol_score_disp);
-    await add(_gota_score_disp);
-    await add(_yellow_score_disp);
-    await add(_gray_score_disp);
     await add(_basureros);
 
     var _banda_t_holes = [];

@@ -20,11 +20,13 @@ import 'pause_btn.dart';
 import 'score_disp.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
+class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, HasGameRef{
   final Cocina _cocina = Cocina();
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
   final Score_Disp _score_disp = Score_Disp();
+  final Sol_Score_Disp _sol_score_disp = Sol_Score_Disp();
+  final Gota_Score_Disp _gota_score_disp = Gota_Score_Disp();
   final Score_Board _score_board = Score_Board();
   final _random = new Random();
   final double _trash_start_y = 50;
@@ -51,29 +53,26 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     // debugMode = true;
 
     await add(_cocina);
-    await add(_score_board);
     await add(_pause_btn);
-    await add(_score_disp);
     await add(_basureros);
+
+    await add(_score_disp);
+    // await add(_sol_score_disp);
+    // await add(_gota_score_disp);
+    await add(_score_board);
 
     var _banda_t_holes = [];
     var _banda_ts = [];
 
 
-
-    hole_pos.add(Vector2(2*this.size[0]*0.35, this.size[1]*0.125));
+    hole_pos.add(Vector2(2*this.size[0]/3, this.size[1]/8));
     hole_pos.add(Vector2(1*this.size[0]/3, this.size[1]/4));
-    for(var i=1; i<4; i++){
-      hole_pos.add(Vector2(this.size[0]*0.20 + i*this.size[1]*0.25 - 10,this.size[1]/2.5));
+    for(var i=0; i<4; i++){
+      hole_pos.add(Vector2(this.size[0]/4 + i*this.size[1]/4 + 10,this.size[1]/2.5));
     }
 
     FlameAudio.bgm.play("MUSICGAME.mp3");
 
-    // FlameAudio.bgm.initialize();
-    // if (!musicPlaying) {
-    //   FlameAudio.bgm.play("MUSICGAME.mp3");
-    //   musicPlaying = true;
-    // }
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
     _banda_t_hole.position = hole_pos[0];

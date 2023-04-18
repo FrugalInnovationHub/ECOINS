@@ -20,6 +20,7 @@ class Basureros extends PositionComponent with HasGameRef{
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
+    var ratio = gameSize[0]/gameSize[1];
     // Green
     //   ..sprite = await gameRef.loadSprite('green_basureros.png')
     //   ..size = Vector2(gameSize[1]/4, gameSize[0]/4)
@@ -29,22 +30,22 @@ class Basureros extends PositionComponent with HasGameRef{
 
     Blue
       ..sprite = await gameRef.loadSprite('blue_basureros.png')
-      ..size = Vector2(gameSize[1]*0.2, gameSize[0]*0.2)
-      ..position = Vector2(gameSize[0]*0.20 + gameSize[1]*0.25, gameSize[1]*0.58);
+      ..size = Vector2(ratio*100, ratio*160)
+      ..position = Vector2(ratio*300, ratio*280);
 
     add(Blue);
 
     Yellow
       ..sprite = await gameRef.loadSprite('yellow_basureros.png')
-      ..size = Vector2(gameSize[1]*0.2, gameSize[0]*0.2)
-      ..position = Vector2(gameSize[0]*0.20 + 2*gameSize[1]*0.25, gameSize[1]*0.58);
+      ..size = Vector2(ratio*100, ratio*160)
+      ..position = Vector2(ratio*410, ratio*280);
 
     add(Yellow);
 
     Grey
       ..sprite = await gameRef.loadSprite('grey_basureros.png')
-      ..size = Vector2(gameSize[1]*0.2, gameSize[0]*0.2)
-      ..position = Vector2(gameSize[0]*0.20 + 3*gameSize[1]*0.25, gameSize[1]*0.58);
+      ..size = Vector2(ratio*100, ratio*160)
+      ..position = Vector2(ratio*520, ratio*280);
 
     add(Grey);
 

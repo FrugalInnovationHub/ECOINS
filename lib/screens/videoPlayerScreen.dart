@@ -35,7 +35,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // Use the controller to loop the video.
     // _controller.setLooping(true);
 
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 0), () {
       setState(() {
         _isVisible = true;
       });

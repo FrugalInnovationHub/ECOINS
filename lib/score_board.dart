@@ -19,14 +19,14 @@ class Score_Board extends FlameGame with HasGameRef{
     ]);
     final gota_agua = SpriteComponent.fromImage(
       Flame.images.fromCache('Gota_agua.png'),
-      position: Vector2(-160, 480),// Set your position here
-      size: Vector2(500, 100), // Set your size here (by default it is 0),
+      position: Vector2(100, 480),// Set your position here
+      size: Vector2(50, 50), // Set your size here (by default it is 0),
     );
 
     final sol = SpriteComponent.fromImage(
       Flame.images.fromCache('Sol.png'),
-      position: Vector2(-160, 400), // Set your position here
-      size: Vector2(500, 100), // Set your size here (by default it is 0),
+      position: Vector2(100, 400), // Set your position here
+      size: Vector2(50, 50), // Set your size here (by default it is 0),
     );
 
 

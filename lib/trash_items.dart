@@ -59,8 +59,8 @@ class Trash_Item extends SpriteComponent
   Future<void> onLoad() async {
     super.onLoad();
     sprite = await gameRef.loadSprite(type.src);
-    position = Vector2(-20, y_loc);
-    size = Vector2(20, 50);
+    position = Vector2(-30, y_loc);
+    size = Vector2(30, 70);
 
     add(RectangleHitbox());
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));

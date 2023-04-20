@@ -36,8 +36,8 @@ enum PowerUp_Type_Comp implements Comparable<PowerUp_Type_Comp>{
 }
 
 class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<EcoinsGame>,Tappable,CollisionCallbacks {
-  final double _spriteHeight = 100.0;
-  final double _spriteWidth = 550.0;
+  final double _spriteHeight = 50.0;
+  final double _spriteWidth = 50.0;
   final Random _random = Random();
   bool sol_scored = false;
   late RemoveEffect h_remove_effect;

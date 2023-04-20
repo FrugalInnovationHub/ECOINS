@@ -9,36 +9,32 @@ import 'package:flame/rendering.dart';
 
 import 'package:flutter/material.dart';
 
-class Score_Disp extends PositionComponent with HasGameRef {
+class Score_Disp extends SpriteComponent with HasGameRef {
   late ScoreVal _score_val;
   int score = 0;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    var ratio = gameRef.size[0]/gameRef.size[1];
+
+    sprite = await gameRef.loadSprite("SCORE.png");
 
     final _style = TextStyle(
-        color: BasicPalette.black.color,
-        fontSize: 30.0,
+        color: BasicPalette.white.color,
+        fontSize: ratio*30,
         fontWeight: FontWeight.bold
     );
     final _paint = TextPaint(style: _style);
 
-    position = Vector2(40, 0);
-    size = Vector2(30, 40);
-
-    TextComponent _score_txt = TextComponent(
-        text: 'Score: ',
-        textRenderer: _paint,
-        position: Vector2(0, 0)
-    );
+    position = Vector2(ratio*725, ratio* 325);
+    size = Vector2(ratio*75, ratio*100);
 
     _score_val = ScoreVal(
         textRenderer: _paint,
-        position: Vector2(90, 1)
+        position: Vector2(ratio*30, ratio*35)
     );
 
-    await add(_score_txt);
     await add(_score_val);
   }
 

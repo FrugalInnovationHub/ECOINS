@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:ecoins/powerUpComponent.dart';
-import 'package:ecoins/score_board.dart';
-import 'package:ecoins/sol_scored.dart';
+import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
@@ -62,6 +61,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     var _banda_t_holes = [];
     var _banda_ts = [];
+    var _banda_wheels = [];
 
 
     hole_pos.add(Vector2(ratio*200, ratio*50));
@@ -85,6 +85,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     _banda_t_hole.size = Vector2(ratio*80, 20);
     _banda_t_holes.add(_banda_t_hole);
     banda_t_info.add([Vector2(0, _banda_t_hole.position.y), Vector2(_banda_t_hole.position.x, ratio*40)]);
+    Wheel _wheel = Wheel(position: Vector2(0, _banda_t_hole.position.y/2), size: Vector2(30, 30));
+    add(_wheel);
+    _wheel = Wheel(position: Vector2(1*this.size[0]/3 - 12, _banda_t_hole.position.y/2), size: Vector2(30, 30));
+    add(_wheel);
+    _banda_wheels.add(_wheel);
     var last_y = _banda_t_hole.position.y;
     var last_x = _banda_t_hole.position.x+_banda_t_hole.size.x;
     for(Vector2 pos in hole_pos.sublist(1)) {
@@ -129,9 +134,9 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       Vector2(this.size.length, ratio*40)
     ]);
 
-    // for (Banda_T_Hole _hole in _banda_t_holes) {
-    //   await add(_hole);
-    // }
+    for (Banda_T_Hole _hole in _banda_t_holes) {
+      await add(_hole);
+    }
 
     for(List info in banda_t_info) {
       var start_x = info[0][0];

@@ -31,21 +31,21 @@ class Basureros extends PositionComponent with HasGameRef{
     Blue
       ..sprite = await gameRef.loadSprite('blue_basureros.png')
       ..size = Vector2(ratio*80, ratio*150)
-      ..position = Vector2(ratio*360, ratio*310);
+      ..position = Vector2(ratio*290, ratio*310);
 
     add(Blue);
 
     Yellow
       ..sprite = await gameRef.loadSprite('yellow_basureros.png')
       ..size = Vector2(ratio*80, ratio*150)
-      ..position = Vector2(ratio*470, ratio*310);
+      ..position = Vector2(ratio*400, ratio*310);
 
     add(Yellow);
 
     Grey
       ..sprite = await gameRef.loadSprite('grey_basureros.png')
       ..size = Vector2(ratio*80, ratio*150)
-      ..position = Vector2(ratio*580, ratio*310);
+      ..position = Vector2(ratio*510, ratio*310);
 
     add(Grey);
 
@@ -63,29 +63,29 @@ class Basureros extends PositionComponent with HasGameRef{
     // g_h_box.debugColor = Color(0xFF00FF00);
     // add(g_h_box);
 
-    // var b_h_box = Basureros_HBox(
-    //     BHBox_Type.Blue,
-    //     size: Vector2(gameSize[1]/4, gameSize[0]/4),
-    //     position: Vector2(gameSize[0]/4 + gameSize[1]/4, gameSize[1]/2)
-    // );
-    // b_h_box.debugColor = Color(0xFF0033FF);
-    // add(b_h_box);
-    //
-    // var y_h_box = Basureros_HBox(
-    //     BHBox_Type.Yellow,
-    //     size: Vector2(gameSize[1]/4, gameSize[0]/4),
-    //     position: Vector2(gameSize[0]/4 + 2*gameSize[1]/4, gameSize[1]/2)
-    // );
-    // y_h_box.debugColor = Color(0xFFFFF200);
-    // add(y_h_box);
-    //
-    // var grey_h_box = Basureros_HBox(
-    //     BHBox_Type.Grey,
-    //     size: Vector2(gameSize[1]/4, gameSize[0]/4),
-    //     position: Vector2(gameSize[0]/4 + 3*gameSize[1]/4, gameSize[1]/2)
-    // );
-    // grey_h_box.debugColor = Color(0xFFFFFFFF);
-    // add(grey_h_box);
+    var b_h_box = Basureros_HBox(
+        BHBox_Type.Blue,
+        size: Vector2(ratio*80, ratio*150),
+        position: Vector2(ratio*290, ratio*310)
+    );
+    b_h_box.debugColor = Color(0xFF0033FF);
+    add(b_h_box);
+
+    var y_h_box = Basureros_HBox(
+        BHBox_Type.Yellow,
+        size: Vector2(ratio*80, ratio*150),
+        position: Vector2(ratio*400, ratio*310)
+    );
+    y_h_box.debugColor = Color(0xFFFFF200);
+    add(y_h_box);
+
+    var grey_h_box = Basureros_HBox(
+        BHBox_Type.Grey,
+        size: Vector2(ratio*80, ratio*150),
+        position: Vector2(ratio*510, ratio*310)
+    );
+    grey_h_box.debugColor = Color(0xFFFFFFFF);
+    add(grey_h_box);
 
 
   }

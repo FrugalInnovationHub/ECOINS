@@ -16,17 +16,24 @@ import 'green_score.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
-  Botella_Plastico(src: 'botella_plastico.png'),
-  Botella_Vidrio(src: 'botella_vidrio.png'),
-  Caja_Jugo(src: 'caja_jugo.png'),
-  Caja_Leche(src: 'caja_leche.png'),
-  Caja_Leche_Purp(src: 'caja_leche_purp.png');
+  Botella_Plastico(src: 'botella_plastico.png', size: [20, 45]),
+  Botella_Refresco(src: 'Botella_Refresco.png', size: [20, 45]),
+  Bola_Papel(src: 'Bola_papel.png', size: [30, 30]),
+  Caja_Carton(src: 'Caja_Carton.png', size: [60, 45]),
+  Botella_Agua(src: 'Botella_Agua.png', size: [20, 45]),
+  Botella_Agua_Grande(src: 'Botella_Agua_Grande.png', size: [30, 45]),
+  Botella_Jabon(src: 'Botella_jabon.png', size: [25, 45]),
+  Cilindro_Papel(src: 'Cilindro_papel.png', size: [20, 45]),
+  Lata_aluminio(src: 'Lata_aluminio.png', size: [20, 45]);
+
 
   const Trash_Type({
-    required this.src
+    required this.src,
+    required this.size
   });
 
   final src;
+  final size;
 
   @override
   int compareTo(Trash_Type other) {
@@ -41,6 +48,7 @@ enum Trash_Type implements Comparable<Trash_Type> {
 class Trash_Item extends SpriteComponent
     with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
   late MoveEffect h_move_effect;
+  late final ratio;
   bool is_moving = true;
   bool is_colliding = false;
   bool scored = false;
@@ -58,9 +66,11 @@ class Trash_Item extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    ratio = gameRef.size[0]/gameRef.size[1];
+    y_loc = y_loc - ratio*type.size[1];
     sprite = await gameRef.loadSprite(type.src);
-    position = Vector2(-30, y_loc);
-    size = Vector2(30, 70);
+    position = Vector2(-(ratio*60), y_loc);
+    size = Vector2(ratio*type.size[0], ratio*type.size[1]);
 
     add(RectangleHitbox());
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
@@ -80,16 +90,17 @@ class Trash_Item extends SpriteComponent
   @override
   bool onTapDown(TapDownInfo info) {
     // info.handled = true
-
+    print(position.y);
+    print(ratio*250 - ratio*type.size[1]);
     if(is_colliding) {
-      if((gameRef.size[1]/8 - 50) == position.y) {
-        position = Vector2(position.x, gameRef.size[1]/4 - 50);
+      if((ratio*50 - ratio*type.size[1]) == position.y) {
+        position = Vector2(position.x, ratio*150 - ratio*type.size[1]);
       }
-      else if((gameRef.size[1]/4 - 50) == position.y) {
-        position = Vector2(position.x, gameRef.size[1]/2.5 - 50);
+      else if((ratio*150 - ratio*type.size[1]) == position.y) {
+        position = Vector2(position.x, ratio*250 - ratio*type.size[1]);
       }
       else{
-        position = Vector2(position.x, position.y + 100);
+        position = Vector2(position.x, ratio*350 - ratio*type.size[1]);
       }
     }
     return false;
@@ -105,43 +116,11 @@ class Trash_Item extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
-
     if (other is Banda_T_Hole) {
       is_colliding = true;
     } else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
-
-      if (!green_scored) {
-        final allPositionComponents = parent.children.query<PositionComponent>();
-        Green_Score_Disp ?green_score;
-        for (PositionComponent p in allPositionComponents) {
-          if (p is Green_Score_Disp) {
-            green_score = p;
-          }
-        }
-        switch (other.type) {
-          case BHBox_Type.Green:
-            if (this.type == Trash_Type.Botella_Vidrio) {
-              this.is_moving = false;
-              update_move();
-              if (green_score != null) {
-                green_scored = true;
-                green_score.green_updateScore(1);
-                add(h_opacity_effect);
-              }
-            } else {
-              // position = Vector2(position.x, position.y - 100);
-            }
-            // green_scored = false;
-            break;
-
-          default:
-            {}
-        }
-      }
-
-
       if (!blue_scored) {
         final allPositionComponents = parent.children.query<PositionComponent>();
         Blue_Score_Disp ?blue_score;
@@ -152,7 +131,7 @@ class Trash_Item extends SpriteComponent
         }
         switch (other.type) {
           case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Caja_Jugo) {
+            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande) {
               this.is_moving = false;
               update_move();
               if (blue_score != null) {
@@ -161,7 +140,7 @@ class Trash_Item extends SpriteComponent
                 add(h_opacity_effect);
               }
             } else {
-              // position = Vector2(position.x, position.y - 100);
+              // position = Vector2(position.x, position.y - ratio*100);
             }
             // blue_scored = false;
             break;
@@ -181,12 +160,13 @@ class Trash_Item extends SpriteComponent
         }
         switch (other.type) {
           case BHBox_Type.Grey:
-            if (this.type == Trash_Type.Caja_Leche || this.type == Trash_Type.Caja_Jugo || this.type == Trash_Type.Caja_Leche_Purp) {
+            if (this.type == Trash_Type.Caja_Carton || this.type == Trash_Type.Cilindro_Papel || this.type == Trash_Type.Bola_Papel) {
               this.is_moving = false;
               update_move();
               if (grey_score != null) {
                 grey_scored = true;
                 grey_score.updateScore(1);
+                add(h_opacity_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - 100);
@@ -212,50 +192,40 @@ class Trash_Item extends SpriteComponent
           }
         }
         switch (other.type) {
-          case BHBox_Type.Green:
-            if (this.type == Trash_Type.Botella_Vidrio) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-              }
-            } else {
-              position = Vector2(position.x, position.y - 100);
-            }
-            break;
           case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Caja_Jugo ) {
+            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande ) {
               this.is_moving = false;
               update_move();
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
+                add(h_opacity_effect);
               }
             } else {
-              position = Vector2(position.x, position.y - 100);
+              position = Vector2(position.x, position.y - ratio*100);
             }
             // removeFromParent();
             break;
           case BHBox_Type.Yellow:
           // if(this.type != Trash_Type.Botella_Plastico) {
-            position = Vector2(position.x, position.y - 100);
+            position = Vector2(position.x, position.y - ratio*100);
             // }
             break;
           case BHBox_Type.Grey:
             if (
-                this.type == Trash_Type.Caja_Jugo ||
-                this.type == Trash_Type.Caja_Leche ||
-                this.type == Trash_Type.Caja_Leche_Purp
+                this.type == Trash_Type.Bola_Papel ||
+                this.type == Trash_Type.Caja_Carton ||
+                this.type == Trash_Type.Cilindro_Papel
             ) {
               this.is_moving = false;
               update_move();
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
+                add(h_opacity_effect);
               }
             } else {
-              position = Vector2(position.x, position.y - 100);
+              position = Vector2(position.x, position.y - ratio*100);
             }
             break;
           default:

@@ -4,7 +4,7 @@ import 'package:flame_svg/flame_svg.dart';
 
 import 'trash_items.dart';
 
-class Banda_T_Hole extends SpriteComponent with HasGameRef{
+class Banda_T_Hole extends PositionComponent with HasGameRef{
 
   Banda_T_Hole() {
     this.size = Vector2(100, 20);
@@ -13,7 +13,7 @@ class Banda_T_Hole extends SpriteComponent with HasGameRef{
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    sprite = await gameRef.loadSprite('banda_transportadora_hole.png');
+    // sprite = await gameRef.loadSprite('banda_transportadora_hole.png');
     add(RectangleHitbox());
   }
 }

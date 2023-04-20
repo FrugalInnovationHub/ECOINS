@@ -32,7 +32,7 @@ class Score_Disp extends SpriteComponent with HasGameRef {
 
     _score_val = ScoreVal(
         textRenderer: _paint,
-        position: Vector2(ratio*30, ratio*35)
+        position: Vector2(ratio*25, ratio*35)
     );
 
     await add(_score_val);

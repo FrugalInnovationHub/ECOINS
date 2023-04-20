@@ -41,7 +41,7 @@ enum Trash_Type implements Comparable<Trash_Type> {
 class Trash_Item extends SpriteComponent
     with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
   late MoveEffect h_move_effect;
-  // late OpacityEffect h_opacity_effect;
+  late OpacityEffect h_opacity_effect;
   bool is_moving = true;
   bool is_colliding = false;
   bool scored = false;
@@ -64,7 +64,7 @@ class Trash_Item extends SpriteComponent
     size = Vector2(20, 50);
 
     add(RectangleHitbox());
-    // h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
+    h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y_loc),
       EffectController(
@@ -159,7 +159,7 @@ class Trash_Item extends SpriteComponent
               if (blue_score != null) {
                 blue_scored = true;
                 blue_score.blue_updateScore(1);
-                // add(h_opacity_effect);
+                add(h_opacity_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - 100);
@@ -188,7 +188,7 @@ class Trash_Item extends SpriteComponent
               if (grey_score != null) {
                 grey_scored = true;
                 grey_score.updateScore(1);
-                // add(h_opacity_effect);
+                add(h_opacity_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - 100);

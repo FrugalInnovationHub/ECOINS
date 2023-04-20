@@ -163,7 +163,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           start_x += ratio * 80;
         }
         else {
-          Banda_T _bt = Banda_T(asset: 'uno_conveyor_belt1.png', position: Vector2(start_x, info[0][1]),
+          Banda_T _bt = Banda_T(asset: 'uno_conveyor_belt.png', position: Vector2(start_x, info[0][1]),
               size: Vector2(ratio * 5, info[1][1]));
           _banda_ts.add(_bt);
           start_x += ratio*5;

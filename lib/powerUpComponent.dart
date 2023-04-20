@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:ecoins/basureros.dart';
 import 'package:ecoins/basureros_hbox.dart';
 import 'package:ecoins/game.dart';
 import 'package:ecoins/sol_scored.dart';
@@ -49,6 +50,7 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   double y_loc;
   bool is_colliding_sol = false;
   late EffectController effectController;
+
   
 
   PowerUpComponent(PowerUp_Type_Comp type, double delay, double y_loc) :

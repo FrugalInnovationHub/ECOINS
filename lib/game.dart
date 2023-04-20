@@ -28,6 +28,9 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
   final Sol_Score_Disp _sol_score_disp = Sol_Score_Disp();
   final Gota_Score_Disp _gota_score_disp = Gota_Score_Disp();
   final Score_Board _score_board = Score_Board();
+  final Blue_Score_Disp _blue_score_disp = Blue_Score_Disp();
+  final Yellow_Score_Disp _yellow_score_disp = Yellow_Score_Disp();
+  final Gray_Score_Disp _gray_score_disp = Gray_Score_Disp();
   final _random = new Random();
   final double _trash_start_y = 50;
   final double _powerup_start_y = -30;
@@ -55,7 +58,9 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     await add(_cocina);
     await add(_pause_btn);
     await add(_basureros);
-
+    await add(_blue_score_disp);
+    await add(_yellow_score_disp);
+    await add(_gray_score_disp);
     await add(_score_disp);
     // await add(_sol_score_disp);
     // await add(_gota_score_disp);

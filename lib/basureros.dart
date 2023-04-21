@@ -15,12 +15,19 @@ class Basureros extends PositionComponent with HasGameRef{
   SpriteComponent Green = SpriteComponent();
   SpriteComponent Yellow = SpriteComponent();
   SpriteComponent Grey = SpriteComponent();
+  SpriteComponent BlueLevel1 = SpriteComponent();
+  SpriteComponent BlueLevel2 = SpriteComponent();
+  SpriteComponent BlueLevel3 = SpriteComponent();
+  SpriteComponent BlueLevel4 = SpriteComponent();
+  late double ratio = 1;
+
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    var ratio = gameSize[0]/gameSize[1];
+    ratio = gameSize[0]/gameSize[1];
+
     // Green
     //   ..sprite = await gameRef.loadSprite('green_basureros.png')
     //   ..size = Vector2(gameSize[1]/4, gameSize[0]/4)

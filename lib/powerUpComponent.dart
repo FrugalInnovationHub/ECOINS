@@ -36,8 +36,6 @@ enum PowerUp_Type_Comp implements Comparable<PowerUp_Type_Comp>{
 }
 
 class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<EcoinsGame>,Tappable,CollisionCallbacks {
-  final double _spriteHeight = 50.0;
-  final double _spriteWidth = 50.0;
   final Random _random = Random();
   bool sol_scored = false;
   late RemoveEffect h_remove_effect;
@@ -58,6 +56,10 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    var gameSize = gameRef.size;
+    var ratio = gameSize[0]/gameSize[1];
+    final double _spriteHeight = ratio*40;
+    final double _spriteWidth = ratio*30;
     sprite = await gameRef.loadSprite(type.src);
 
     height = _spriteHeight;
@@ -66,10 +68,7 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
     position = gameRef.size / 2;
 
 
-
-
     position = _createRandomPosition();
-    add(CircleHitbox());
 
 
     h_opacity_blick_effect = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 5));

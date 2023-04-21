@@ -9,44 +9,74 @@ import 'package:flame/rendering.dart';
 
 import 'package:flutter/material.dart';
 
+import 'basureros.dart';
+
 class Blue_Score_Disp extends PositionComponent with HasGameRef {
   late Blue_ScoreVal _blue_score_val;
   int blue_score = 0;
+  int i = 0;
+
+  SpriteComponent BlueLevel1 = SpriteComponent();
+  SpriteComponent BlueLevel2 = SpriteComponent();
+  SpriteComponent BlueLevel3 = SpriteComponent();
+  SpriteComponent BlueLevel4 = SpriteComponent();
+  late double ratio = 1;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-
-    final _style = TextStyle(
-        color: BasicPalette.white.color,
-        fontSize: 30.0,
-        fontWeight: FontWeight.bold
-    );
-    final _paint = TextPaint(style: _style);
-
-    position = Vector2(gameSize[0]*0.19 + gameSize[1]*0.25, gameSize[0]*0.25 + gameSize[1]*0.5);
-    size = Vector2(30, 40);
-
+    ratio = gameSize[0]/gameSize[1];
     // TextComponent _green_score_txt = TextComponent(
     //     text: 'Score: ',
     //     textRenderer: _paint,
     //     position: Vector2(0, 0)
     // );
+    BlueLevel1
+      ..sprite = await gameRef.loadSprite('01.png')
+      ..size = Vector2(ratio*67, ratio*40)
+      ..position = Vector2(ratio*296, ratio*420);
 
-    _blue_score_val = Blue_ScoreVal(
-        textRenderer: _paint,
-        position: Vector2(90, 1)
-    );
+    add(BlueLevel1);
+
+    BlueLevel2
+      ..sprite = await gameRef.loadSprite('02.png')
+      ..size = Vector2(ratio*70, ratio*40)
+      ..position = Vector2(ratio*295, ratio*380);
+
+    add(BlueLevel2);
+
+    BlueLevel3
+      ..sprite = await gameRef.loadSprite('03.png')
+      ..size = Vector2(ratio*80, ratio*34)
+      ..position = Vector2(ratio*290, ratio*346);
+
+    add(BlueLevel3);
+
+    BlueLevel4
+      ..sprite = await gameRef.loadSprite('04.png')
+      ..size = Vector2(ratio*79, ratio*37)
+      ..position = Vector2(ratio*290, ratio*310);
+
+    add(BlueLevel4);
+
 
     // await add(_green_score_txt);
-    await add(_blue_score_val);
   }
 
   bool blue_updateScore(int newScore) {
     this.blue_score += newScore;
-    this._blue_score_val.blue_score = this.blue_score;
+    // this._blue_score_val.blue_score = this.blue_score;
+      if (this.blue_score <= 10) {
+        changeSpriteLevel();
+      }
+
     return true;
+  }
+  void changeSpriteLevel() {
+      i = i + 4;
+      print(i);
+      BlueLevel1.size.y = ratio*(40 - i);
   }
 }
 

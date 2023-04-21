@@ -8,26 +8,28 @@ import 'package:flame/sprite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Score_Board extends FlameGame with HasGameRef{
+class Score_Board extends PositionComponent with HasGameRef{
+
+  SpriteComponent Gota_Agua = SpriteComponent();
+  SpriteComponent Sol = SpriteComponent();
 
   @override
   Future<void> onLoad() async{
     super.onLoad();
-    await Flame.images.loadAll(<String>[
-      'Gota_agua.png',
-      'Sol.png'
-    ]);
-    final gota_agua = SpriteComponent.fromImage(
-      Flame.images.fromCache('Gota_agua.png'),
-      position: Vector2(100, 480),// Set your position here
-      size: Vector2(50, 50), // Set your size here (by default it is 0),
-    );
+    var gameSize = gameRef.size;
+    var ratio = gameSize[0]/gameSize[1];
 
-    final sol = SpriteComponent.fromImage(
-      Flame.images.fromCache('Sol.png'),
-      position: Vector2(100, 400), // Set your position here
-      size: Vector2(50, 50), // Set your size here (by default it is 0),
-    );
+    Gota_Agua
+      ..sprite = await gameRef.loadSprite('Gota_agua.png')
+      ..size = Vector2(ratio*70, ratio*80)
+      ..position = Vector2(ratio*120, ratio*300);
+
+
+    Sol
+      ..sprite = await gameRef.loadSprite('Sol.png')
+      ..size = Vector2(ratio*80, ratio*80)
+      ..position = Vector2(ratio*20, ratio*300);
+
 
 
 
@@ -40,8 +42,8 @@ class Score_Board extends FlameGame with HasGameRef{
 
     paint: paint,
     );
-    add(rectangle);
-    add(gota_agua);
-    add(sol);
+    add(Gota_Agua);
+    add(Sol);
+    // add(rectangle);
   }
 }

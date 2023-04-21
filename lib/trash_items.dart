@@ -53,6 +53,7 @@ class Trash_Item extends SpriteComponent
     with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
   late MoveEffect h_move_effect;
   late final ratio;
+  late OpacityEffect h_opacity_effect;
   bool is_moving = true;
   bool is_colliding = false;
   bool scored = false;
@@ -62,7 +63,7 @@ class Trash_Item extends SpriteComponent
   Trash_Type type;
   double delay;
   double y_loc;
-  late OpacityEffect h_opacity_effect;
+
 
   Trash_Item(Trash_Type type, double delay, double y_loc) :
         this.type = type, this.delay = delay, this.y_loc = y_loc;
@@ -94,6 +95,7 @@ class Trash_Item extends SpriteComponent
   @override
   bool onTapDown(TapDownInfo info) {
     // info.handled = true
+
     if(is_colliding) {
       if((ratio*50 - ratio*type.size[1]) == position.y) {
         position = Vector2(position.x, ratio*150 - ratio*type.size[1]);
@@ -118,6 +120,7 @@ class Trash_Item extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
+
     if (other is Banda_T_Hole) {
       is_colliding = true;
     } else if (other is Trash_Item ) {
@@ -229,7 +232,7 @@ class Trash_Item extends SpriteComponent
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
-                add(h_opacity_effect);
+                // add(h_opacity_effect);
               }
             } else {
               position = Vector2(position.x, position.y - ratio*100);
@@ -243,11 +246,17 @@ class Trash_Item extends SpriteComponent
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
-                add(h_opacity_effect);
+                // add(h_opacity_effect);
               }
             } else {
             position = Vector2(position.x, position.y - ratio*100);
             }
+            // removeFromParent();
+            break;
+          case BHBox_Type.Yellow:
+          // if(this.type != Trash_Type.Botella_Plastico) {
+            position = Vector2(position.x, position.y - 100);
+            // }
             break;
           case BHBox_Type.Grey:
             if (
@@ -260,7 +269,7 @@ class Trash_Item extends SpriteComponent
               if (score != null) {
                 scored = true;
                 score.updateScore(1);
-                add(h_opacity_effect);
+                // add(h_opacity_effect);
               }
             } else {
               position = Vector2(position.x, position.y - ratio*100);

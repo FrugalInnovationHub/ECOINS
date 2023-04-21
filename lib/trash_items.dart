@@ -1,4 +1,5 @@
 import 'package:ecoins/gray_score.dart';
+import 'package:ecoins/yellow_score.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
@@ -17,6 +18,7 @@ import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
   Botella_Plastico(src: 'botella_plastico.png', size: [20, 45]),
+  Plastic_BOTTLE(src: 'Plastic_BOTTLE.png', size: [20, 45]),
   Botella_Refresco(src: 'Botella_Refresco.png', size: [20, 45]),
   Bola_Papel(src: 'Bola_papel.png', size: [30, 30]),
   Caja_Carton(src: 'Caja_Carton.png', size: [60, 45]),
@@ -24,6 +26,8 @@ enum Trash_Type implements Comparable<Trash_Type> {
   Botella_Agua_Grande(src: 'Botella_Agua_Grande.png', size: [30, 45]),
   Botella_Jabon(src: 'Botella_jabon.png', size: [25, 45]),
   Cilindro_Papel(src: 'Cilindro_papel.png', size: [20, 45]),
+  LATA_2(src: 'LATA_2.png', size: [20, 45]),
+  LATA_3(src: 'LATA_3.png', size: [20, 45]),
   Lata_aluminio(src: 'Lata_aluminio.png', size: [20, 45]);
 
 
@@ -52,7 +56,7 @@ class Trash_Item extends SpriteComponent
   bool is_moving = true;
   bool is_colliding = false;
   bool scored = false;
-  bool green_scored = false;
+  bool yellow_scored = false;
   bool blue_scored = false;
   bool grey_scored = false;
   Trash_Type type;
@@ -90,8 +94,6 @@ class Trash_Item extends SpriteComponent
   @override
   bool onTapDown(TapDownInfo info) {
     // info.handled = true
-    print(position.y);
-    print(ratio*250 - ratio*type.size[1]);
     if(is_colliding) {
       if((ratio*50 - ratio*type.size[1]) == position.y) {
         position = Vector2(position.x, ratio*150 - ratio*type.size[1]);
@@ -131,7 +133,7 @@ class Trash_Item extends SpriteComponent
         }
         switch (other.type) {
           case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande) {
+            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande || this.type == Trash_Type.Botella_Jabon || this.type == Trash_Type.Botella_Refresco || this.type == Trash_Type.Plastic_BOTTLE) {
               this.is_moving = false;
               update_move();
               if (blue_score != null) {
@@ -141,6 +143,34 @@ class Trash_Item extends SpriteComponent
               }
             } else {
               // position = Vector2(position.x, position.y - ratio*100);
+            }
+            // blue_scored = false;
+            break;
+
+          default:
+            {}
+        }
+      }
+      if (!yellow_scored) {
+        final allPositionComponents = parent.children.query<PositionComponent>();
+        Yellow_Score_Disp ?yellow_score;
+        for (PositionComponent p in allPositionComponents) {
+          if (p is Yellow_Score_Disp) {
+            yellow_score = p;
+          }
+        }
+        switch (other.type) {
+          case BHBox_Type.Yellow:
+            if (this.type == Trash_Type.Lata_aluminio || this.type == Trash_Type.LATA_2 || this.type == Trash_Type.LATA_3) {
+              this.is_moving = false;
+              update_move();
+              if (yellow_score != null) {
+                yellow_scored = true;
+                yellow_score.updateScore(1);
+                add(h_opacity_effect);
+              }
+            } else {
+              // position = Vector2(position.x, position.y - 100);
             }
             // blue_scored = false;
             break;
@@ -193,7 +223,7 @@ class Trash_Item extends SpriteComponent
         }
         switch (other.type) {
           case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande ) {
+            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande || this.type == Trash_Type.Botella_Jabon || this.type == Trash_Type.Botella_Refresco || this.type == Trash_Type.Plastic_BOTTLE) {
               this.is_moving = false;
               update_move();
               if (score != null) {
@@ -207,9 +237,17 @@ class Trash_Item extends SpriteComponent
             // removeFromParent();
             break;
           case BHBox_Type.Yellow:
-          // if(this.type != Trash_Type.Botella_Plastico) {
+            if (this.type == Trash_Type.Lata_aluminio || this.type == Trash_Type.LATA_2 || this.type == Trash_Type.LATA_3) {
+              this.is_moving = false;
+              update_move();
+              if (score != null) {
+                scored = true;
+                score.updateScore(1);
+                add(h_opacity_effect);
+              }
+            } else {
             position = Vector2(position.x, position.y - ratio*100);
-            // }
+            }
             break;
           case BHBox_Type.Grey:
             if (

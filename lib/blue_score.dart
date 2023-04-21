@@ -42,7 +42,7 @@ class Blue_Score_Disp extends PositionComponent with HasGameRef {
     BlueLevel2
       ..sprite = await gameRef.loadSprite('02.png')
       ..size = Vector2(ratio*87, ratio*40)
-      ..position = Vector2(ratio*307, ratio*360);
+      ..position = Vector2(ratio*306, ratio*360);
 
     add(BlueLevel2);
 

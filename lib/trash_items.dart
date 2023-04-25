@@ -14,6 +14,7 @@ import 'basureros_hbox.dart';
 import 'blue_score.dart';
 import 'game.dart';
 import 'green_score.dart';
+import 'hbox_level3.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
@@ -125,7 +126,11 @@ class Trash_Item extends SpriteComponent
       is_colliding = true;
     } else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
-    } else if (other is Basureros_HBox) {
+    }
+    else if(other is hbox_level3){
+
+    }
+    else if (other is Basureros_HBox) {
       if (!blue_scored) {
         final allPositionComponents = parent.children.query<PositionComponent>();
         Blue_Score_Disp ?blue_score;

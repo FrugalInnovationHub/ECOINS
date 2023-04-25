@@ -26,7 +26,7 @@ class Basureros_HBox extends RectangleComponent {
   Future<void> onLoad() async {
     super.onLoad();
     this.paint = Palette.transp.paint();
-    var h_box = RectangleHitbox();
+    var h_box = RectangleHitbox(isSolid: true);
     add(h_box);
   }
 }

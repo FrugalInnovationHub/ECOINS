@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:ecoins/blue_score.dart';
 import 'package:ecoins/components/ImageSprite.dart';
+import 'package:ecoins/hbox_level3.dart';
 import 'package:ecoins/powerUpComponent.dart';
 import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
@@ -61,11 +62,14 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     final Cocina _cocina = Cocina(size: size);
     await add(_cocina);
     await add(_pause_btn);
+    await add(hbox_level3(size: Vector2(ratio*10,ratio*50), position: Vector2(ratio,ratio*200)));
+    await add(hbox_level3(size: Vector2(ratio*10,ratio*50), position: Vector2(ratio*700,ratio*200)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);
     await add(yellow_score_disp);
     await add(gray_score_disp);
+
     await add(Sol);
     await add(agua);
 
@@ -189,7 +193,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     var indexes = Trash_Type.values.mapIndexed((index, element) => index).toList();
 
     // Generate 3 levels of trash items
-    for(int i=0;i<3;i++) {
+    for(int i=0;i<2;i++) {
       indexes.shuffle();
       Trash_Type.values.forEachIndexed((index, _type) {
         Trash_Item t;

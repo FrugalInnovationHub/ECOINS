@@ -62,8 +62,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     final Cocina _cocina = Cocina(size: size);
     await add(_cocina);
     await add(_pause_btn);
-    await add(hbox_level3(size: Vector2(ratio*10,ratio*50), position: Vector2(ratio,ratio*200)));
-    await add(hbox_level3(size: Vector2(ratio*10,ratio*50), position: Vector2(ratio*700,ratio*200)));
+    await add(hbox_level3(size: Vector2(ratio,ratio*50), position: Vector2(ratio - 70,ratio*200)));
+    await add(hbox_level3(size: Vector2(ratio,ratio*50), position: Vector2(ratio*770 ,ratio*200)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);
@@ -200,7 +200,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         t = Trash_Item(
               _type,
               indexes[index] + _random.nextDouble(),
-              ratio*(50 + i*100)
+              ratio*(50 + i*100),
+              0
           );
         _trash_items.add(t);
       });

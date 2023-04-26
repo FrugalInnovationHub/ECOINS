@@ -64,10 +64,11 @@ class Trash_Item extends SpriteComponent
   Trash_Type type;
   double delay;
   double y_loc;
+  int count;
 
 
-  Trash_Item(Trash_Type type, double delay, double y_loc) :
-        this.type = type, this.delay = delay, this.y_loc = y_loc;
+  Trash_Item(Trash_Type type, double delay, double y_loc, int count) :
+        this.type = type, this.delay = delay, this.y_loc = y_loc, this.count = count;
 
   @override
   Future<void> onLoad() async {
@@ -120,7 +121,7 @@ class Trash_Item extends SpriteComponent
   }
 
   @override
-  void onCollision(Set<Vector2> points, PositionComponent other) {
+  void onCollisionStart(Set<Vector2> points, PositionComponent other) {
 
     if (other is Banda_T_Hole) {
       is_colliding = true;
@@ -128,7 +129,11 @@ class Trash_Item extends SpriteComponent
       // position = Vector2(position.x - 20 , position.y);
     }
     else if(other is hbox_level3){
-
+      count += 1;
+      if(count == 6){
+        add(h_opacity_effect);
+        h_move_effect.removeFromParent();
+      }
     }
     else if (other is Basureros_HBox) {
       if (!blue_scored) {

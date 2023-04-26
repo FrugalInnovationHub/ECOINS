@@ -13,6 +13,6 @@ class hbox_level3 extends RectangleComponent with HasGameRef{
   Future<void> onLoad() async {
     super.onLoad();
     this.paint = Palette.transp.paint();
-    add(RectangleHitbox());
+    add(RectangleHitbox(isSolid:false));
   }
 }

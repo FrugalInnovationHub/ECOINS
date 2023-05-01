@@ -19,7 +19,7 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    double ratio = gameSize[0]/gameSize[1];
+    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
 
     // final _style = TextStyle(
     //     color: BasicPalette.white.color,
@@ -47,7 +47,7 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
     GrayLock
       ..sprite = await gameRef.loadSprite('Lock.png')
       ..size = Vector2(ratio*80, ratio*150)
-      ..position = Vector2(ratio*510, ratio*310);
+      ..position = Vector2(ratio*595, ratio*300);
 
     add(GrayLock);
   }

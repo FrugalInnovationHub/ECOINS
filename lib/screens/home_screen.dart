@@ -38,22 +38,22 @@ class HomeScreen extends FlameGame with HasTappables {
         position: Vector2(ratio * 720, ratio * 380),
         size: Vector2(ratio * 75, ratio * 70));
     final ImageSprite dolphin1 = ImageSprite(asset: 'DOLPHIN.png',
-        position: Vector2(ratio * 170, ratio * 50),
+        position: Vector2(ratio * 70, ratio * 100),
         size: Vector2(ratio * 50, ratio * 150),
         angle: -2);
     final ImageSprite dolphin2 = ImageSprite(asset: 'DOLPHIN.png',
-        position: Vector2(ratio * 350, ratio * 125),
+        position: Vector2(ratio * 250, ratio * 175),
         size: Vector2(ratio * 40, ratio * 125),
         angle: -2);
     final ImageSprite girl = ImageSprite(asset: 'GIRL.png',
         position: Vector2(ratio * 615, ratio * 50),
         size: Vector2(ratio * 165, ratio * 410));
     final ImageSprite whale = ImageSprite(asset: 'WHALE.png',
-        position: Vector2(ratio * 300, ratio * 175),
+        position: Vector2(-(ratio * 75), ratio * 475),
         size: Vector2(ratio * 150, ratio * 500),
         angle: -2.25);
     final ImageSprite turtle = ImageSprite(asset: 'Turtle.png',
-        position: Vector2(ratio * 685, ratio * 380),
+        position: Vector2(ratio * 525, ratio * 380),
         size: Vector2(ratio * 160, ratio * 80));
     final ImageSprite pelican = ImageSprite(asset: 'Pelican.png',
         position: Vector2(ratio * 405, ratio * 125),
@@ -75,10 +75,6 @@ class HomeScreen extends FlameGame with HasTappables {
         paint: green,
         size: Vector2(ratio * 10, ratio * 10));
 
-    turtle.flipHorizontally();
-    dolphin1.flipVertically();
-    dolphin2.flipVertically();
-    whale.flipVertically();
 
     await add(ecoins);
     await add(cangrejo1);

@@ -26,8 +26,7 @@ class Basureros extends PositionComponent with HasGameRef{
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    ratio = gameSize[0]/gameSize[1];
-
+    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
     // Green
     //   ..sprite = await gameRef.loadSprite('green_basureros.png')
     //   ..size = Vector2(gameSize[1]/4, gameSize[0]/4)
@@ -38,21 +37,21 @@ class Basureros extends PositionComponent with HasGameRef{
     Blue
       ..sprite = await gameRef.loadSprite('blue_basureros.png')
       ..size = Vector2(ratio*80, ratio*150)
-      ..position = Vector2(ratio*290, ratio*310);
+      ..position = Vector2(ratio*375, ratio*300);
 
     add(Blue);
 
     Yellow
       ..sprite = await gameRef.loadSprite('yellow_basureros.png')
       ..size = Vector2(ratio*80, ratio*150)
-      ..position = Vector2(ratio*400, ratio*310);
+      ..position = Vector2(ratio*485, ratio*300);
 
     add(Yellow);
 
     Grey
       ..sprite = await gameRef.loadSprite('grey_basureros.png')
       ..size = Vector2(ratio*80, ratio*150)
-      ..position = Vector2(ratio*510, ratio*310);
+      ..position = Vector2(ratio*595, ratio*300);
 
     add(Grey);
 
@@ -73,7 +72,7 @@ class Basureros extends PositionComponent with HasGameRef{
     var b_h_box = Basureros_HBox(
         BHBox_Type.Blue,
         size: Vector2(ratio*80, ratio*150),
-        position: Vector2(ratio*290, ratio*310)
+        position: Vector2(ratio*375, ratio*310)
     );
     b_h_box.debugColor = Color(0xFF0033FF);
     add(b_h_box);
@@ -81,7 +80,7 @@ class Basureros extends PositionComponent with HasGameRef{
     var y_h_box = Basureros_HBox(
         BHBox_Type.Yellow,
         size: Vector2(ratio*80, ratio*150),
-        position: Vector2(ratio*400, ratio*310)
+        position: Vector2(ratio*485, ratio*310)
     );
     y_h_box.debugColor = Color(0xFFFFF200);
     add(y_h_box);
@@ -89,7 +88,7 @@ class Basureros extends PositionComponent with HasGameRef{
     var grey_h_box = Basureros_HBox(
         BHBox_Type.Grey,
         size: Vector2(ratio*80, ratio*150),
-        position: Vector2(ratio*510, ratio*310)
+        position: Vector2(ratio*595, ratio*310)
     );
     grey_h_box.debugColor = Color(0xFFFFFFFF);
     add(grey_h_box);

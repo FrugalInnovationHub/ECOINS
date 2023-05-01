@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:ecoins/blue_score.dart';
 import 'package:ecoins/components/ImageSprite.dart';
+import 'package:ecoins/components/distractive_item.dart';
 import 'package:ecoins/powerUpComponent.dart';
 import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
@@ -54,7 +55,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   Future<void> onLoad() async {
     super.onLoad();
     children.register<PositionComponent>();
-    var ratio = size[0]/size[1];
+    var ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
     // debugMode = true;
     final ImageSprite Sol = ImageSprite(position: Vector2(ratio*40, ratio*350), size: Vector2.all(ratio*70), asset: 'Sol.png');
     final ImageSprite agua = ImageSprite(position: Vector2(ratio*125, ratio*350), size: Vector2(ratio*50, ratio*70), asset: 'Gota_agua.png');
@@ -78,22 +79,22 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       Vector2(ratio*125, ratio*28),
       Vector2(ratio*250, ratio*28),
       Vector2(ratio*375, ratio*28),
-      Vector2(ratio, ratio*78),
-      Vector2(ratio*125, ratio*78),
-      Vector2(ratio*250, ratio*78),
-      Vector2(ratio*375, ratio*78),
-      Vector2(ratio, ratio*128),
-      Vector2(ratio*125, ratio*128),
+      Vector2(ratio, ratio*73),
+      Vector2(ratio*125, ratio*73),
+      Vector2(ratio*250, ratio*73),
+      Vector2(ratio*375, ratio*73),
+      Vector2(ratio, ratio*118),
+      Vector2(ratio*125, ratio*118),
       // Vector2(ratio*225, ratio*128),
-      Vector2(ratio*375, ratio*128)
+      Vector2(ratio*375, ratio*118)
     ];
     hole_pos.add(Vector2(ratio*100, ratio*50));
     hole_pos.add(Vector2(ratio*600, ratio*50));
-    hole_pos.add(Vector2(ratio*300, ratio*150));
-    hole_pos.add(Vector2(ratio*(285) , ratio*250));
-    // for(var i=0; i<3; i++){
-    //   hole_pos.add(Vector2(ratio*(285 + i*110) , ratio*250));
-    // }
+    hole_pos.add(Vector2(ratio*300, ratio*140));
+    hole_pos.add(Vector2(ratio*(390) , ratio*230));
+    for(var i=0; i<3; i++){
+      hole_pos.add(Vector2(ratio*(390 + i*110) , ratio*230));
+    }
 
     FlameAudio.bgm.play("MUSICGAME.mp3");
 
@@ -105,7 +106,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
     _banda_t_hole.position = hole_pos[0];
-    _banda_t_hole.size = Vector2(ratio*80, ratio*8);
+    _banda_t_hole.size = Vector2(ratio*50, ratio*8);
     _banda_t_holes.add(_banda_t_hole);
     banda_t_info.add([Vector2(0, _banda_t_hole.position.y), Vector2(_banda_t_hole.position.x, ratio*40)]);
     Wheel wheel;
@@ -119,7 +120,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     for(Vector2 pos in hole_pos.sublist(1)) {
       Banda_T_Hole _banda_t_hole = Banda_T_Hole();
       _banda_t_hole.position = pos;
-      _banda_t_hole.size = Vector2(ratio*80, ratio*8);
+      _banda_t_hole.size = Vector2(ratio*50, ratio*8);
       _banda_t_holes.add(_banda_t_hole);
       // var _banda_1_info = [
       //   Vector2(0, _banda_t_hole.position.y),
@@ -187,22 +188,42 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     var _trash_items = [];
     var indexes = Trash_Type.values.mapIndexed((index, element) => index).toList();
-
+    var dis_indexes = Distractive_Type.values.mapIndexed((index, element) => index).toList();
     // Generate 3 levels of trash items
     for(int i=0;i<3;i++) {
-      indexes.shuffle();
-      Trash_Type.values.forEachIndexed((index, _type) {
+      var j = _random.nextInt(indexes.length);
+      var k = _random.nextInt(dis_indexes.length);
+      DistractiveItem d;
         Trash_Item t;
         t = Trash_Item(
-              _type,
-              indexes[index] + _random.nextDouble(),
-              ratio*(50 + i*100)
+              Trash_Type.values[j],
+              i*4,
+              ratio*(50)
           );
         _trash_items.add(t);
-      });
+        d = DistractiveItem(
+            Distractive_Type.values[k],
+            i*4 + 2,
+            ratio*(50)
+          );
+        _trash_items.add(d);
+        j = _random.nextInt(indexes.length);
+        k = _random.nextInt(dis_indexes.length);
+        t = Trash_Item(
+            Trash_Type.values[j],
+            i*4,
+            ratio*(140)
+        );
+        _trash_items.add(t);
+        d = DistractiveItem(
+          Distractive_Type.values[k],
+          i*4 + 2,
+          ratio*(140)
+      );
+      _trash_items.add(d);
     }
 
-    for(Trash_Item i in _trash_items) {
+    for(var i in _trash_items) {
       await add(i);
     }
 

@@ -71,7 +71,7 @@ class Trash_Item extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    ratio = gameRef.size[0]/gameRef.size[1];
+    ratio = double.parse((gameRef.size[0]/gameRef.size[1]).toStringAsFixed(1));
     y_loc = y_loc - ratio*type.size[1];
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-(ratio*60), y_loc);
@@ -82,7 +82,7 @@ class Trash_Item extends SpriteComponent
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y_loc),
       EffectController(
-        startDelay: 1.5*delay,
+        startDelay: delay,
         duration: 20,
         infinite: true,
         alternate: true
@@ -98,13 +98,13 @@ class Trash_Item extends SpriteComponent
 
     if(is_colliding) {
       if((ratio*50 - ratio*type.size[1]) == position.y) {
-        position = Vector2(position.x, ratio*150 - ratio*type.size[1]);
+        position = Vector2(position.x, ratio*140 - ratio*type.size[1]);
       }
-      else if((ratio*150 - ratio*type.size[1]) == position.y) {
-        position = Vector2(position.x, ratio*250 - ratio*type.size[1]);
+      else if((ratio*140 - ratio*type.size[1]) == position.y) {
+        position = Vector2(position.x, ratio*230 - ratio*type.size[1]);
       }
       else{
-        position = Vector2(position.x, ratio*350 - ratio*type.size[1]);
+        position = Vector2(position.x, ratio*330 - ratio*type.size[1]);
       }
     }
     return false;

@@ -26,7 +26,7 @@ class Blue_Score_Disp extends PositionComponent with HasGameRef {
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    ratio = gameSize[0]/gameSize[1];
+    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
     // TextComponent _green_score_txt = TextComponent(
     //     text: 'Score: ',
     //     textRenderer: _paint,
@@ -35,28 +35,28 @@ class Blue_Score_Disp extends PositionComponent with HasGameRef {
     BlueLevel1
       ..sprite = await gameRef.loadSprite('01.png')
       ..size = Vector2(ratio*67, ratio*40)
-      ..position = Vector2(ratio*296, ratio*420);
+      ..position = Vector2(ratio*381, ratio*410);
 
     add(BlueLevel1);
 
     BlueLevel2
       ..sprite = await gameRef.loadSprite('02.png')
       ..size = Vector2(ratio*70, ratio*40)
-      ..position = Vector2(ratio*295, ratio*380);
+      ..position = Vector2(ratio*380, ratio*370);
 
     add(BlueLevel2);
 
     BlueLevel3
       ..sprite = await gameRef.loadSprite('03.png')
       ..size = Vector2(ratio*80, ratio*34)
-      ..position = Vector2(ratio*290, ratio*346);
+      ..position = Vector2(ratio*375, ratio*336);
 
     add(BlueLevel3);
 
     BlueLevel4
       ..sprite = await gameRef.loadSprite('04.png')
       ..size = Vector2(ratio*79, ratio*37)
-      ..position = Vector2(ratio*290, ratio*310);
+      ..position = Vector2(ratio*375, ratio*300);
 
     add(BlueLevel4);
 

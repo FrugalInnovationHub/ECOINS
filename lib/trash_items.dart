@@ -17,25 +17,27 @@ import 'green_score.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
-  Botella_Plastico(src: 'botella_plastico.png', size: [20, 45]),
-  Plastic_BOTTLE(src: 'Plastic_BOTTLE.png', size: [20, 45]),
-  Botella_Refresco(src: 'Botella_Refresco.png', size: [20, 45]),
-  Bola_Papel(src: 'Bola_papel.png', size: [30, 30]),
-  Caja_Carton(src: 'Caja_Carton.png', size: [60, 45]),
-  Botella_Agua(src: 'Botella_Agua.png', size: [20, 45]),
-  Botella_Agua_Grande(src: 'Botella_Agua_Grande.png', size: [30, 45]),
-  Botella_Jabon(src: 'Botella_jabon.png', size: [25, 45]),
-  Cilindro_Papel(src: 'Cilindro_papel.png', size: [20, 45]),
-  LATA_2(src: 'LATA_2.png', size: [20, 45]),
-  LATA_3(src: 'LATA_3.png', size: [20, 45]),
-  Lata_aluminio(src: 'Lata_aluminio.png', size: [20, 45]);
+  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [20, 45]),
+  Plastic_BOTTLE(type: "Plastico", src: 'Plastic_BOTTLE.png', size: [20, 45]),
+  Botella_Refresco(type: "Plastico", src: 'Botella_Refresco.png', size: [20, 45]),
+  Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [30, 30]),
+  Caja_Carton(type: "Paper", src: 'Caja_Carton.png', size: [60, 45]),
+  Botella_Agua(type: "Plastico", src: 'Botella_Agua.png', size: [20, 45]),
+  Botella_Agua_Grande(type: "Plastico", src: 'Botella_Agua_Grande.png', size: [30, 45]),
+  Botella_Jabon(type: "Plastico", src: 'Botella_jabon.png', size: [25, 45]),
+  Cilindro_Papel(type: "Paper", src: 'Cilindro_papel.png', size: [20, 45]),
+  LATA_2(type: "Aluminio", src: 'LATA_2.png', size: [20, 45]),
+  LATA_3(type: "Aluminio", src: 'LATA_3.png', size: [20, 45]),
+  Lata_aluminio(type: "Aluminio", src: 'Lata_aluminio.png', size: [20, 45]);
 
 
   const Trash_Type({
+    required this.type,
     required this.src,
     required this.size
   });
 
+  final type;
   final src;
   final size;
 
@@ -54,6 +56,8 @@ class Trash_Item extends SpriteComponent
   late MoveEffect h_move_effect;
   late final ratio;
   late OpacityEffect h_opacity_effect;
+  late RemoveEffect h_remove_effect;
+  late final category;
   bool is_moving = true;
   bool is_colliding = false;
   bool scored = false;
@@ -72,6 +76,7 @@ class Trash_Item extends SpriteComponent
   Future<void> onLoad() async {
     super.onLoad();
     ratio = double.parse((gameRef.size[0]/gameRef.size[1]).toStringAsFixed(1));
+    category = type.type;
     y_loc = y_loc - ratio*type.size[1];
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-(ratio*60), y_loc);
@@ -88,7 +93,7 @@ class Trash_Item extends SpriteComponent
         alternate: true
       ),
     );
-
+    h_remove_effect = RemoveEffect(delay: 4);
     update_move();
   }
 
@@ -143,6 +148,7 @@ class Trash_Item extends SpriteComponent
                 blue_scored = true;
                 blue_score.blue_updateScore(1);
                 add(h_opacity_effect);
+                add(h_remove_effect);
               }
             } else {
               // position = Vector2(position.x, position.y - ratio*100);

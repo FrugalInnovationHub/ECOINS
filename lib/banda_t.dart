@@ -6,8 +6,8 @@ import 'dart:ui';
 
 class Banda_T extends SpriteComponent with HasGameRef {
   late final asset;
-
-  Banda_T({super.position, super.size, super.angle, required this.asset});
+  late final hole_no;
+  Banda_T({super.position, super.size, super.angle, required this.asset, this.hole_no = 0});
 
   @override
   Future<void> onLoad() async {

@@ -1,3 +1,4 @@
+import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
@@ -13,7 +14,10 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
   late Gray_ScoreVal _gray_score_val;
   int gray_score = 0;
   late double ratio = 1;
-  SpriteComponent GrayLock = SpriteComponent();
+  SpriteComponent GrayLevel1 = SpriteComponent();
+  SpriteComponent GrayLevel2 = SpriteComponent();
+  SpriteComponent GrayLevel3 = SpriteComponent();
+  SpriteComponent GrayLevel4 = SpriteComponent();
 
   @override
   Future<void> onLoad() async {
@@ -21,41 +25,70 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
     var gameSize = gameRef.size;
     ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
 
-    // final _style = TextStyle(
-    //     color: BasicPalette.white.color,
-    //     fontSize: 30.0,
-    //     fontWeight: FontWeight.bold
-    // );
-    // final _paint = TextPaint(style: _style);
-    //
-    // position = Vector2(gameSize[0]*0.19 + 3*gameSize[1]*0.25, gameSize[0]*0.25 + gameSize[1]*0.5);
-    // size = Vector2(30, 40);
 
-    // TextComponent _green_score_txt = TextComponent(
-    //     text: 'Score: ',
-    //     textRenderer: _paint,
-    //     position: Vector2(0, 0)
-    // );
+    GrayLevel1
+      ..sprite = await gameRef.loadSprite('01.png')
+      ..size = Vector2(ratio*67, ratio*40)
+      ..position = Vector2(ratio*601, ratio*410);
 
-    // _gray_score_val = Gray_ScoreVal(
-    //     textRenderer: _paint,
-    //     position: Vector2(90, 1)
-    // );
-    //
-    // // await add(_green_score_txt);
-    // await add(_gray_score_val);
-    GrayLock
-      ..sprite = await gameRef.loadSprite('Lock.png')
-      ..size = Vector2(ratio*80, ratio*150)
+    add(GrayLevel1);
+
+    GrayLevel2
+      ..sprite = await gameRef.loadSprite('02.png')
+      ..size = Vector2(ratio*70, ratio*40)
+      ..position = Vector2(ratio*600, ratio*370);
+
+    add(GrayLevel2);
+
+    GrayLevel3
+      ..sprite = await gameRef.loadSprite('03.png')
+      ..size = Vector2(ratio*80, ratio*34)
+      ..position = Vector2(ratio*595, ratio*336);
+
+    add(GrayLevel3);
+
+    GrayLevel4
+      ..sprite = await gameRef.loadSprite('04.png')
+      ..size = Vector2(ratio*79, ratio*37)
       ..position = Vector2(ratio*595, ratio*300);
 
-    add(GrayLock);
+    add(GrayLevel4);
   }
 
   bool updateScore(int newScore) {
     this.gray_score += newScore;
-    this._gray_score_val.gray_score = this.gray_score;
+    // this._gray_score_val.gray_score = this.gray_score;
+    if (this.gray_score <= 40) {
+      changeSpriteLevel();
+    }
     return true;
+  }
+
+  void changeSpriteLevel() {
+    if(gray_score <= 10){
+      GrayLevel1.size.y = ratio*(40 - gray_score*4);
+      if(gray_score == 10){
+        GrayLevel1.removeFromParent();
+      }
+    }
+    else if(gray_score <= 20){
+      GrayLevel2.size.y = ratio*(40 - (gray_score - 10)*4);
+      if(gray_score == 20){
+        GrayLevel2.removeFromParent();
+      }
+    }
+    else if(gray_score <= 30){
+      GrayLevel3.size.y = ratio*(40 - (gray_score - 20)*3.4);
+      if(gray_score == 30){
+        GrayLevel3.removeFromParent();
+      }
+    }
+    else if(gray_score <= 40){
+      GrayLevel4.size.y = ratio*(40 - (gray_score - 30)*3.7);
+      if(gray_score == 40){
+        GrayLevel4.removeFromParent();
+      }
+    }
   }
 }
 

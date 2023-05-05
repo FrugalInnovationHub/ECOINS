@@ -67,16 +67,37 @@ class Blue_Score_Disp extends PositionComponent with HasGameRef {
   bool blue_updateScore(int newScore) {
     this.blue_score += newScore;
     // this._blue_score_val.blue_score = this.blue_score;
-      if (this.blue_score <= 10) {
+      if (this.blue_score <= 40) {
         changeSpriteLevel();
       }
 
     return true;
   }
   void changeSpriteLevel() {
-      i = i + 4;
-      print(i);
-      BlueLevel1.size.y = ratio*(40 - i);
+      if(blue_score <= 10){
+        BlueLevel1.size.y = ratio*(40 - blue_score*4);
+        if(blue_score == 10){
+          BlueLevel1.removeFromParent();
+        }
+      }
+      else if(blue_score <= 20){
+        BlueLevel2.size.y = ratio*(40 - (blue_score - 10)*4);
+        if(blue_score == 20){
+          BlueLevel2.removeFromParent();
+        }
+      }
+      else if(blue_score <= 30){
+        BlueLevel3.size.y = ratio*(40 - (blue_score - 20)*3.4);
+        if(blue_score == 30){
+          BlueLevel3.removeFromParent();
+        }
+      }
+      else if(blue_score <= 40){
+        BlueLevel4.size.y = ratio*(40 - (blue_score - 30)*3.7);
+        if(blue_score == 40){
+          BlueLevel4.removeFromParent();
+        }
+      }
   }
 }
 

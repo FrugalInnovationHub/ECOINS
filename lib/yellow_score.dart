@@ -1,3 +1,4 @@
+import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
@@ -18,7 +19,6 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
   SpriteComponent YellowLevel2 = SpriteComponent();
   SpriteComponent YellowLevel3 = SpriteComponent();
   SpriteComponent YellowLevel4 = SpriteComponent();
-  SpriteComponent YellowLock = SpriteComponent();
 
   @override
   Future<void> onLoad() async {
@@ -50,56 +50,70 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
     // await add(_yellow_score_val);
 
 
-    // YellowLevel1
-    //   ..sprite = await gameRef.loadSprite('01.png')
-    //   ..size = Vector2(ratio*85, ratio*40)
-    //   ..position = Vector2(ratio*417, ratio*400);
-    //
-    // add(YellowLevel1);
-    //
-    // YellowLevel2
-    //   ..sprite = await gameRef.loadSprite('02.png')
-    //   ..size = Vector2(ratio*88, ratio*40)
-    //   ..position = Vector2(ratio*416, ratio*360);
-    //
-    // add(YellowLevel2);
-    //
-    // YellowLevel3
-    //   ..sprite = await gameRef.loadSprite('03.png')
-    //   ..size = Vector2(ratio*101, ratio*40)
-    //   ..position = Vector2(ratio*410, ratio*320);
-    //
-    // add(YellowLevel3);
-    //
-    // YellowLevel4
-    //   ..sprite = await gameRef.loadSprite('04.png')
-    //   ..size = Vector2(ratio*99, ratio*40)
-    //   ..position = Vector2(ratio*410, ratio*280);
-    //
-    // add(YellowLevel4);
+    YellowLevel1
+      ..sprite = await gameRef.loadSprite('01.png')
+      ..size = Vector2(ratio*67, ratio*40)
+      ..position = Vector2(ratio*491, ratio*410);
 
-    YellowLock
-      ..sprite = await gameRef.loadSprite('Lock.png')
-      ..size = Vector2(ratio*82, ratio*151)
-      ..position = Vector2(ratio*484, ratio*299);
+    add(YellowLevel1);
 
-    add(YellowLock);
+    YellowLevel2
+      ..sprite = await gameRef.loadSprite('02.png')
+      ..size = Vector2(ratio*70, ratio*40)
+      ..position = Vector2(ratio*490, ratio*370);
 
+    add(YellowLevel2);
+
+    YellowLevel3
+      ..sprite = await gameRef.loadSprite('03.png')
+      ..size = Vector2(ratio*80, ratio*34)
+      ..position = Vector2(ratio*485, ratio*336);
+
+    add(YellowLevel3);
+
+    YellowLevel4
+      ..sprite = await gameRef.loadSprite('04.png')
+      ..size = Vector2(ratio*79, ratio*37)
+      ..position = Vector2(ratio*485, ratio*300);
+
+    add(YellowLevel4);
 
   }
 
   bool updateScore(int newScore) {
     this.yellow_score += newScore;
     // this._yellow_score_val.yellow_score = this.yellow_score;
-    if (this.yellow_score < 10) {
+    if (this.yellow_score <= 40) {
       changeSpriteLevel();
     }
     return true;
   }
+
   void changeSpriteLevel() {
-    i = i + 4;
-    print(i);
-    YellowLevel1.size = Vector2(ratio* 85, ratio*(40 - i));
+    if(yellow_score <= 10){
+      YellowLevel1.size.y = ratio*(40 - yellow_score*4);
+      if(yellow_score == 10){
+        YellowLevel1.removeFromParent();
+      }
+    }
+    else if(yellow_score <= 20){
+      YellowLevel2.size.y = ratio*(40 - (yellow_score - 10)*4);
+      if(yellow_score == 20){
+        YellowLevel2.removeFromParent();
+      }
+    }
+    else if(yellow_score <= 30){
+      YellowLevel3.size.y = ratio*(40 - (yellow_score - 20)*3.4);
+      if(yellow_score == 30){
+        YellowLevel3.removeFromParent();
+      }
+    }
+    else if(yellow_score <= 40){
+      YellowLevel4.size.y = ratio*(40 - (yellow_score - 30)*3.7);
+      if(yellow_score == 40){
+        YellowLevel4.removeFromParent();
+      }
+    }
   }
 }
 

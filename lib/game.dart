@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:ecoins/blue_score.dart';
 import 'package:ecoins/components/ImageSprite.dart';
+import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:ecoins/components/distractive_item.dart';
 import 'package:ecoins/powerUpComponent.dart';
 import 'package:ecoins/wheel.dart';
@@ -32,11 +33,13 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   final Blue_Score_Disp blue_score_disp = Blue_Score_Disp();
   final Yellow_Score_Disp yellow_score_disp = Yellow_Score_Disp();
   final Gray_Score_Disp gray_score_disp = Gray_Score_Disp();
+  late BasuresosLock lock;
   // final Score_Board _score_board = Score_Board();
   final _random = new Random();
-  final double _trash_start_y = 50;
-  final double _powerup_start_y = -30;
   late PowerUp_Type_Comp type;
+  late var focusedItem;
+  late final total_trash_items;
+  late var ratio;
 
   bool musicPlaying = false;
 
@@ -55,8 +58,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   Future<void> onLoad() async {
     super.onLoad();
     children.register<PositionComponent>();
-    var ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
+    ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
     // debugMode = true;
+    focusedItem = "Plastico";
+    total_trash_items = 5;
+
     final ImageSprite Sol = ImageSprite(position: Vector2(ratio*40, ratio*350), size: Vector2.all(ratio*70), asset: 'Sol.png');
     final ImageSprite agua = ImageSprite(position: Vector2(ratio*125, ratio*350), size: Vector2(ratio*50, ratio*70), asset: 'Gota_agua.png');
     final Cocina _cocina = Cocina(size: size);
@@ -69,6 +75,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(gray_score_disp);
     await add(Sol);
     await add(agua);
+
+    lock = BasuresosLock(position: Vector2(ratio*484, ratio*299), size: Vector2(ratio*82, ratio*151), type: "yellow");
+    await add(lock);
+    lock = BasuresosLock(position: Vector2(ratio*595, ratio*300), size: Vector2(ratio*80, ratio*150), type: "gray");
+    await add(lock);
 
     var _banda_t_holes = [];
     var _banda_ts = [];
@@ -91,7 +102,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     hole_pos.add(Vector2(ratio*100, ratio*50));
     hole_pos.add(Vector2(ratio*600, ratio*50));
     hole_pos.add(Vector2(ratio*300, ratio*140));
-    hole_pos.add(Vector2(ratio*(390) , ratio*230));
+    // hole_pos.add(Vector2(ratio*(390) , ratio*230));
     for(var i=0; i<3; i++){
       hole_pos.add(Vector2(ratio*(390 + i*110) , ratio*230));
     }
@@ -159,7 +170,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       Vector2(this.size.length, ratio*40)
     ]);
 
-    for (Banda_T_Hole _hole in _banda_t_holes) {
+    for (Banda_T_Hole _hole in _banda_t_holes.sublist(0,_banda_t_holes.length - 2)) {
       await add(_hole);
     }
 
@@ -182,48 +193,105 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       }
     }
 
+    var hole_no = 1;
+    for(var hole in hole_pos.sublist(hole_pos.length-2)){
+      var start_x = hole[0];
+      var end_x = hole[0] + ratio*50;
+      Banda_T _bt;
+      while(start_x < end_x){
+        _bt = Banda_T(asset: 'uno_conveyor_belt.png', position: Vector2(start_x, hole[1]),
+            size: Vector2(ratio * 5, ratio*40), hole_no: hole_no);
+        _banda_ts.add(_bt);
+        start_x += ratio*5;
+      }
+      hole_no += 1;
+    }
+
     for(Banda_T _bt in _banda_ts) {
       await add(_bt);
     }
 
-    var _trash_items = [];
-    var indexes = Trash_Type.values.mapIndexed((index, element) => index).toList();
+    var belt1_trash_items = [];
+    var belt2_trash_items = [];
+    var distractive_items = [];
+    var focused_indexes = [];
+    var rest_indexes = [];
+    Trash_Type.values.forEachIndexed((index, element) {
+      if(element.type == focusedItem){
+        focused_indexes.add(index);
+      }
+      else {
+        rest_indexes.add(index);
+      }
+    });
+    // var indexes = Trash_Type.values.mapIndexed((index, element) => index).toList();
     var dis_indexes = Distractive_Type.values.mapIndexed((index, element) => index).toList();
-    // Generate 3 levels of trash items
-    for(int i=0;i<3;i++) {
-      var j = _random.nextInt(indexes.length);
-      var k = _random.nextInt(dis_indexes.length);
-      DistractiveItem d;
+
+    for(int i=0;i < (0.6*total_trash_items).round() ;i++) {
+      var j = _random.nextInt(focused_indexes.length);
         Trash_Item t;
         t = Trash_Item(
-              Trash_Type.values[j],
+              Trash_Type.values[focused_indexes[j]],
               i*4,
               ratio*(50)
           );
-        _trash_items.add(t);
-        d = DistractiveItem(
-            Distractive_Type.values[k],
-            i*4 + 2,
-            ratio*(50)
-          );
-        _trash_items.add(d);
-        j = _random.nextInt(indexes.length);
-        k = _random.nextInt(dis_indexes.length);
+        belt1_trash_items.add(t);
+        j = _random.nextInt(focused_indexes.length);
         t = Trash_Item(
-            Trash_Type.values[j],
+            Trash_Type.values[focused_indexes[j]],
             i*4,
             ratio*(140)
         );
-        _trash_items.add(t);
-        d = DistractiveItem(
+        belt2_trash_items.add(t);
+    }
+    for(int i=0;i < (0.4*total_trash_items).round() ;i++) {
+      var j = _random.nextInt(rest_indexes.length);
+      Trash_Item t;
+      t = Trash_Item(
+          Trash_Type.values[rest_indexes[j]],
+          i*4,
+          ratio*(50)
+      );
+      belt1_trash_items.add(t);
+      j = _random.nextInt(rest_indexes.length);
+      t = Trash_Item(
+          Trash_Type.values[rest_indexes[j]],
+          i*4,
+          ratio*(140)
+      );
+      belt2_trash_items.add(t);
+    }
+
+
+
+    for (int i = 0; i < 3; i++){
+      var k = _random.nextInt(dis_indexes.length);
+      DistractiveItem d;
+      d = DistractiveItem(
+          Distractive_Type.values[k],
+          i*4 + 2,
+          ratio*(50)
+      );
+      belt1_trash_items.add(d);
+      k = _random.nextInt(dis_indexes.length);
+      d = DistractiveItem(
           Distractive_Type.values[k],
           i*4 + 2,
           ratio*(140)
       );
-      _trash_items.add(d);
+      belt2_trash_items.add(d);
     }
 
-    for(var i in _trash_items) {
+    belt1_trash_items.shuffle();
+    belt2_trash_items.shuffle();
+    for(int i = 0; i < belt1_trash_items.length; i++) {
+      belt1_trash_items[i].delay = i*2 + _random.nextDouble();
+      belt2_trash_items[i].delay = i*2 + _random.nextDouble();
+      await add(belt1_trash_items[i]);
+      await add(belt2_trash_items[i]);
+    }
+
+    for(var i in distractive_items) {
       await add(i);
     }
 
@@ -233,7 +301,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     var _powerup_items = [];
     var indexes_powerup = PowerUp_Type_Comp.values.mapIndexed((index, element) => index).toList();
-    indexes.shuffle();
     PowerUp_Type_Comp.values.forEachIndexed((index, _type) {
       PowerUpComponent t;
         t = PowerUpComponent(
@@ -249,8 +316,119 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
       _powerup_items.add(t);
     });
+
     for(PowerUpComponent i in _powerup_items) {
       await add(i);
+    }
+  }
+  
+  @override
+  void onChildrenChanged(Component child, ChildrenChangeType type) {
+    // TODO: implement onChildrenChanged
+    super.onChildrenChanged(child, type);
+    if(child is Trash_Item && type == ChildrenChangeType.removed){
+      final allTrashItems = children.query<Trash_Item>();
+      var focused_items_count = 0;
+      var belt1_item_count = 0;
+      for(var i in allTrashItems){
+
+        if(i.category == focusedItem){
+          focused_items_count += 1;
+        }
+        if(i.y_loc < ratio*50){
+          belt1_item_count += 1;
+        }
+      }
+      var focused_indexes = [];
+      var rest_indexes = [];
+      Trash_Type.values.forEachIndexed((index, element) {
+        if(element.type == focusedItem){
+          focused_indexes.add(index);
+        }
+        else {
+          rest_indexes.add(index);
+        }
+      });
+      Trash_Item t;
+      var j;
+      if(focused_items_count < ((1.2)*total_trash_items).round()){
+        j = _random.nextInt(focused_indexes.length);
+        t = Trash_Item(
+            Trash_Type.values[focused_indexes[j]],
+            _random.nextDouble(),
+            ratio*(50)
+        );
+      }
+      else {
+        j = _random.nextInt(rest_indexes.length);
+        t = Trash_Item(
+            Trash_Type.values[rest_indexes[j]],
+            _random.nextDouble(),
+            ratio*(50)
+        );
+      }
+      if(belt1_item_count < total_trash_items){
+        add(t);
+      }
+      else {
+        t.y_loc = ratio*140;
+        add(t);
+      }
+      if(_score_disp.score == 40){
+        focusedItem = "Aluminio";
+        final allBandaT = children.query<Banda_T>();
+        final allLock = children.query<BasuresosLock>();
+
+        for(var i in allBandaT){
+          if(i.hole_no == 1){
+            i.removeFromParent();
+          }
+        }
+        for (var i in allLock){
+          if(i.type == "yellow"){
+            i.removeFromParent();
+          }
+        }
+        Banda_T_Hole _banda_t_hole = Banda_T_Hole();
+        _banda_t_hole.position = hole_pos[4];
+        _banda_t_hole.size = Vector2(ratio*50, ratio*8);
+        add(_banda_t_hole);
+      }
+      if(_score_disp.score == 80){
+        focusedItem = "Paper";
+        final allBandaT = children.query<Banda_T>();
+        final allLock = children.query<BasuresosLock>();
+
+        for(var i in allBandaT){
+          if(i.hole_no == 2){
+            i.removeFromParent();
+          }
+        }
+        for (var i in allLock){
+          if(i.type == "gray"){
+            i.removeFromParent();
+          }
+        }
+        Banda_T_Hole _banda_t_hole = Banda_T_Hole();
+        _banda_t_hole.position = hole_pos[5];
+        _banda_t_hole.size = Vector2(ratio*50, ratio*8);
+        add(_banda_t_hole);
+      }
+    }
+
+    if(child is DistractiveItem && type == ChildrenChangeType.removed){
+      var dis_indexes = Distractive_Type.values.mapIndexed((index, element) => index).toList();
+      var k = _random.nextInt(dis_indexes.length);
+      DistractiveItem d;
+      if(child.y_loc <= ratio*50) {
+        d = DistractiveItem(
+            Distractive_Type.values[k], _random.nextDouble(), ratio * 50);
+      }
+      else {
+        d = DistractiveItem(
+            Distractive_Type.values[k], _random.nextDouble(), ratio * 140);
+      }
+      add(d);
     }
   }
 }

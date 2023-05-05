@@ -3,6 +3,7 @@ import 'package:ecoins/blue_score.dart';
 import 'package:ecoins/components/ImageSprite.dart';
 import 'package:ecoins/hbox_level3.dart';
 import 'package:ecoins/powerUpComponent.dart';
+import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
 import 'package:flame/game.dart';
@@ -28,6 +29,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
+  final Sol_Score_Disp _sol_score_disp = Sol_Score_Disp();
+  final Gota_Score_Disp _gota_score_disp = Gota_Score_Disp();
   final Score_Disp _score_disp = Score_Disp();
   final Blue_Score_Disp blue_score_disp = Blue_Score_Disp();
   final Yellow_Score_Disp yellow_score_disp = Yellow_Score_Disp();
@@ -57,8 +60,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     children.register<PositionComponent>();
     var ratio = size[0]/size[1];
     // debugMode = true;
-    final ImageSprite Sol = ImageSprite(position: Vector2(ratio*40, ratio*350), size: Vector2.all(ratio*70), asset: 'Sol.png');
-    final ImageSprite agua = ImageSprite(position: Vector2(ratio*125, ratio*350), size: Vector2(ratio*50, ratio*70), asset: 'Gota_agua.png');
     final Cocina _cocina = Cocina(size: size);
     await add(_cocina);
     await add(_pause_btn);
@@ -69,9 +70,12 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(blue_score_disp);
     await add(yellow_score_disp);
     await add(gray_score_disp);
-
+    final ImageSprite Sol = ImageSprite(position: Vector2(ratio*40, ratio*350), size: Vector2.all(ratio*70), asset: 'Sol.png');
+    final ImageSprite agua = ImageSprite(position: Vector2(ratio*125, ratio*350), size: Vector2(ratio*50, ratio*70), asset: 'Gota_agua.png');
     await add(Sol);
     await add(agua);
+    await add(_sol_score_disp);
+    await add(_gota_score_disp);
 
     var _banda_t_holes = [];
     var _banda_ts = [];
@@ -99,7 +103,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     //   hole_pos.add(Vector2(ratio*(285 + i*110) , ratio*250));
     // }
 
-    FlameAudio.bgm.play("MUSICGAME.mp3");
+    // FlameAudio.bgm.play("MUSICGAME.mp3");
 
     // FlameAudio.bgm.initialize();
     // if (!musicPlaying) {

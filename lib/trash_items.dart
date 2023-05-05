@@ -1,4 +1,5 @@
 import 'package:ecoins/gray_score.dart';
+import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/yellow_score.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -13,6 +14,7 @@ import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'blue_score.dart';
 import 'game.dart';
+import 'gota_scored.dart';
 import 'green_score.dart';
 import 'hbox_level3.dart';
 import 'score_disp.dart';
@@ -120,22 +122,21 @@ class Trash_Item extends SpriteComponent
       add(h_move_effect);
     } else {
       h_move_effect.removeFromParent();
+      Future.delayed(Duration(seconds: 2), () {
+        removeFromParent();      });
     }
   }
-
   @override
-  void onCollisionStart(Set<Vector2> points, PositionComponent other) {
-
+  void onCollision(Set<Vector2> points, PositionComponent other) {
     if (other is Banda_T_Hole) {
       is_colliding = true;
-    } else if (other is Trash_Item ) {
-      // position = Vector2(position.x - 20 , position.y);
+    }else if (other is Trash_Item ) {
+      // posit ion = Vector2(position.x - 20 , position.y);
     }
     else if(other is hbox_level3){
       count += 1;
       div += 2;
       h_opacity_blick_effect = OpacityEffect.to(2, EffectController(duration: 4/div, repeatCount: 30, startDelay: 1));
-
       add(h_opacity_blick_effect);
       if(count == 6){
         add(h_opacity_effect);
@@ -146,29 +147,73 @@ class Trash_Item extends SpriteComponent
       if (!blue_scored) {
         final allPositionComponents = parent.children.query<PositionComponent>();
         Blue_Score_Disp ?blue_score;
+        Gota_Score_Disp ?gota_score_disp;
+        Sol_Score_Disp ?sol_score_disp;
+        Sol_Score_Disp ?get_Solscore;
+        Gota_Score_Disp ?get_Gotascore;
+        int solScore = 0;
+        int gotaScore = 0;
         for (PositionComponent p in allPositionComponents) {
           if (p is Blue_Score_Disp) {
             blue_score = p;
           }
         }
-        switch (other.type) {
-          case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande || this.type == Trash_Type.Botella_Jabon || this.type == Trash_Type.Botella_Refresco || this.type == Trash_Type.Plastic_BOTTLE) {
-              this.is_moving = false;
-              update_move();
-              if (blue_score != null) {
-                blue_scored = true;
-                blue_score.blue_updateScore(1);
-                add(h_opacity_effect);
+        for (PositionComponent g in allPositionComponents) {
+          if (g is Gota_Score_Disp) {
+            gota_score_disp = g;
+          }
+        }
+        for (PositionComponent s in allPositionComponents) {
+          if (s is Sol_Score_Disp) {
+            sol_score_disp = s;
+          }
+        }
+        for (PositionComponent x in allPositionComponents) {
+          if (x is Sol_Score_Disp) {
+            get_Solscore = x;
+          }
+        }
+        if(get_Solscore != null){
+          solScore = get_Solscore.getSolScore();
+        }
+        for (PositionComponent y in allPositionComponents) {
+          if (y is Gota_Score_Disp) {
+            get_Gotascore = y;
+          }
+        }
+        if(get_Gotascore != null){
+          gotaScore = get_Gotascore.getGotaScore();
+        }
+        if(solScore > 0 && gotaScore > 0){
+          switch (other.type) {
+            case BHBox_Type.Blue:
+              if (this.type == Trash_Type.Botella_Plastico ||
+                  this.type == Trash_Type.Botella_Agua ||
+                  this.type == Trash_Type.Botella_Agua_Grande ||
+                  this.type == Trash_Type.Botella_Jabon ||
+                  this.type == Trash_Type.Botella_Refresco ||
+                  this.type == Trash_Type.Plastic_BOTTLE) {
+                this.is_moving = false;
+                update_move();
+                if (blue_score != null &&
+                    gota_score_disp != null &&
+                    sol_score_disp != null) {
+                  blue_scored = true;
+                  blue_score.blue_updateScore(1);
+                  gota_score_disp.recycleLevel(1);
+                  sol_score_disp.recycleLevel(1);
+                }
+              } else {
+                // position = Vector2(position.x, position.y - ratio*100);
               }
-            } else {
-              // position = Vector2(position.x, position.y - ratio*100);
-            }
-            // blue_scored = false;
-            break;
+              // blue_scored = false;
+              break;
 
-          default:
-            {}
+            default:
+              {}
+          }
+        }else{
+          position = Vector2(position.x, position.y - ratio*100);
         }
       }
       if (!yellow_scored) {
@@ -227,76 +272,6 @@ class Trash_Item extends SpriteComponent
           default:
             {}
         }
-      }
-
-
-
-
-
-      if (!scored) {
-        final allPositionComponents = parent.children.query<PositionComponent>();
-        Score_Disp ?score;
-        for (PositionComponent p in allPositionComponents) {
-          if (p is Score_Disp) {
-            score = p;
-          }
-        }
-        switch (other.type) {
-          case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande || this.type == Trash_Type.Botella_Jabon || this.type == Trash_Type.Botella_Refresco || this.type == Trash_Type.Plastic_BOTTLE) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-                // add(h_opacity_effect);
-              }
-            } else {
-              position = Vector2(position.x, position.y - ratio*100);
-            }
-            // removeFromParent();
-            break;
-          case BHBox_Type.Yellow:
-            if (this.type == Trash_Type.Lata_aluminio || this.type == Trash_Type.LATA_2 || this.type == Trash_Type.LATA_3) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-                // add(h_opacity_effect);
-              }
-            } else {
-            position = Vector2(position.x, position.y - ratio*100);
-            }
-            // removeFromParent();
-            break;
-          case BHBox_Type.Yellow:
-          // if(this.type != Trash_Type.Botella_Plastico) {
-            position = Vector2(position.x, position.y - 100);
-            // }
-            break;
-          case BHBox_Type.Grey:
-            if (
-                this.type == Trash_Type.Bola_Papel ||
-                this.type == Trash_Type.Caja_Carton ||
-                this.type == Trash_Type.Cilindro_Papel
-            ) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-                // add(h_opacity_effect);
-              }
-            } else {
-              position = Vector2(position.x, position.y - ratio*100);
-            }
-            break;
-          default:
-            {}
-        }
-      } else {
-
       }
     }
   }

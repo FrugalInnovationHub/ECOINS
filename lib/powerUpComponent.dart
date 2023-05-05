@@ -131,8 +131,10 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
 
       }
   Vector2 _createRandomPosition() {
+    var gameSize = gameRef.size;
+    var ratio = gameSize[0]/gameSize[1];
     final double x = _random.nextInt(gameRef.size.x.toInt()).toDouble();
-    final double y = _random.nextInt(gameRef.size.y.toInt()).toDouble();
+    final double y = _random.nextInt(gameRef.size.y.toInt()).toDouble()/2;
 
     return Vector2(x, y);
   }

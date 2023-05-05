@@ -74,7 +74,7 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
     h_opacity_blick_effect = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 5));
     h_scale_effect = ScaleEffect.by(Vector2.all(1.5), EffectController(duration: 0.7));
     h_remove_effect = RemoveEffect(delay: 8);
-    // h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 5));
+    // h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: delay));
 
     update_move();
   }
@@ -115,13 +115,14 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   }
 
   update_move() {
+    // add(h_opacity_effect);
     add(h_scale_effect);
     add(h_opacity_blick_effect);
     add(h_remove_effect);
-    // add(h_opacity_effect);
-  Future.delayed(Duration(seconds: 10), () {
-    gameRef.add(PowerUpComponent(type, delay, y_loc));
-  });
+
+  // Future.delayed(Duration(seconds: 10), () {
+  //   gameRef.add(PowerUpComponent(type, 10 + delay, y_loc));
+  // });
   }
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {

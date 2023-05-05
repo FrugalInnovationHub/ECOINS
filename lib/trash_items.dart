@@ -97,6 +97,7 @@ class Trash_Item extends SpriteComponent
     update_move();
   }
 
+
   @override
   bool onTapDown(TapDownInfo info) {
     // info.handled = true

@@ -321,6 +321,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       await add(i);
     }
   }
+
   
   @override
   void onChildrenChanged(Component child, ChildrenChangeType type) {
@@ -422,13 +423,20 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       DistractiveItem d;
       if(child.y_loc <= ratio*50) {
         d = DistractiveItem(
-            Distractive_Type.values[k], _random.nextDouble(), ratio * 50);
+            Distractive_Type.values[k], _random.nextDouble() + _random.nextDouble(), ratio * 50);
       }
       else {
         d = DistractiveItem(
-            Distractive_Type.values[k], _random.nextDouble(), ratio * 140);
+            Distractive_Type.values[k], _random.nextDouble() + _random.nextDouble(), ratio * 140);
       }
       add(d);
+    }
+
+    if(child is PowerUpComponent && type == ChildrenChangeType.removed){
+      PowerUpComponent t;
+      t = PowerUpComponent(child.type, 5, child.y_loc);
+      Future.delayed(Duration(seconds: _random.nextInt(5) + 1), () => add(t));
+
     }
   }
 }

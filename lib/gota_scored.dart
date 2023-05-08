@@ -23,7 +23,7 @@ class Gota_Score_Disp extends PositionComponent with HasGameRef {
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    ratio = gameSize[0]/gameSize[1];
+    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
     // final _style = TextStyle(
     //     color: BasicPalette.white.color,
     //     fontSize: 30.0,

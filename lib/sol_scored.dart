@@ -29,7 +29,7 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    ratio = gameSize[0]/gameSize[1];
+    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
 
     // TextComponent _green_score_txt = TextComponent(
     //     text: 'Score: ',
@@ -91,7 +91,6 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
     }
   }
   int getSolScore(){
-    print(this.i);
     return this.i;
   }
 

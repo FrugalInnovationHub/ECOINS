@@ -62,7 +62,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   Future<void> onLoad() async {
     super.onLoad();
     children.register<PositionComponent>();
-    var ratio = size[0]/size[1];
+    ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
     // debugMode = true;
     focusedItem = "Plastico";
     total_trash_items = 5;
@@ -438,11 +438,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       DistractiveItem d;
       if(child.y_loc <= ratio*50) {
         d = DistractiveItem(
-            Distractive_Type.values[k], _random.nextDouble() + _random.nextDouble(), ratio * 50);
+            Distractive_Type.values[k], _random.nextDouble() + _random.nextInt(5), ratio * 50);
       }
       else {
         d = DistractiveItem(
-            Distractive_Type.values[k], _random.nextDouble() + _random.nextDouble(), ratio * 140);
+            Distractive_Type.values[k], _random.nextDouble() + _random.nextInt(5), ratio * 140);
       }
       add(d);
     }

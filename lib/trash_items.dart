@@ -139,46 +139,47 @@ class Trash_Item extends SpriteComponent
     } else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
-      if (!blue_scored) {
-        final allPositionComponents = parent.children.query<PositionComponent>();
+      final allPositionComponents = parent.children.query<PositionComponent>();
+      Gota_Score_Disp ?gota_score_disp;
+      Sol_Score_Disp ?sol_score_disp;
+      Sol_Score_Disp ?get_Solscore;
+      Gota_Score_Disp ?get_Gotascore;
+      int solScore = 0;
+      int gotaScore = 0;
+      Score_Disp ?score;
+      for (PositionComponent p in allPositionComponents){
+        if (p is Gota_Score_Disp) {
+          gota_score_disp = p;
+        }
+        if (p is Sol_Score_Disp) {
+          sol_score_disp = p;
+        }
+        if (p is Sol_Score_Disp) {
+          get_Solscore = p;
+        }
+        if (p is Gota_Score_Disp) {
+          get_Gotascore = p;
+        }
+        if (p is Score_Disp) {
+          score = p;
+        }
+      }
+      if(get_Solscore != null){
+        solScore = get_Solscore.getSolScore();
+      }
+      if(get_Gotascore != null){
+        gotaScore = get_Gotascore.getGotaScore();
+      }
+
+      if (!blue_scored && type.type == "Plastico") {
         Blue_Score_Disp ?blue_score;
-        Gota_Score_Disp ?gota_score_disp;
-        Sol_Score_Disp ?sol_score_disp;
-        Sol_Score_Disp ?get_Solscore;
-        Gota_Score_Disp ?get_Gotascore;
-        int solScore = 0;
-        int gotaScore = 0;
+
         for (PositionComponent p in allPositionComponents) {
           if (p is Blue_Score_Disp) {
             blue_score = p;
           }
         }
-        for (PositionComponent g in allPositionComponents) {
-          if (g is Gota_Score_Disp) {
-            gota_score_disp = g;
-          }
-        }
-        for (PositionComponent s in allPositionComponents) {
-          if (s is Sol_Score_Disp) {
-            sol_score_disp = s;
-          }
-        }
-        for (PositionComponent x in allPositionComponents) {
-          if (x is Sol_Score_Disp) {
-            get_Solscore = x;
-          }
-        }
-        if(get_Solscore != null){
-          solScore = get_Solscore.getSolScore();
-        }
-        for (PositionComponent y in allPositionComponents) {
-          if (y is Gota_Score_Disp) {
-            get_Gotascore = y;
-          }
-        }
-        if(get_Gotascore != null){
-          gotaScore = get_Gotascore.getGotaScore();
-        }
+
         if(solScore > 0 && gotaScore > 0){
           switch (other.type) {
             case BHBox_Type.Blue:
@@ -187,16 +188,17 @@ class Trash_Item extends SpriteComponent
                 update_move();
                 if (blue_score != null &&
                     gota_score_disp != null &&
-                    sol_score_disp != null) {
+                    sol_score_disp != null && score != null) {
                   blue_scored = true;
-                  blue_score.blue_updateScore(1);
+                  score.updateScore(10);
+                  blue_score.blue_updateScore(10);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
                 }
               } else {
-                // position = Vector2(position.x, position.y - ratio*100);
+                position = Vector2(position.x, position.y - ratio*100);
               }
               // blue_scored = false;
               break;
@@ -207,130 +209,151 @@ class Trash_Item extends SpriteComponent
           position = Vector2(position.x, position.y - ratio*100);
         }
       }
-      if (!yellow_scored) {
-        final allPositionComponents = parent.children.query<PositionComponent>();
+      if (!yellow_scored && type.type == "Aluminio") {
         Yellow_Score_Disp ?yellow_score;
         for (PositionComponent p in allPositionComponents) {
           if (p is Yellow_Score_Disp) {
             yellow_score = p;
           }
         }
-        switch (other.type) {
-          case BHBox_Type.Yellow:
-            if (this.type == Trash_Type.Lata_aluminio || this.type == Trash_Type.LATA_2 || this.type == Trash_Type.LATA_3) {
-              this.is_moving = false;
-              update_move();
-              if (yellow_score != null) {
-                yellow_scored = true;
-                yellow_score.updateScore(1);
-                add(h_opacity_effect);
+        if(solScore > 0 && gotaScore > 0) {
+          switch (other.type) {
+            case BHBox_Type.Yellow:
+              if (this.type == Trash_Type.Lata_aluminio ||
+                  this.type == Trash_Type.LATA_2 ||
+                  this.type == Trash_Type.LATA_3) {
+                this.is_moving = false;
+                update_move();
+                if (yellow_score != null && gota_score_disp != null &&
+                sol_score_disp != null && score != null) {
+                  yellow_scored = true;
+                  score.updateScore(10);
+                  yellow_score.updateScore(10);
+                  gota_score_disp.recycleLevel(1);
+                  sol_score_disp.recycleLevel(1);
+                  add(h_opacity_effect);
+                  add(h_remove_effect);
+                }
+              } else {
+                position = Vector2(position.x, position.y - 100);
               }
-            } else {
-              // position = Vector2(position.x, position.y - 100);
-            }
-            // blue_scored = false;
-            break;
+              break;
 
-          default:
-            {}
+            default:
+              {}
+          }
+        }
+        else{
+          position = Vector2(position.x, position.y - ratio*100);
         }
       }
 
-      if (!grey_scored) {
-        final allPositionComponents = parent.children.query<PositionComponent>();
+      if (!grey_scored && type.type == "Paper") {
         Gray_Score_Disp ?grey_score;
         for (PositionComponent p in allPositionComponents) {
           if (p is Gray_Score_Disp) {
             grey_score = p;
           }
         }
-        switch (other.type) {
-          case BHBox_Type.Grey:
-            if (this.type == Trash_Type.Caja_Carton || this.type == Trash_Type.Cilindro_Papel || this.type == Trash_Type.Bola_Papel) {
-              this.is_moving = false;
-              update_move();
-              if (grey_score != null) {
-                grey_scored = true;
-                grey_score.updateScore(1);
-                add(h_opacity_effect);
+        if(solScore > 0 && gotaScore > 0) {
+          switch (other.type) {
+            case BHBox_Type.Grey:
+              if (this.type == Trash_Type.Caja_Carton ||
+                  this.type == Trash_Type.Cilindro_Papel ||
+                  this.type == Trash_Type.Bola_Papel) {
+                this.is_moving = false;
+                update_move();
+                if (grey_score != null && gota_score_disp != null &&
+                    sol_score_disp != null && score != null) {
+                  grey_scored = true;
+                  score.updateScore(10);
+                  grey_score.updateScore(10);
+                  gota_score_disp.recycleLevel(1);
+                  sol_score_disp.recycleLevel(1);
+                  add(h_opacity_effect);
+                  add(h_remove_effect);
+                }
+              } else {
+                position = Vector2(position.x, position.y - 100);
               }
-            } else {
-              // position = Vector2(position.x, position.y - 100);
-            }
-            // blue_scored = false;
-            break;
+              // blue_scored = false;
+              break;
 
-          default:
-            {}
-        }
-      }
-
-
-      if (!scored) {
-        final allPositionComponents = parent.children.query<PositionComponent>();
-        Score_Disp ?score;
-        for (PositionComponent p in allPositionComponents) {
-          if (p is Score_Disp) {
-            score = p;
+            default:
+              {}
           }
         }
-        switch (other.type) {
-          case BHBox_Type.Blue:
-            if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande || this.type == Trash_Type.Botella_Jabon || this.type == Trash_Type.Botella_Refresco || this.type == Trash_Type.Plastic_BOTTLE) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-                // add(h_opacity_effect);
-              }
-            } else {
-              position = Vector2(position.x, position.y - ratio*100);
-            }
-            // removeFromParent();
-            break;
-          case BHBox_Type.Yellow:
-            if (this.type == Trash_Type.Lata_aluminio || this.type == Trash_Type.LATA_2 || this.type == Trash_Type.LATA_3) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-                // add(h_opacity_effect);
-              }
-            } else {
-            position = Vector2(position.x, position.y - ratio*100);
-            }
-            // removeFromParent();
-            break;
-          case BHBox_Type.Yellow:
-          // if(this.type != Trash_Type.Botella_Plastico) {
-            position = Vector2(position.x, position.y - 100);
-            // }
-            break;
-          case BHBox_Type.Grey:
-            if (
-                this.type == Trash_Type.Bola_Papel ||
-                this.type == Trash_Type.Caja_Carton ||
-                this.type == Trash_Type.Cilindro_Papel
-            ) {
-              this.is_moving = false;
-              update_move();
-              if (score != null) {
-                scored = true;
-                score.updateScore(1);
-                // add(h_opacity_effect);
-              }
-            } else {
-              position = Vector2(position.x, position.y - ratio*100);
-            }
-            break;
-          default:
-            {}
+        else{
+          position = Vector2(position.x, position.y - ratio*100);
         }
-      } else {
-
       }
+
+
+    //   if (!scored) {
+    //     final allPositionComponents = parent.children.query<PositionComponent>();
+    //     Score_Disp ?score;
+    //     for (PositionComponent p in allPositionComponents) {
+    //       if (p is Score_Disp) {
+    //         score = p;
+    //       }
+    //     }
+    //     switch (other.type) {
+    //       case BHBox_Type.Blue:
+    //         if (this.type == Trash_Type.Botella_Plastico || this.type == Trash_Type.Botella_Agua || this.type == Trash_Type.Botella_Agua_Grande || this.type == Trash_Type.Botella_Jabon || this.type == Trash_Type.Botella_Refresco || this.type == Trash_Type.Plastic_BOTTLE) {
+    //           this.is_moving = false;
+    //           update_move();
+    //           if (score != null) {
+    //             scored = true;
+    //             score.updateScore(1);
+    //             // add(h_opacity_effect);
+    //           }
+    //         } else {
+    //           // position = Vector2(position.x, position.y - ratio*100);
+    //         }
+    //         // removeFromParent();
+    //         break;
+    //       case BHBox_Type.Yellow:
+    //         if (this.type == Trash_Type.Lata_aluminio || this.type == Trash_Type.LATA_2 || this.type == Trash_Type.LATA_3) {
+    //           this.is_moving = false;
+    //           update_move();
+    //           if (score != null) {
+    //             scored = true;
+    //             score.updateScore(1);
+    //             // add(h_opacity_effect);
+    //           }
+    //         } else {
+    //         position = Vector2(position.x, position.y - ratio*100);
+    //         }
+    //         // removeFromParent();
+    //         break;
+    //       case BHBox_Type.Yellow:
+    //       // if(this.type != Trash_Type.Botella_Plastico) {
+    //         position = Vector2(position.x, position.y - 100);
+    //         // }
+    //         break;
+    //       case BHBox_Type.Grey:
+    //         if (
+    //             this.type == Trash_Type.Bola_Papel ||
+    //             this.type == Trash_Type.Caja_Carton ||
+    //             this.type == Trash_Type.Cilindro_Papel
+    //         ) {
+    //           this.is_moving = false;
+    //           update_move();
+    //           if (score != null) {
+    //             scored = true;
+    //             score.updateScore(1);
+    //             // add(h_opacity_effect);
+    //           }
+    //         } else {
+    //           position = Vector2(position.x, position.y - ratio*100);
+    //         }
+    //         break;
+    //       default:
+    //         {}
+    //     }
+    //   } else {
+    //
+    //   }
     }
   }
 

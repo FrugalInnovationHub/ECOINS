@@ -213,7 +213,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     var belt1_trash_items = [];
     var belt2_trash_items = [];
-    var distractive_items = [];
+    // var distractive_items = [];
     var focused_indexes = [];
     var rest_indexes = [];
     Trash_Type.values.forEachIndexed((index, element) {
@@ -285,15 +285,15 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     belt1_trash_items.shuffle();
     belt2_trash_items.shuffle();
     for(int i = 0; i < belt1_trash_items.length; i++) {
-      belt1_trash_items[i].delay = i*2 + _random.nextDouble();
-      belt2_trash_items[i].delay = i*2 + _random.nextDouble();
+      belt1_trash_items[i].delay = i*3 + _random.nextInt(3);
+      belt2_trash_items[i].delay = i*3 + _random.nextInt(3);
       await add(belt1_trash_items[i]);
       await add(belt2_trash_items[i]);
     }
 
-    for(var i in distractive_items) {
-      await add(i);
-    }
+    // for(var i in distractive_items) {
+    //   await add(i);
+    // }
 
     for (Wheel wheel in _banda_wheels){
       await add(wheel);
@@ -421,6 +421,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       var dis_indexes = Distractive_Type.values.mapIndexed((index, element) => index).toList();
       var k = _random.nextInt(dis_indexes.length);
       DistractiveItem d;
+      print(child.y_loc);
+      // print(child.y);
       if(child.y_loc <= ratio*50) {
         d = DistractiveItem(
             Distractive_Type.values[k], _random.nextDouble() + _random.nextDouble(), ratio * 50);

@@ -16,7 +16,7 @@ class Gota_Score_Disp extends PositionComponent with HasGameRef {
   SpriteComponent GotaLevel2 = SpriteComponent();
   SpriteComponent GotaLevel3 = SpriteComponent();
   SpriteComponent GotaLevel4 = SpriteComponent();
-  int i = 0;
+  int g = 0;
   late double ratio = 1;
 
   @override
@@ -77,42 +77,43 @@ class Gota_Score_Disp extends PositionComponent with HasGameRef {
   }
 
   bool gota_updateScore(int gota_newScore) {
-    this.gota_score += gota_newScore;
-    changeSpriteLevel(1);
-    return true;
+      this.gota_score += gota_newScore;
+      changeSpriteLevel(1);
+      return true;
   }
   int getGotaScore(){
-    return this.i;
+    return this.g;
   }
   bool changeSpriteLevel(int level) {
-    this.i += level;
-    if(i == 1){
+    this.g += level;
+    if(g == 1){
       GotaLevel4.removeFromParent();
     }
-    else if(i == 2){
+    else if(g == 2){
       GotaLevel3.removeFromParent();
     }
-    else if(i == 3){
+    else if(g == 3){
       GotaLevel2.removeFromParent();
     }
-    else if(i == 4){
+    else if(g == 4){
       GotaLevel1.removeFromParent();
     }
     return true;
   }
 
   bool recycleLevel(int add_level){
-    this.i -= add_level;
-    if(i == 0){
+    this.gota_score -= 1;
+    this.g -= add_level;
+    if(g == 0){
       add(GotaLevel4);
       }
-      else if(i == 1){
+      else if(g == 1){
         add(GotaLevel3);
       }
-      else if(i == 2){
+      else if(g == 2){
         add(GotaLevel2);
       }
-      else if(i == 3){
+      else if(g == 3){
         add(GotaLevel1);
     }
     return true;

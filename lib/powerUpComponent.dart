@@ -95,23 +95,34 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
         gota_score = gota;
       }
     }
-      // Check which gem was clicked on
-      switch (type) {
-        case PowerUp_Type_Comp.Gota_Agua:
-          gota_score?.gota_updateScore(10);
-          break;
-        // Handle GotaAgua gem click
-          break;
-        case PowerUp_Type_Comp.Sol:
-        // Handle Sol gem click
-          sol_score?.sol_updateScore(10);
-          break;
-      }
-      FlameAudio.play(Globals.itemGrabSound);
-      removeFromParent();
+    print(gota_score?.gota_score);
+    int? check_count_gota = gota_score?.gota_score;
+    int? check_count_sol = sol_score?.sol_score;
+        // Check which gem was clicked on
+        switch (type) {
+          case PowerUp_Type_Comp.Gota_Agua:
+            if(gota_score?.gota_score != null){
+              if(check_count_gota! < 4){
+                gota_score?.gota_updateScore(1);
+                removeFromParent();
+                break;
+              }
+            }
+            break;
 
+          case PowerUp_Type_Comp.Sol:
+          // Handle Sol gem click
+            if(gota_score?.gota_score != null){
+              if(check_count_sol! < 4){
+                sol_score?.sol_updateScore(1);
+                removeFromParent();
+                break;
+              }
+            }
+            break;
+        }
+        FlameAudio.play(Globals.itemGrabSound);
       return false;
-
   }
 
   update_move() {

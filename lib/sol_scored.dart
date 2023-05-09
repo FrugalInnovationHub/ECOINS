@@ -70,13 +70,13 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
   }
 
   bool sol_updateScore(int sol_newScore) {
-    this.sol_score += sol_newScore;
-    changeSpriteLevel();
-    return true;
+      this.sol_score += sol_newScore;
+      changeSpriteLevel(1);
+      return true;
   }
 
-  void changeSpriteLevel() {
-    i = i + 1;
+  void changeSpriteLevel(int level) {
+    this.i += level;
     if(i == 1){
       SolLevel4.removeFromParent();
     }
@@ -95,7 +95,7 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
   }
 
   bool recycleLevel(int add_level){
-
+    this.sol_score -= 1;
     this.i -= add_level;
     if(i == 0){
       add(SolLevel4);

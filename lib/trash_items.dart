@@ -135,7 +135,13 @@ class Trash_Item extends SpriteComponent
   void onCollision(Set<Vector2> points, PositionComponent other) {
 
     if (other is Banda_T_Hole) {
-      is_colliding = true;
+      if(other.hole_no == 0) {
+        is_colliding = true;
+      }
+      else if((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper")){
+        is_colliding = true;
+      }
+
     } else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
@@ -190,8 +196,8 @@ class Trash_Item extends SpriteComponent
                     gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   blue_scored = true;
-                  score.updateScore(10);
-                  blue_score.blue_updateScore(10);
+                  score.updateScore(1);
+                  blue_score.blue_updateScore(1);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
@@ -227,8 +233,8 @@ class Trash_Item extends SpriteComponent
                 if (yellow_score != null && gota_score_disp != null &&
                 sol_score_disp != null && score != null) {
                   yellow_scored = true;
-                  score.updateScore(10);
-                  yellow_score.updateScore(10);
+                  score.updateScore(1);
+                  yellow_score.updateScore(1);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
@@ -266,8 +272,8 @@ class Trash_Item extends SpriteComponent
                 if (grey_score != null && gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   grey_scored = true;
-                  score.updateScore(10);
-                  grey_score.updateScore(10);
+                  score.updateScore(1);
+                  grey_score.updateScore(1);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);

@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 
 class Sol_Score_Disp extends PositionComponent with HasGameRef {
   late Sol_ScoreVal _sol_score_val;
-  int sol_score = 0;
-  int i = 0;
+  int sol_score = 4;
+  int i = 4;
 
   SpriteComponent SolLevel1 = SpriteComponent();
   SpriteComponent SolLevel2 = SpriteComponent();
@@ -42,28 +42,28 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
       ..size = Vector2(ratio*73, ratio*19)
       ..position = Vector2(ratio*39, ratio*350);
 
-    add(SolLevel1);
+    // add(SolLevel1);
 
     SolLevel2
       ..sprite = await gameRef.loadSprite('SOL2.png')
       ..size = Vector2(ratio*70, ratio*16)
       ..position = Vector2(ratio*40, ratio*369);
 
-    add(SolLevel2);
+    // add(SolLevel2);
 
     SolLevel3
       ..sprite = await gameRef.loadSprite('SOL3.png')
       ..size = Vector2(ratio*70, ratio*18)
       ..position = Vector2(ratio*40, ratio*385);
 
-    add(SolLevel3);
+    // add(SolLevel3);
 
     SolLevel4
       ..sprite = await gameRef.loadSprite('SOL4.png')
       ..size = Vector2(ratio*70, ratio*18)
       ..position = Vector2(ratio*40, ratio*403);
 
-    add(SolLevel4);
+    // add(SolLevel4);
 
     // await add(_green_score_txt);
     // await add(_sol_score_val);
@@ -97,6 +97,7 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
   bool recycleLevel(int add_level){
     this.sol_score -= 1;
     this.i -= add_level;
+    print(this.i);
     if(i == 0){
       add(SolLevel4);
     }

@@ -95,7 +95,6 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
         gota_score = gota;
       }
     }
-    print(gota_score?.gota_score);
     int? check_count_gota = gota_score?.gota_score;
     int? check_count_sol = sol_score?.sol_score;
         // Check which gem was clicked on
@@ -112,7 +111,7 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
 
           case PowerUp_Type_Comp.Sol:
           // Handle Sol gem click
-            if(gota_score?.gota_score != null){
+            if(sol_score?.sol_score != null){
               if(check_count_sol! < 4){
                 sol_score?.sol_updateScore(1);
                 removeFromParent();

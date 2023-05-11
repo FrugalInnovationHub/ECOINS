@@ -11,12 +11,12 @@ import 'package:flutter/material.dart';
 
 class Gota_Score_Disp extends PositionComponent with HasGameRef {
   late Gota_ScoreVal _gota_score_val;
-  int gota_score = 0;
+  int gota_score = 4;
   SpriteComponent GotaLevel1 = SpriteComponent();
   SpriteComponent GotaLevel2 = SpriteComponent();
   SpriteComponent GotaLevel3 = SpriteComponent();
   SpriteComponent GotaLevel4 = SpriteComponent();
-  int g = 0;
+  int g = 4;
   late double ratio = 1;
 
   @override
@@ -52,28 +52,28 @@ class Gota_Score_Disp extends PositionComponent with HasGameRef {
       ..size = Vector2(ratio*57, ratio*19)
       ..position = Vector2(ratio*121, ratio*350);
 
-    add(GotaLevel1);
+    // add(GotaLevel1);
 
     GotaLevel2
       ..sprite = await gameRef.loadSprite('GOTA2.png')
       ..size = Vector2(ratio*57, ratio*16)
       ..position = Vector2(ratio*121, ratio*369);
 
-    add(GotaLevel2);
+    // add(GotaLevel2);
 
     GotaLevel3
       ..sprite = await gameRef.loadSprite('GOTA3.png')
       ..size = Vector2(ratio*57, ratio*18)
       ..position = Vector2(ratio*121, ratio*385);
 
-    add(GotaLevel3);
+    // add(GotaLevel3);
 
     GotaLevel4
       ..sprite = await gameRef.loadSprite('GOTA4.png')
       ..size = Vector2(ratio*57, ratio*16)
       ..position = Vector2(ratio*121, ratio*403);
 
-    add(GotaLevel4);
+    // add(GotaLevel4);
   }
 
   bool gota_updateScore(int gota_newScore) {

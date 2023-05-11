@@ -135,7 +135,13 @@ class Trash_Item extends SpriteComponent
   void onCollision(Set<Vector2> points, PositionComponent other) {
 
     if (other is Banda_T_Hole) {
-      is_colliding = true;
+      if(other.hole_no == 0) {
+        is_colliding = true;
+      }
+      else if((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper")){
+        is_colliding = true;
+      }
+
     } else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {

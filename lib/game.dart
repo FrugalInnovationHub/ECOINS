@@ -397,7 +397,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         t.y_loc = ratio*140;
         add(t);
       }
-      if(blue_score_disp.blue_score == 40){
+      if(blue_score_disp.blue_score >= 40 && focusedItem != "Aluminio"){
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
@@ -422,7 +422,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         _banda_t_hole.hole_no = 2;
         add(_banda_t_hole);
       }
-      if(yellow_score_disp.yellow_score == 40){
+      if(yellow_score_disp.yellow_score >= 40 && focusedItem != "Paper"){
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();

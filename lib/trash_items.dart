@@ -20,29 +20,31 @@ import 'hbox_level3.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
-  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [20, 45]),
-  Plastic_BOTTLE(type: "Plastico", src: 'Plastic_BOTTLE.png', size: [20, 45]),
-  Botella_Refresco(type: "Plastico", src: 'Botella_Refresco.png', size: [20, 45]),
-  Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [30, 30]),
-  Caja_Carton(type: "Paper", src: 'Caja_Carton.png', size: [60, 45]),
-  Botella_Agua(type: "Plastico", src: 'Botella_Agua.png', size: [20, 45]),
-  Botella_Agua_Grande(type: "Plastico", src: 'Botella_Agua_Grande.png', size: [30, 45]),
-  Botella_Jabon(type: "Plastico", src: 'Botella_jabon.png', size: [25, 45]),
-  Cilindro_Papel(type: "Paper", src: 'Cilindro_papel.png', size: [20, 45]),
-  LATA_2(type: "Aluminio", src: 'LATA_2.png', size: [20, 45]),
-  LATA_3(type: "Aluminio", src: 'LATA_3.png', size: [20, 45]),
-  Lata_aluminio(type: "Aluminio", src: 'Lata_aluminio.png', size: [20, 45]);
+  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [20, 45], priority: 3),
+  Plastic_BOTTLE(type: "Plastico", src: 'Plastic_BOTTLE.png', size: [20, 45], priority: 3),
+  Botella_Refresco(type: "Plastico", src: 'Botella_Refresco.png', size: [20, 45], priority: 3),
+  Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [30, 30], priority: 3),
+  Caja_Carton(type: "Paper", src: 'Caja_Carton.png', size: [60, 45], priority: 1),
+  Botella_Agua(type: "Plastico", src: 'Botella_Agua.png', size: [20, 45], priority: 3),
+  Botella_Agua_Grande(type: "Plastico", src: 'Botella_Agua_Grande.png', size: [30, 45], priority: 1),
+  Botella_Jabon(type: "Plastico", src: 'Botella_jabon.png', size: [25, 45], priority: 2),
+  Cilindro_Papel(type: "Paper", src: 'Cilindro_papel.png', size: [20, 45], priority: 2),
+  LATA_2(type: "Aluminio", src: 'LATA_2.png', size: [20, 45], priority: 3),
+  LATA_3(type: "Aluminio", src: 'LATA_3.png', size: [20, 45], priority: 3),
+  Lata_aluminio(type: "Aluminio", src: 'Lata_aluminio.png', size: [20, 45], priority: 2);
 
 
   const Trash_Type({
     required this.type,
     required this.src,
-    required this.size
+    required this.size,
+    required this.priority
   });
 
   final type;
   final src;
   final size;
+  final priority;
 
   @override
   int compareTo(Trash_Type other) {
@@ -87,6 +89,7 @@ class Trash_Item extends SpriteComponent
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-(ratio*60), y_loc);
     size = Vector2(ratio*type.size[0], ratio*type.size[1]);
+    priority = type.priority;
 
     add(RectangleHitbox());
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
@@ -370,7 +373,7 @@ class Trash_Item extends SpriteComponent
       is_colliding = false;
     }
     else if(other is hbox_level3){
-      if(count > 3) {
+      if(count > 2) {
         removeFromParent();
       }
       else {

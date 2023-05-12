@@ -72,7 +72,7 @@ class Trash_Item extends SpriteComponent
   double y_loc;
   int count;
   int div = 0;
-  late OpacityEffect h_opacity_blick_effect;
+  late OpacityEffect h_opacity_blink_effect;
 
 
   Trash_Item(Trash_Type type, double delay, double y_loc, int count) :

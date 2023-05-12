@@ -15,10 +15,6 @@ class Basureros extends PositionComponent with HasGameRef{
   SpriteComponent Green = SpriteComponent();
   SpriteComponent Yellow = SpriteComponent();
   SpriteComponent Grey = SpriteComponent();
-  SpriteComponent BlueLevel1 = SpriteComponent();
-  SpriteComponent BlueLevel2 = SpriteComponent();
-  SpriteComponent BlueLevel3 = SpriteComponent();
-  SpriteComponent BlueLevel4 = SpriteComponent();
   late double ratio = 1;
 
 

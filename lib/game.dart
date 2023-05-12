@@ -8,6 +8,7 @@ import 'package:ecoins/powerUpComponent.dart';
 import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame/components.dart';
@@ -44,6 +45,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   late var focusedItem;
   late final total_trash_items;
   late var ratio;
+  late OpacityEffect h_opacity_blink_effect_yellow;
+  late OpacityEffect h_opacity_blink_effect_grey;
 
   bool musicPlaying = false;
 
@@ -90,6 +93,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(lock);
     lock = BasuresosLock(position: Vector2(ratio*595, ratio*300), size: Vector2(ratio*80, ratio*150), type: "gray");
     await add(lock);
+    h_opacity_blink_effect_yellow = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 0));
+    h_opacity_blink_effect_grey = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 0));
 
     var _banda_t_holes = [];
     var _banda_ts = [];
@@ -405,6 +410,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         for (var i in allLock){
           if(i.type == "yellow"){
             i.removeFromParent();
+            _basureros.Yellow.add(h_opacity_blink_effect_yellow);
+            Future.delayed(Duration(seconds: 3), () {
+              yellow_score_disp.addLevels();
+            });
           }
         }
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
@@ -426,6 +435,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         for (var i in allLock){
           if(i.type == "gray"){
             i.removeFromParent();
+            _basureros.Grey.add(h_opacity_blink_effect_grey);
+            Future.delayed(Duration(seconds: 3), () {
+              gray_score_disp.addLevels();
+            });
           }
         }
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();

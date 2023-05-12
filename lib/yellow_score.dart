@@ -55,29 +55,35 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
       ..size = Vector2(ratio*67, ratio*40)
       ..position = Vector2(ratio*491, ratio*410);
 
-    add(YellowLevel1);
+    // add(YellowLevel1);
 
     YellowLevel2
       ..sprite = await gameRef.loadSprite('02.png')
       ..size = Vector2(ratio*70, ratio*40)
       ..position = Vector2(ratio*490, ratio*370);
 
-    add(YellowLevel2);
+    // add(YellowLevel2);
 
     YellowLevel3
       ..sprite = await gameRef.loadSprite('03.png')
       ..size = Vector2(ratio*80, ratio*34)
       ..position = Vector2(ratio*485, ratio*336);
 
-    add(YellowLevel3);
+    // add(YellowLevel3);
 
     YellowLevel4
       ..sprite = await gameRef.loadSprite('04.png')
       ..size = Vector2(ratio*79, ratio*37)
       ..position = Vector2(ratio*485, ratio*300);
 
-    add(YellowLevel4);
+    // add(YellowLevel4);
 
+  }
+  void addLevels(){
+    add(YellowLevel1);
+    add(YellowLevel2);
+    add(YellowLevel3);
+    add(YellowLevel4);
   }
 
   bool updateScore(int newScore) {

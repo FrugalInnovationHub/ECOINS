@@ -10,6 +10,5 @@ class BasuresosLock extends SpriteComponent with HasGameRef{
     // TODO: implement onLoad
     super.onLoad();
     sprite = await gameRef.loadSprite('Lock.png');
-
   }
 }

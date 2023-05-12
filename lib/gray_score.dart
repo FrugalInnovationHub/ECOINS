@@ -31,27 +31,34 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
       ..size = Vector2(ratio*67, ratio*40)
       ..position = Vector2(ratio*601, ratio*410);
 
-    add(GrayLevel1);
+    // add(GrayLevel1);
 
     GrayLevel2
       ..sprite = await gameRef.loadSprite('02.png')
       ..size = Vector2(ratio*70, ratio*40)
       ..position = Vector2(ratio*600, ratio*370);
 
-    add(GrayLevel2);
+    // add(GrayLevel2);
 
     GrayLevel3
       ..sprite = await gameRef.loadSprite('03.png')
       ..size = Vector2(ratio*80, ratio*34)
       ..position = Vector2(ratio*595, ratio*336);
 
-    add(GrayLevel3);
+    // add(GrayLevel3);
 
     GrayLevel4
       ..sprite = await gameRef.loadSprite('04.png')
       ..size = Vector2(ratio*79, ratio*37)
       ..position = Vector2(ratio*595, ratio*300);
 
+    // add(GrayLevel4);
+  }
+
+  void addLevels(){
+    add(GrayLevel1);
+    add(GrayLevel2);
+    add(GrayLevel3);
     add(GrayLevel4);
   }
 

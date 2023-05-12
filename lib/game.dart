@@ -72,8 +72,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     final Cocina _cocina = Cocina(size: size);
     await add(_cocina);
     await add(_pause_btn);
-    await add(hbox_level3(size: Vector2(ratio,ratio*50), position: Vector2(ratio - 70,ratio*200)));
-    await add(hbox_level3(size: Vector2(ratio*10,ratio*50), position: Vector2(size[0] - ratio*10,ratio*200)));
+    await add(hbox_level3(size: Vector2(ratio*20 ,ratio*50), position: Vector2(-(ratio*50),ratio*200)));
+    await add(hbox_level3(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*200)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);
@@ -408,7 +408,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           }
         }
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
-        _banda_t_hole.position = hole_pos[4];
+        _banda_t_hole.position = hole_pos[4][0];
         _banda_t_hole.size = Vector2(ratio*50, ratio*8);
         _banda_t_hole.hole_no = 2;
         add(_banda_t_hole);
@@ -429,7 +429,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           }
         }
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
-        _banda_t_hole.position = hole_pos[5];
+        _banda_t_hole.position = hole_pos[5][0];
         _banda_t_hole.size = Vector2(ratio*50, ratio*8);
         _banda_t_hole.hole_no = 3;
         add(_banda_t_hole);

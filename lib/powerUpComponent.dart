@@ -59,14 +59,19 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
     var gameSize = gameRef.size;
     var ratio = gameSize[0]/gameSize[1];
     final double _spriteHeight = ratio*40;
-    final double _spriteWidth = ratio*35;
+    final double _spriteWidth = ratio*40;
     sprite = await gameRef.loadSprite(type.src);
 
-    height = _spriteHeight;
+    if(type == PowerUp_Type_Comp.Gota_Agua){
+      height = _spriteHeight- ratio *10;
+    }
+    else {
+      height = _spriteHeight;
+    }
     width = _spriteWidth;
     anchor = Anchor.center;
     position = gameRef.size / 2;
-
+    size = Vector2(height, width);
 
     position = _createRandomPosition();
 

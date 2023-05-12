@@ -72,7 +72,7 @@ class Trash_Item extends SpriteComponent
   double y_loc;
   int count;
   int div = 0;
-  late OpacityEffect h_opacity_blick_effect;
+  late OpacityEffect h_opacity_blink_effect;
 
 
   Trash_Item(Trash_Type type, double delay, double y_loc, int count) :
@@ -90,6 +90,7 @@ class Trash_Item extends SpriteComponent
 
     add(RectangleHitbox());
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
+    h_opacity_blink_effect = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 5));
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y_loc),
       EffectController(
@@ -369,7 +370,15 @@ class Trash_Item extends SpriteComponent
       is_colliding = false;
     }
     else if(other is hbox_level3){
-      print("this is hbox");
+      if(count > 3) {
+        removeFromParent();
+      }
+      else {
+        count += 1;
+        div += 2;
+        h_opacity_blink_effect = OpacityEffect.to(2, EffectController(duration: 4/div, repeatCount: 30, startDelay: 1));
+        add(h_opacity_blink_effect);
+      }
     }
   }
 

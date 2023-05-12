@@ -6,8 +6,10 @@ import 'trash_items.dart';
 
 class Banda_T_Hole extends PositionComponent with HasGameRef{
 
+  late var hole_no;
   Banda_T_Hole() {
     this.size = Vector2(100, 20);
+    this.hole_no = 0;
   }
 
   @override

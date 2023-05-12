@@ -114,12 +114,12 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
       // Vector2(ratio*225, ratio*128),
       Vector2(ratio*375, ratio*118)
     ];
-    hole_pos.add(Vector2(ratio*100, ratio*50));
-    hole_pos.add(Vector2(ratio*600, ratio*50));
-    hole_pos.add(Vector2(ratio*300, ratio*140));
+    hole_pos.add([Vector2(ratio*100, ratio*50),0]);
+    hole_pos.add([Vector2(ratio*600, ratio*50),0]);
+    hole_pos.add([Vector2(ratio*300, ratio*140),0]);
     // hole_pos.add(Vector2(ratio*(390) , ratio*230));
     for(var i=0; i<3; i++){
-      hole_pos.add(Vector2(ratio*(390 + i*110) , ratio*230));
+      hole_pos.add([Vector2(ratio*(390 + i*110) , ratio*230), i+1]);
     }
 
     // FlameAudio.bgm.play("MUSICGAME.mp3");
@@ -131,8 +131,9 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     // }
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
-    _banda_t_hole.position = hole_pos[0];
+    _banda_t_hole.position = hole_pos[0][0];
     _banda_t_hole.size = Vector2(ratio*50, ratio*8);
+    _banda_t_hole.hole_no = hole_pos[0][1];
     _banda_t_holes.add(_banda_t_hole);
     banda_t_info.add([Vector2(0, _banda_t_hole.position.y), Vector2(_banda_t_hole.position.x, ratio*40)]);
     Wheel wheel;
@@ -143,10 +144,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     }
     var last_y = _banda_t_hole.position.y;
     var last_x = _banda_t_hole.position.x+_banda_t_hole.size.x;
-    for(Vector2 pos in hole_pos.sublist(1)) {
+    for(var pos in hole_pos.sublist(1)) {
       Banda_T_Hole _banda_t_hole = Banda_T_Hole();
-      _banda_t_hole.position = pos;
+      _banda_t_hole.position = pos[0];
       _banda_t_hole.size = Vector2(ratio*50, ratio*8);
+      _banda_t_hole.hole_no = pos[1];
       _banda_t_holes.add(_banda_t_hole);
       // var _banda_1_info = [
       //   Vector2(0, _banda_t_hole.position.y),
@@ -210,11 +212,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     var hole_no = 1;
     for(var hole in hole_pos.sublist(hole_pos.length-2)){
-      var start_x = hole[0];
-      var end_x = hole[0] + ratio*50;
+      var start_x = hole[0][0];
+      var end_x = hole[0][0] + ratio*50;
       Banda_T _bt;
       while(start_x < end_x){
-        _bt = Banda_T(asset: 'uno_conveyor_belt.png', position: Vector2(start_x, hole[1]),
+        _bt = Banda_T(asset: 'uno_conveyor_belt.png', position: Vector2(start_x, hole[0][1]),
             size: Vector2(ratio * 5, ratio*40), hole_no: hole_no);
         _banda_ts.add(_bt);
         start_x += ratio*5;
@@ -228,7 +230,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     var belt1_trash_items = [];
     var belt2_trash_items = [];
-    var distractive_items = [];
+    // var distractive_items = [];
     var focused_indexes = [];
     var rest_indexes = [];
     Trash_Type.values.forEachIndexed((index, element) {
@@ -283,7 +285,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
 
 
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < 2; i++){
       var k = _random.nextInt(dis_indexes.length);
       DistractiveItem d;
       d = DistractiveItem(
@@ -304,15 +306,15 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     belt1_trash_items.shuffle();
     belt2_trash_items.shuffle();
     for(int i = 0; i < belt1_trash_items.length; i++) {
-      belt1_trash_items[i].delay = i*2 + _random.nextDouble();
-      belt2_trash_items[i].delay = i*2 + _random.nextDouble();
+      belt1_trash_items[i].delay = i*3 + _random.nextInt(3);
+      belt2_trash_items[i].delay = i*3 + _random.nextInt(3);
       await add(belt1_trash_items[i]);
       await add(belt2_trash_items[i]);
     }
 
-    for(var i in distractive_items) {
-      await add(i);
-    }
+    // for(var i in distractive_items) {
+    //   await add(i);
+    // }
 
     for (Wheel wheel in _banda_wheels){
       await add(wheel);
@@ -395,7 +397,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         t.y_loc = ratio*140;
         add(t);
       }
-      if(_score_disp.score == 40){
+      if(blue_score_disp.blue_score == 40){
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
@@ -417,9 +419,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[4];
         _banda_t_hole.size = Vector2(ratio*50, ratio*8);
+        _banda_t_hole.hole_no = 2;
         add(_banda_t_hole);
       }
-      if(_score_disp.score == 80){
+      if(yellow_score_disp.yellow_score == 40){
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
@@ -441,6 +444,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[5];
         _banda_t_hole.size = Vector2(ratio*50, ratio*8);
+        _banda_t_hole.hole_no = 3;
         add(_banda_t_hole);
       }
     }

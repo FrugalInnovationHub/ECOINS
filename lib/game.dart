@@ -417,7 +417,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           }
         }
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
-        _banda_t_hole.position = hole_pos[4];
+        _banda_t_hole.position = hole_pos[4][0];
         _banda_t_hole.size = Vector2(ratio*50, ratio*8);
         _banda_t_hole.hole_no = 2;
         add(_banda_t_hole);
@@ -442,7 +442,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           }
         }
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
-        _banda_t_hole.position = hole_pos[5];
+        _banda_t_hole.position = hole_pos[5][0];
         _banda_t_hole.size = Vector2(ratio*50, ratio*8);
         _banda_t_hole.hole_no = 3;
         add(_banda_t_hole);

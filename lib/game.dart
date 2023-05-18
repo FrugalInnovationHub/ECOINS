@@ -18,6 +18,8 @@ import 'cocina.dart';
 import 'banda_t.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';
+import 'hbox_level1.dart';
+import 'hbox_level2.dart';
 import 'trash_items.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
@@ -25,7 +27,7 @@ import 'pause_btn.dart';
 import 'score_disp.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
+class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, HasGameRef{
 
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
@@ -42,11 +44,13 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   // final Score_Board _score_board = Score_Board();
   final _random = new Random();
   late PowerUp_Type_Comp type;
-  late var focusedItem;
+  var focusedItem = "Plastico" ;
   late final total_trash_items;
   late var ratio;
   late OpacityEffect h_opacity_blink_effect_yellow;
   late OpacityEffect h_opacity_blink_effect_grey;
+  late MoveEffect h_move_effect_new;
+  late double speed = 20;
 
   bool musicPlaying = false;
 
@@ -77,6 +81,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(_pause_btn);
     await add(hbox_level3(size: Vector2(ratio*20 ,ratio*50), position: Vector2(-(ratio*50),ratio*200)));
     await add(hbox_level3(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*200)));
+    await add(hbox_level2(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*100)));
+    await add(hbox_level1(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);
@@ -251,7 +257,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
               Trash_Type.values[focused_indexes[j]],
               i*4,
               ratio*(50),
-              0
+              0,
+              speed
           );
         belt1_trash_items.add(t);
         j = _random.nextInt(focused_indexes.length);
@@ -259,10 +266,12 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
             Trash_Type.values[focused_indexes[j]],
             i*4,
             ratio*(140),
-            0
+            0,
+            speed
         );
         belt2_trash_items.add(t);
     }
+
     for(int i=0;i < (0.4*total_trash_items).round() ;i++) {
       var j = _random.nextInt(rest_indexes.length);
       Trash_Item t;
@@ -270,7 +279,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           Trash_Type.values[rest_indexes[j]],
           i*4,
           ratio*(50),
-          0
+          0,
+          speed
       );
       belt1_trash_items.add(t);
       j = _random.nextInt(rest_indexes.length);
@@ -278,7 +288,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           Trash_Type.values[rest_indexes[j]],
           i*4,
           ratio*(140),
-          0
+          0,
+          speed
       );
       belt2_trash_items.add(t);
     }
@@ -378,7 +389,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
             Trash_Type.values[focused_indexes[j]],
             _random.nextDouble(),
             ratio*(50),
-            0
+            0,
+            speed
         );
       }
       else {
@@ -387,7 +399,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
             Trash_Type.values[rest_indexes[j]],
             _random.nextDouble(),
             ratio*(50),
-            0
+            0,
+            speed
         );
       }
       if(belt1_item_count < total_trash_items){
@@ -401,7 +414,22 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
+        final belt_items = children.query<Trash_Item>();
+        speed = 10;
 
+        // for(var i in belt_items){
+        //   i.h_move_effect.removeFromParent();
+        //   h_move_effect_new = MoveEffect.to(
+        //     Vector2(size[0], i.y_loc),
+        //     EffectController(
+        //         startDelay: 0,
+        //         duration: speed,
+        //         infinite: true,
+        //         alternate: true
+        //     ),
+        //   );
+        //   i.add(h_move_effect_new);
+        // }
         for(var i in allBandaT){
           if(i.hole_no == 1){
             i.removeFromParent();
@@ -426,6 +454,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
+        speed = 5;
 
         for(var i in allBandaT){
           if(i.hole_no == 2){

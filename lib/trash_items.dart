@@ -1,4 +1,6 @@
 import 'package:ecoins/gray_score.dart';
+import 'package:ecoins/hbox_level1.dart';
+import 'package:ecoins/hbox_level2.dart';
 import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/yellow_score.dart';
 import 'package:flame/components.dart';
@@ -74,11 +76,13 @@ class Trash_Item extends SpriteComponent
   double y_loc;
   int count;
   int div = 0;
+  double speed;
   late OpacityEffect h_opacity_blink_effect;
+  late MoveEffect h_move_effect_new;
 
 
-  Trash_Item(Trash_Type type, double delay, double y_loc, int count) :
-        this.type = type, this.delay = delay, this.y_loc = y_loc, this.count = count;
+  Trash_Item(Trash_Type type, double delay, double y_loc, int count, double speed) :
+        this.type = type, this.delay = delay, this.y_loc = y_loc, this.count = count, this.speed = speed;
 
   @override
   Future<void> onLoad() async {
@@ -98,7 +102,7 @@ class Trash_Item extends SpriteComponent
       Vector2(gameRef.size.length, y_loc),
       EffectController(
         startDelay: delay,
-        duration: 20,
+        duration: speed,
         infinite: true,
         alternate: true
       ),
@@ -134,7 +138,6 @@ class Trash_Item extends SpriteComponent
         removeFromParent();      });
     }
   }
-
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
 
@@ -200,8 +203,8 @@ class Trash_Item extends SpriteComponent
                     gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   blue_scored = true;
-                  score.updateScore(1);
-                  blue_score.blue_updateScore(1);
+                  score.updateScore(10);
+                  blue_score.blue_updateScore(10);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
@@ -237,8 +240,8 @@ class Trash_Item extends SpriteComponent
                 if (yellow_score != null && gota_score_disp != null &&
                 sol_score_disp != null && score != null) {
                   yellow_scored = true;
-                  score.updateScore(1);
-                  yellow_score.updateScore(1);
+                  score.updateScore(10);
+                  yellow_score.updateScore(10);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
@@ -376,6 +379,32 @@ class Trash_Item extends SpriteComponent
       if(count > 2) {
         removeFromParent();
       }
+      // else if(other is hbox_level2){
+      //   h_move_effect.removeFromParent();
+      //   h_move_effect_new = MoveEffect.to(
+      //     Vector2(size[0], y_loc),
+      //     EffectController(
+      //         startDelay: 0,
+      //         duration: speed,
+      //         infinite: true,
+      //         alternate: true
+      //     ),
+      //   );
+      //   add(h_move_effect_new);
+      // }
+      // else if(other is hbox_level1){
+      //   h_move_effect.removeFromParent();
+      //   h_move_effect_new = MoveEffect.to(
+      //     Vector2(size[0], y_loc),
+      //     EffectController(
+      //         startDelay: 0,
+      //         duration: speed,
+      //         infinite: true,
+      //         alternate: true
+      //     ),
+      //   );
+      //   add(h_move_effect_new);
+      // }
       else {
         count += 1;
         div += 2;

@@ -35,7 +35,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // Use the controller to loop the video.
     // _controller.setLooping(true);
 
-    Future.delayed(Duration(seconds: 5), () {
+    Future.delayed(Duration(seconds: 0), () {
       setState(() {
         _isVisible = true;
       });
@@ -44,16 +44,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _controller.addListener(() {                       //custom Listner
       setState(() {
         if (!_controller.value.isPlaying && _controller.value.isInitialized &&
-            (_controller.value.duration ==_controller.value.position)) { //checking the duration and position every time
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => GameWidget(
-                  game: EcoinsGame(),
-                  overlayBuilderMap: {
-                    'PauseMenu':
-                        (BuildContext context, EcoinsGame game) {
-                      return pause_menu(game: game);
-                    }
-          })));
+            (_controller.value.duration ==_controller.value.position)) {//checking the duration and position every time
+          Navigator.pushReplacementNamed(this.context, '/game');
         }
       });
     });
@@ -102,16 +94,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 if (_controller.value.isPlaying) {
                   _controller.pause();
                 }
-
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => GameWidget(
-                        game: EcoinsGame(),
-                        overlayBuilderMap: {
-                          'PauseMenu':
-                              (BuildContext context, EcoinsGame game) {
-                            return pause_menu(game: game);
-                          }
-                        })));
+                Navigator.pushReplacementNamed(this.context, '/game');
               });
             },
             // Display the correct icon depending on the state of the player.

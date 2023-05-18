@@ -16,28 +16,32 @@ class Score_Disp extends SpriteComponent with HasGameRef {
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    var ratio = gameRef.size[0]/gameRef.size[1];
-
     sprite = await gameRef.loadSprite("SCORE.png");
 
     final _style = TextStyle(
         color: BasicPalette.white.color,
-        fontSize: ratio*30,
+        fontSize: gameRef.size[0]*0.03,
         fontWeight: FontWeight.bold
     );
     final _paint = TextPaint(style: _style);
 
-    position = Vector2(ratio*725, ratio* 325);
-    size = Vector2(ratio*75, ratio*100);
-
+    position = Vector2(gameRef.size[0]*0.875, gameRef.size[1]* 0.725);
+    size = Vector2(gameRef.size[0]*0.09, gameRef.size[1]*0.21);
     _score_val = ScoreVal(
         textRenderer: _paint,
-        position: Vector2(ratio*25, ratio*35)
+        position: Vector2(gameRef.size[0]*0.03, gameRef.size[1]*0.07)
     );
 
     await add(_score_val);
   }
 
+  @override
+  void onGameResize(Vector2 size) {
+    // TODO: implement onGameResize
+    super.onGameResize(size);
+    this.position = Vector2(size[0]*0.875, size[1]* 0.725);
+    this.size = Vector2(size[0]*0.09, size[1]*0.21);
+  }
   bool updateScore(int newScore) {
     this.score += newScore;
     this._score_val.score = this.score;

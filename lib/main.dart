@@ -1,4 +1,5 @@
 import 'package:ecoins/screens/home_screen.dart';
+import 'package:ecoins/screens/pause_menu.dart';
 import 'package:ecoins/screens/videoPlayerScreen.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,16 @@ class app extends StatelessWidget {
       initialRoute: "/",
       routes: {
         '/': (context) => GameWidget(game: HomeScreen(context: context)),
-        "/game": (context) =>  VideoPlayerScreen(),
+        "/video": (context) =>  VideoPlayerScreen(),
+        "/game": (context) => GameWidget(
+            game: EcoinsGame(),
+            overlayBuilderMap: {
+              'PauseMenu':
+                  (BuildContext context, EcoinsGame game) {
+                return pause_menu(game: game);
+              }
+            }
+        )
       },
     );
   }

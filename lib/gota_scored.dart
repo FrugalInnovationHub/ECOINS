@@ -17,13 +17,11 @@ class Gota_Score_Disp extends PositionComponent with HasGameRef {
   SpriteComponent GotaLevel3 = SpriteComponent();
   SpriteComponent GotaLevel4 = SpriteComponent();
   int g = 4;
-  late double ratio = 1;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
     // final _style = TextStyle(
     //     color: BasicPalette.white.color,
     //     fontSize: 30.0,
@@ -49,29 +47,29 @@ class Gota_Score_Disp extends PositionComponent with HasGameRef {
     // await add(_gota_score_val);
     GotaLevel1
       ..sprite = await gameRef.loadSprite('GOTA1.png')
-      ..size = Vector2(ratio*57, ratio*19)
-      ..position = Vector2(ratio*121, ratio*350);
+      ..size = Vector2(gameSize[0]*0.071, gameSize[1]*0.04)
+      ..position = Vector2(gameSize[0]*0.154, gameSize[1]*0.75);
 
     // add(GotaLevel1);
 
     GotaLevel2
       ..sprite = await gameRef.loadSprite('GOTA2.png')
-      ..size = Vector2(ratio*57, ratio*16)
-      ..position = Vector2(ratio*121, ratio*369);
+      ..size = Vector2(gameSize[0]*0.071, gameSize[1]*0.035)
+      ..position = Vector2(gameSize[0]*0.154, gameSize[1]*0.79);
 
     // add(GotaLevel2);
 
     GotaLevel3
       ..sprite = await gameRef.loadSprite('GOTA3.png')
-      ..size = Vector2(ratio*57, ratio*18)
-      ..position = Vector2(ratio*121, ratio*385);
+      ..size = Vector2(gameSize[0]*0.071, gameSize[1]*0.04)
+      ..position = Vector2(gameSize[0]*0.154, gameSize[1]*0.825);
 
     // add(GotaLevel3);
 
     GotaLevel4
       ..sprite = await gameRef.loadSprite('GOTA4.png')
-      ..size = Vector2(ratio*57, ratio*16)
-      ..position = Vector2(ratio*121, ratio*403);
+      ..size = Vector2(gameSize[0]*0.071, gameSize[1]*0.035)
+      ..position = Vector2(gameSize[0]*0.154, gameSize[1]*0.865);
 
     // add(GotaLevel4);
   }

@@ -88,7 +88,7 @@ class HomeScreen extends FlameGame with HasTappables {
       Vector2(0, size[1] * 0.07)
     ], position: Vector2(size[0] * 0.575, size[1] * 0.58),
         paint: green,
-        size: Vector2(ratio * 10, ratio * 10));
+        size: Vector2(size[0] * 0.12, size[1] * 0.22));
 
     await add(ecoins);
     await add(cangrejo1);
@@ -104,58 +104,4 @@ class HomeScreen extends FlameGame with HasTappables {
     await add(button);
     await add(triangle);
   }
-
-  // void resizeComponents(var ratio, Vector2 size){
-  //   ecoins.position = Vector2(size[0]*0.31, size[1] * 0.34);
-  //   ecoins.size = Vector2(size[0] * 0.37, size[1] * 0.27);
-  //   cangrejo2.position =  Vector2(size[0]*0.18, size[1] * 0.75);
-  //   cangrejo2.size = Vector2(size[0] * 0.1, size[1] * 0.17);
-  //   cangrejo1.position =  Vector2(ratio * 37.5, ratio * 360);
-  //   cangrejo1.size = Vector2(ratio * 67.5, ratio * 60);
-  //   cangrejo3 = ImageSprite(asset: 'cangrejo.png',
-  //       position: Vector2(ratio * 720, ratio * 380),
-  //       size: Vector2(ratio * 75, ratio * 70));
-  //   dolphin1 = ImageSprite(asset: 'DOLPHIN.png',
-  //       position: Vector2(ratio * 70, ratio * 100),
-  //       size: Vector2(ratio * 50, ratio * 150),
-  //       angle: -2);
-  //   dolphin2 = ImageSprite(asset: 'DOLPHIN.png',
-  //       position: Vector2(ratio * 250, ratio * 175),
-  //       size: Vector2(ratio * 40, ratio * 125),
-  //       angle: -2);
-  //   girl = ImageSprite(asset: 'GIRL.png',
-  //       position: Vector2(ratio * 615, ratio * 50),
-  //       size: Vector2(ratio * 165, ratio * 410));
-  //   whale = ImageSprite(asset: 'WHALE.png',
-  //       position: Vector2(-(ratio * 75), ratio * 475),
-  //       size: Vector2(ratio * 150, ratio * 500),
-  //       angle: -2.25);
-  //   turtle = ImageSprite(asset: 'Turtle.png',
-  //       position: Vector2(ratio * 525, ratio * 380),
-  //       size: Vector2(ratio * 160, ratio * 80));
-  //   pelican = ImageSprite(asset: 'Pelican.png',
-  //       position: Vector2(ratio * 405, ratio * 125),
-  //       size: Vector2(ratio * 80, ratio * 89));
-  //
-  //
-  //   button = PlayButton(radius: ratio * 30,
-  //       position: Vector2(ratio * 450, ratio * 260),
-  //       paint: blue,
-  //       context: this.context);
-  //   triangle = PolygonComponent([
-  //     Vector2(0, 0),
-  //     Vector2(ratio * 30, ratio * 15),
-  //     Vector2(0, ratio * 30)
-  //   ], position: Vector2(ratio * 470, ratio * 275),
-  //       paint: green,
-  //       size: Vector2(ratio * 10, ratio * 10));
-  // }
-
-  // @override
-  // void onGameResize(Vector2 size) {
-  //   // TODO: implement onGameResize
-  //   super.onGameResize(size);
-  //   var ratio = size[0]/size[1];
-  //   resizeComponents(ratio, size);
-  // }
 }

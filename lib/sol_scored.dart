@@ -19,7 +19,6 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
   SpriteComponent SolLevel3 = SpriteComponent();
   SpriteComponent SolLevel4 = SpriteComponent();
 
-  late double ratio = 1;
 
   // Sol_Score_Disp(int sol_score){
   //   this.sol_score = sol_score;
@@ -29,7 +28,6 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
   Future<void> onLoad() async {
     super.onLoad();
     var gameSize = gameRef.size;
-    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
 
     // TextComponent _green_score_txt = TextComponent(
     //     text: 'Score: ',
@@ -39,29 +37,29 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
 
     SolLevel1
       ..sprite = await gameRef.loadSprite('SOL1.png')
-      ..size = Vector2(ratio*73, ratio*19)
-      ..position = Vector2(ratio*39, ratio*350);
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.04)
+      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.75);
 
     // add(SolLevel1);
 
     SolLevel2
       ..sprite = await gameRef.loadSprite('SOL2.png')
-      ..size = Vector2(ratio*70, ratio*16)
-      ..position = Vector2(ratio*40, ratio*369);
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.035)
+      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.79);
 
     // add(SolLevel2);
 
     SolLevel3
       ..sprite = await gameRef.loadSprite('SOL3.png')
-      ..size = Vector2(ratio*70, ratio*18)
-      ..position = Vector2(ratio*40, ratio*385);
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.04)
+      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.825);
 
     // add(SolLevel3);
 
     SolLevel4
       ..sprite = await gameRef.loadSprite('SOL4.png')
-      ..size = Vector2(ratio*70, ratio*18)
-      ..position = Vector2(ratio*40, ratio*403);
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.035)
+      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.865);
 
     // add(SolLevel4);
 

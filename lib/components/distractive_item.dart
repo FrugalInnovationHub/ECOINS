@@ -4,11 +4,11 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 
 enum Distractive_Type implements Comparable<Distractive_Type> {
-  Cangrejo(src: 'cangrejo.png', size: [30, 40], angle: 0, add_y: 0.10, priority: 2),
-  Whale(src: 'WHALE.png', size: [40, 80], angle: -2, add_y: 1.35, priority: 1),
-  Turtle(src: 'Turtle.png', size: [50, 40], angle: 0, add_y: 0.30, priority: 2),
-  Pelican(src: 'Pelican.png', size: [30, 45], angle: 0, add_y: 0.10, priority: 2),
-  Dolphin(src: 'DOLPHIN.png', size: [35, 80], angle: -1.75, add_y: 1.15, priority: 1);
+  Cangrejo(src: 'cangrejo.png', size: [0.035, 0.09], angle: 0, add_y: 0.10, priority: 2),
+  Whale(src: 'WHALE.png', size: [0.045, 0.17], angle: -2, add_y: 1.35, priority: 1),
+  Turtle(src: 'Turtle.png', size: [0.055, 0.09], angle: 0, add_y: 0.30, priority: 2),
+  Pelican(src: 'Pelican.png', size: [0.035, 0.095], angle: 0, add_y: 0.10, priority: 2),
+  Dolphin(src: 'DOLPHIN.png', size: [0.040, 0.17], angle: -1.75, add_y: 1.15, priority: 1);
 
 
   const Distractive_Type({
@@ -37,13 +37,13 @@ enum Distractive_Type implements Comparable<Distractive_Type> {
 
 class DistractiveItem extends SpriteComponent with HasGameRef, Tappable{
   late MoveEffect h_move_effect;
-  late final ratio;
   // late final h_opacity_blink_effect;
   late final h_remove_effect;
   bool is_moving = true;
   Distractive_Type type;
   double delay;
   double y_loc;
+  late var gameSize;
 
   DistractiveItem(Distractive_Type type, double delay, double y_loc) :
         this.type = type, this.delay = delay, this.y_loc = y_loc;
@@ -51,17 +51,13 @@ class DistractiveItem extends SpriteComponent with HasGameRef, Tappable{
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    ratio = double.parse((gameRef.size[0] / gameRef.size[1]).toStringAsFixed(1));
-    var y = y_loc - (1 - type.add_y)*ratio * type.size[1];
+    gameSize = gameRef.size;
+    var y = y_loc - (1 - type.add_y)*gameSize[1] * type.size[1];
     sprite = await gameRef.loadSprite(type.src);
-    position = Vector2(-(ratio * 80), y);
-    size = Vector2(ratio * type.size[0], ratio * type.size[1]);
+    position = Vector2(-(gameSize[0] * 0.1), y);
+    size = Vector2(gameSize[0] * type.size[0], gameSize[1] * type.size[1]);
     angle = type.angle;
     priority = type.priority;
-    // if(type == Distractive_Type.Whale || type == Distractive_Type.Dolphin) {
-    //   y = y_loc + 0.25 * ratio * type.size[1];
-    //   position.y = y;
-    // }
 
     add(RectangleHitbox());
     // h_opacity_blink_effect = OpacityEffect.to(2, EffectController(duration: 3, repeatCount: 3, startDelay: 40 + delay));

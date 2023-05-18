@@ -19,7 +19,7 @@ class PlayButton extends CircleComponent with Tappable, HasGameRef {
 
   @override
   bool onTapDown(TapDownInfo info) {
-    Navigator.pushReplacementNamed(this.context, '/game');
+    Navigator.pushReplacementNamed(this.context, '/video');
     return false;
   }
 }

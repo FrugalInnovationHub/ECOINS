@@ -15,7 +15,7 @@ class Banda_T_Hole extends PositionComponent with HasGameRef{
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    // sprite = await gameRef.loadSprite('banda_transportadora_hole.png');
+    // var sprite = await gameRef.loadSprite('Turtle.png');
     add(RectangleHitbox());
   }
 }

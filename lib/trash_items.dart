@@ -20,18 +20,18 @@ import 'hbox_level3.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
-  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [20, 45], priority: 3),
-  Plastic_BOTTLE(type: "Plastico", src: 'Plastic_BOTTLE.png', size: [20, 45], priority: 3),
-  Botella_Refresco(type: "Plastico", src: 'Botella_Refresco.png', size: [20, 45], priority: 3),
-  Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [30, 30], priority: 3),
-  Caja_Carton(type: "Paper", src: 'Caja_Carton.png', size: [60, 45], priority: 1),
-  Botella_Agua(type: "Plastico", src: 'Botella_Agua.png', size: [20, 45], priority: 3),
-  Botella_Agua_Grande(type: "Plastico", src: 'Botella_Agua_Grande.png', size: [30, 45], priority: 1),
-  Botella_Jabon(type: "Plastico", src: 'Botella_jabon.png', size: [25, 45], priority: 2),
-  Cilindro_Papel(type: "Paper", src: 'Cilindro_papel.png', size: [20, 45], priority: 2),
-  LATA_2(type: "Aluminio", src: 'LATA_2.png', size: [20, 45], priority: 3),
-  LATA_3(type: "Aluminio", src: 'LATA_3.png', size: [20, 45], priority: 3),
-  Lata_aluminio(type: "Aluminio", src: 'Lata_aluminio.png', size: [20, 45], priority: 2);
+  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [0.025, 0.095], priority: 3),
+  Plastic_BOTTLE(type: "Plastico", src: 'Plastic_BOTTLE.png', size: [0.025, 0.095], priority: 3),
+  Botella_Refresco(type: "Plastico", src: 'Botella_Refresco.png', size: [0.025, 0.095], priority: 3),
+  Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [0.035, 0.065], priority: 3),
+  Caja_Carton(type: "Paper", src: 'Caja_Carton.png', size: [0.07, 0.095], priority: 1),
+  Botella_Agua(type: "Plastico", src: 'Botella_Agua.png', size: [0.025, 0.095], priority: 3),
+  Botella_Agua_Grande(type: "Plastico", src: 'Botella_Agua_Grande.png', size: [0.035, 0.095], priority: 1),
+  Botella_Jabon(type: "Plastico", src: 'Botella_jabon.png', size: [0.03, 0.095], priority: 2),
+  Cilindro_Papel(type: "Paper", src: 'Cilindro_papel.png', size: [0.025, 0.095], priority: 2),
+  LATA_2(type: "Aluminio", src: 'LATA_2.png', size: [0.025, 0.095], priority: 3),
+  LATA_3(type: "Aluminio", src: 'LATA_3.png', size: [0.025, 0.095], priority: 3),
+  Lata_aluminio(type: "Aluminio", src: 'Lata_aluminio.png', size: [0.025, 0.095], priority: 2);
 
 
   const Trash_Type({
@@ -59,7 +59,7 @@ enum Trash_Type implements Comparable<Trash_Type> {
 class Trash_Item extends SpriteComponent
     with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
   late MoveEffect h_move_effect;
-  late final ratio;
+  // late final ratio;
   late OpacityEffect h_opacity_effect;
   late RemoveEffect h_remove_effect;
   late final category;
@@ -75,7 +75,7 @@ class Trash_Item extends SpriteComponent
   int count;
   int div = 0;
   late OpacityEffect h_opacity_blink_effect;
-
+  late var gameSize;
 
   Trash_Item(Trash_Type type, double delay, double y_loc, int count) :
         this.type = type, this.delay = delay, this.y_loc = y_loc, this.count = count;
@@ -83,12 +83,13 @@ class Trash_Item extends SpriteComponent
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    ratio = double.parse((gameRef.size[0]/gameRef.size[1]).toStringAsFixed(1));
+    gameSize = gameRef.size;
+    // ratio = double.parse((gameRef.size[0]/gameRef.size[1]).toStringAsFixed(1));
     category = type.type;
-    y_loc = y_loc - ratio*type.size[1];
+    y_loc = y_loc - gameSize[1]*type.size[1];
     sprite = await gameRef.loadSprite(type.src);
-    position = Vector2(-(ratio*60), y_loc);
-    size = Vector2(ratio*type.size[0], ratio*type.size[1]);
+    position = Vector2(-(gameSize[0]*0.08), y_loc);
+    size = Vector2(gameSize[0]*type.size[0], gameSize[1]*type.size[1]);
     priority = type.priority;
 
     add(RectangleHitbox());
@@ -112,14 +113,14 @@ class Trash_Item extends SpriteComponent
     // info.handled = true
 
     if(is_colliding) {
-      if((ratio*50 - ratio*type.size[1]) == position.y) {
-        position = Vector2(position.x, ratio*140 - ratio*type.size[1]);
+      if((gameSize[1]*0.11 - gameSize[1]*type.size[1]) == position.y) {
+        position = Vector2(position.x, gameSize[1]*0.31 - gameSize[1]*type.size[1]);
       }
-      else if((ratio*140 - ratio*type.size[1]) == position.y) {
-        position = Vector2(position.x, ratio*230 - ratio*type.size[1]);
+      else if((gameSize[1]*0.31 - gameSize[1]*type.size[1]) == position.y) {
+        position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*type.size[1]);
       }
       else{
-        position = Vector2(position.x, ratio*330 - ratio*type.size[1]);
+        position = Vector2(position.x, gameSize[1]*0.7 - gameSize[1]*type.size[1]);
       }
     }
     return false;
@@ -200,15 +201,15 @@ class Trash_Item extends SpriteComponent
                     gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   blue_scored = true;
-                  score.updateScore(10);
-                  blue_score.blue_updateScore(10);
+                  score.updateScore(1);
+                  blue_score.blue_updateScore(1);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
                 }
               } else {
-                position = Vector2(position.x, position.y - ratio*100);
+                position = Vector2(position.x, gameSize[1]*0.505 );
               }
               // blue_scored = false;
               break;
@@ -216,7 +217,7 @@ class Trash_Item extends SpriteComponent
               {}
           }
         } else{
-          position = Vector2(position.x, position.y - ratio*100);
+          position = Vector2(position.x, gameSize[1]*0.505);
         }
       }
       if (!yellow_scored && type.type == "Aluminio") {
@@ -237,15 +238,15 @@ class Trash_Item extends SpriteComponent
                 if (yellow_score != null && gota_score_disp != null &&
                 sol_score_disp != null && score != null) {
                   yellow_scored = true;
-                  score.updateScore(10);
-                  yellow_score.updateScore(10);
+                  score.updateScore(1);
+                  yellow_score.updateScore(1);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
                 }
               } else {
-                position = Vector2(position.x, position.y - 100);
+                position = Vector2(position.x, gameSize[1]*0.505);
               }
               break;
 
@@ -254,7 +255,7 @@ class Trash_Item extends SpriteComponent
           }
         }
         else{
-          position = Vector2(position.x, position.y - ratio*100);
+          position = Vector2(position.x, gameSize[1]*0.505);
         }
       }
 
@@ -284,7 +285,7 @@ class Trash_Item extends SpriteComponent
                   add(h_remove_effect);
                 }
               } else {
-                position = Vector2(position.x, position.y - 100);
+                position = Vector2(position.x, gameSize[1]*0.505);
               }
               // blue_scored = false;
               break;
@@ -294,7 +295,7 @@ class Trash_Item extends SpriteComponent
           }
         }
         else{
-          position = Vector2(position.x, position.y - ratio*100);
+          position = Vector2(position.x, gameSize[1]*0.505);
         }
       }
 

@@ -13,44 +13,43 @@ import 'package:flutter/material.dart';
 class Gray_Score_Disp extends PositionComponent with HasGameRef {
   late Gray_ScoreVal _gray_score_val;
   int gray_score = 0;
-  late double ratio = 1;
   SpriteComponent GrayLevel1 = SpriteComponent();
   SpriteComponent GrayLevel2 = SpriteComponent();
   SpriteComponent GrayLevel3 = SpriteComponent();
   SpriteComponent GrayLevel4 = SpriteComponent();
+  late var gameSize;
 
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    var gameSize = gameRef.size;
-    ratio = double.parse((gameSize[0]/gameSize[1]).toStringAsFixed(1));
+    gameSize = gameRef.size;
 
 
     GrayLevel1
       ..sprite = await gameRef.loadSprite('01.png')
-      ..size = Vector2(ratio*67, ratio*40)
-      ..position = Vector2(ratio*601, ratio*410);
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.088)
+      ..position = Vector2(gameSize[0]*0.746, gameSize[1]*0.9);
 
     // add(GrayLevel1);
 
     GrayLevel2
       ..sprite = await gameRef.loadSprite('02.png')
-      ..size = Vector2(ratio*70, ratio*40)
-      ..position = Vector2(ratio*600, ratio*370);
+      ..size = Vector2(gameSize[0]*0.094, gameSize[1]*0.089)
+      ..position = Vector2(gameSize[0]*0.745, gameSize[1]*0.8115);
 
     // add(GrayLevel2);
 
     GrayLevel3
       ..sprite = await gameRef.loadSprite('03.png')
-      ..size = Vector2(ratio*80, ratio*34)
-      ..position = Vector2(ratio*595, ratio*336);
+      ..size = Vector2(gameSize[0]*0.107, gameSize[1]*0.076)
+      ..position = Vector2(gameSize[0]*0.739, gameSize[1]*0.736);
 
     // add(GrayLevel3);
 
     GrayLevel4
       ..sprite = await gameRef.loadSprite('04.png')
-      ..size = Vector2(ratio*79, ratio*37)
-      ..position = Vector2(ratio*595, ratio*300);
+      ..size = Vector2(gameSize[0]*0.104, gameSize[1]*0.082)
+      ..position = Vector2(gameSize[0]*0.74, gameSize[1]*0.654);
 
     // add(GrayLevel4);
   }
@@ -73,25 +72,25 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
 
   void changeSpriteLevel() {
     if(gray_score <= 10){
-      GrayLevel1.size.y = ratio*(40 - gray_score*4);
+      GrayLevel1.size.y = gameSize[1]*(0.088 - gray_score*0.0088);
       if(gray_score == 10){
         GrayLevel1.removeFromParent();
       }
     }
     else if(gray_score <= 20){
-      GrayLevel2.size.y = ratio*(40 - (gray_score - 10)*4);
+      GrayLevel2.size.y = gameSize[1]*(0.089 - (gray_score - 10)*0.0089);
       if(gray_score == 20){
         GrayLevel2.removeFromParent();
       }
     }
     else if(gray_score <= 30){
-      GrayLevel3.size.y = ratio*(40 - (gray_score - 20)*3.4);
+      GrayLevel3.size.y = gameSize[1]*(0.076 - (gray_score - 10)*0.0076);
       if(gray_score == 30){
         GrayLevel3.removeFromParent();
       }
     }
     else if(gray_score <= 40){
-      GrayLevel4.size.y = ratio*(40 - (gray_score - 30)*3.7);
+      GrayLevel4.size.y = gameSize[1]*(0.082 - (gray_score - 10)*0.0082);
       if(gray_score == 40){
         GrayLevel4.removeFromParent();
       }

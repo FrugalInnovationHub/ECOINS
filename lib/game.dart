@@ -18,6 +18,7 @@ import 'cocina.dart';
 import 'banda_t.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';
+import 'hbox_level2.dart';
 import 'trash_items.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';

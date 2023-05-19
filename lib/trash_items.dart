@@ -22,7 +22,7 @@ import 'hbox_level3.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
-  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [0.025, 0.095], priority: 3),
+  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [0.025, 0.085], priority: 3),
   Plastic_BOTTLE(type: "Plastico", src: 'Plastic_BOTTLE.png', size: [0.025, 0.095], priority: 3),
   Botella_Refresco(type: "Plastico", src: 'Botella_Refresco.png', size: [0.025, 0.095], priority: 3),
   Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [0.035, 0.065], priority: 3),
@@ -91,13 +91,13 @@ class Trash_Item extends SpriteComponent
     gameSize = gameRef.size;
     // ratio = double.parse((gameRef.size[0]/gameRef.size[1]).toStringAsFixed(1));
     category = type.type;
-    y_loc = y_loc - gameSize[1]*type.size[1];
+    y_loc = y_loc - gameSize[1]*(type.size[1] - 0.01);
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-(gameSize[0]*0.08), y_loc);
     size = Vector2(gameSize[0]*type.size[0], gameSize[1]*type.size[1]);
     priority = type.priority;
 
-    add(RectangleHitbox());
+    add(RectangleHitbox(isSolid: true));
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
     h_opacity_blink_effect = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 5));
     h_move_effect = MoveEffect.to(
@@ -118,13 +118,11 @@ class Trash_Item extends SpriteComponent
     // info.handled = true
 
     if(is_colliding) {
-      if((gameSize[1]*0.11 - gameSize[1]*type.size[1]) == position.y) {
-        position = Vector2(position.x, gameSize[1]*0.31 - gameSize[1]*type.size[1]);
-        FlameAudio.play(Globals.itemsClick);
+      if((gameSize[1]*0.11 - gameSize[1]*(type.size[1] - 0.01)) == position.y) {
+        position = Vector2(position.x, gameSize[1]*0.31 - gameSize[1]*(type.size[1] - 0.01));
       }
-      else if((gameSize[1]*0.31 - gameSize[1]*type.size[1]) == position.y) {
-        position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*type.size[1]);
-        FlameAudio.play(Globals.itemsClick);
+      else if((gameSize[1]*0.31 - gameSize[1]*(type.size[1] - 0.01)) == position.y) {
+        position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
       }
       else{
         position = Vector2(position.x, gameSize[1]*0.7 - gameSize[1]*type.size[1]);
@@ -150,21 +148,6 @@ class Trash_Item extends SpriteComponent
       if(other.hole_no == 0) {
         is_colliding = true;
       }
-      // else if(other is hbox_level2){
-      //   h_move_effect.removeFromParent();
-      //   h_move_effect_new = MoveEffect.to(
-      //     Vector2(size[0], y_loc),
-      //     EffectController(
-      //         startDelay: 0,
-      //         duration: speed,
-      //         infinite: true,
-      //         alternate: true
-      //     ),
-      //   );
-      //   add(h_move_effect_new);
-      // }
-
-
       else if((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper")){
         is_colliding = true;
       }
@@ -246,7 +229,6 @@ class Trash_Item extends SpriteComponent
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
-                  FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
                 position = Vector2(position.x, gameSize[1]*0.505 );
@@ -318,8 +300,8 @@ class Trash_Item extends SpriteComponent
                 if (grey_score != null && gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   grey_scored = true;
-                  score.updateScore(10);
-                  grey_score.updateScore(10);
+                  score.updateScore(1);
+                  grey_score.updateScore(1);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);

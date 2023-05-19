@@ -95,7 +95,6 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
   bool recycleLevel(int add_level){
     this.sol_score -= 1;
     this.i -= add_level;
-    print(this.i);
     if(i == 0){
       add(SolLevel4);
     }

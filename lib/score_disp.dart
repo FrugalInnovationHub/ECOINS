@@ -35,13 +35,13 @@ class Score_Disp extends SpriteComponent with HasGameRef {
     await add(_score_val);
   }
 
-  @override
-  void onGameResize(Vector2 size) {
-    // TODO: implement onGameResize
-    super.onGameResize(size);
-    this.position = Vector2(size[0]*0.875, size[1]* 0.725);
-    this.size = Vector2(size[0]*0.09, size[1]*0.21);
-  }
+  // @override
+  // void onGameResize(Vector2 size) {
+  //   // TODO: implement onGameResize
+  //   super.onGameResize(size);
+  //   this.position = Vector2(size[0]*0.875, size[1]* 0.725);
+  //   this.size = Vector2(size[0]*0.09, size[1]*0.21);
+  // }
   bool updateScore(int newScore) {
     this.score += newScore;
     this._score_val.score = this.score;

@@ -69,6 +69,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   Future<void> onLoad() async {
     super.onLoad();
     children.register<PositionComponent>();
+    var y = (size[0] / 16)*9;
+    camera.viewport = FixedResolutionViewport(Vector2(size[0], y));
     ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
     // debugMode = true;
     focusedItem = "Plastico";
@@ -474,14 +476,14 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     }
   }
 
-  @override
-  void onGameResize(Vector2 size) {
-    // TODO: implement onGameResize
-    super.onGameResize(size);
-    _cocina.size = size;
-    Sol.position = Vector2(size[0]*0.05, size[1]*0.75);
-    Sol.size = Vector2(size[0]*0.09, size[1]*0.15);
-    agua.position = Vector2(size[0]*0.160, size[1]*0.75);
-    agua.size = Vector2(size[0]*0.06, size[1]*0.15);
-  }
+  // @override
+  // void onGameResize(Vector2 size) {
+  //   // TODO: implement onGameResize
+  //   super.onGameResize(size);
+  //   _cocina.size = size;
+  //   Sol.position = Vector2(size[0]*0.05, size[1]*0.75);
+  //   Sol.size = Vector2(size[0]*0.09, size[1]*0.15);
+  //   agua.position = Vector2(size[0]*0.160, size[1]*0.75);
+  //   agua.size = Vector2(size[0]*0.06, size[1]*0.15);
+  // }
 }

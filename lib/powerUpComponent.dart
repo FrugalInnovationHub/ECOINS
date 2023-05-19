@@ -58,12 +58,12 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
     await super.onLoad();
     var gameSize = gameRef.size;
     var ratio = gameSize[0]/gameSize[1];
-    final double _spriteHeight = gameSize[1]*0.090;
+    final double _spriteHeight = gameSize[1]*0.080;
     final double _spriteWidth = gameSize[0]*0.045;
     sprite = await gameRef.loadSprite(type.src);
 
     if(type == PowerUp_Type_Comp.Gota_Agua){
-      height = _spriteHeight- gameSize[1]*0.010;
+      height = _spriteHeight- gameSize[1]*0.015;
     }
     else {
       height = _spriteHeight;

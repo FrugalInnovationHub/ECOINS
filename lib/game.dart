@@ -16,6 +16,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
+import 'globals.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';
 import 'hbox_level1.dart';
@@ -82,7 +83,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     await add(hbox_level3(size: Vector2(ratio*20 ,ratio*50), position: Vector2(-(ratio*50),ratio*200)));
     await add(hbox_level3(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*200)));
     await add(hbox_level2(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*100)));
-    await add(hbox_level1(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio)));
+    await add(hbox_level2(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);
@@ -415,7 +416,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
         final belt_items = children.query<Trash_Item>();
-        speed = 10;
+        speed = 13;
 
         // for(var i in belt_items){
         //   i.h_move_effect.removeFromParent();
@@ -438,6 +439,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         for (var i in allLock){
           if(i.type == "yellow"){
             i.removeFromParent();
+            FlameAudio.play(Globals.newBinUnlock);
             _basureros.Yellow.add(h_opacity_blink_effect_yellow);
             Future.delayed(Duration(seconds: 3), () {
               yellow_score_disp.addLevels();
@@ -454,7 +456,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
-        speed = 5;
+        speed = 8;
 
         for(var i in allBandaT){
           if(i.hole_no == 2){
@@ -464,6 +466,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         for (var i in allLock){
           if(i.type == "gray"){
             i.removeFromParent();
+            FlameAudio.play(Globals.newBinUnlock);
             _basureros.Grey.add(h_opacity_blink_effect_grey);
             Future.delayed(Duration(seconds: 3), () {
               gray_score_disp.addLevels();

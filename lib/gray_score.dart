@@ -7,8 +7,11 @@ import 'package:flame/collisions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
 import 'package:flame/rendering.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
+
+import 'globals.dart';
 
 class Gray_Score_Disp extends PositionComponent with HasGameRef {
   late Gray_ScoreVal _gray_score_val;
@@ -94,6 +97,7 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
       GrayLevel4.size.y = ratio*(40 - (gray_score - 30)*3.7);
       if(gray_score == 40){
         GrayLevel4.removeFromParent();
+        FlameAudio.play(Globals.gameComplete);
       }
     }
   }

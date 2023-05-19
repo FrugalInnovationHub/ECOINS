@@ -109,6 +109,7 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
               if(check_count_gota! < 4){
                 gota_score?.gota_updateScore(1);
                 removeFromParent();
+                FlameAudio.play(Globals.PowerupSound);
                 break;
               }
             }
@@ -120,12 +121,13 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
               if(check_count_sol! < 4){
                 sol_score?.sol_updateScore(1);
                 removeFromParent();
+                FlameAudio.play(Globals.PowerupSound);
                 break;
               }
             }
             break;
         }
-        FlameAudio.play(Globals.itemGrabSound);
+
       return false;
   }
 

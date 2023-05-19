@@ -6,10 +6,12 @@ import 'package:flame/collisions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
 import 'package:flame/rendering.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
 
 import 'basureros.dart';
+import 'globals.dart';
 
 class Blue_Score_Disp extends PositionComponent with HasGameRef {
   late Blue_ScoreVal _blue_score_val;
@@ -96,6 +98,7 @@ class Blue_Score_Disp extends PositionComponent with HasGameRef {
         BlueLevel4.size.y = ratio*(40 - (blue_score - 30)*3.7);
         if(blue_score == 40){
           BlueLevel4.removeFromParent();
+          FlameAudio.play(Globals.completeBin);
         }
       }
   }

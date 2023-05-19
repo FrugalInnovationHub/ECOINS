@@ -8,6 +8,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flame/collisions.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'blue_score.dart';
 import 'game.dart';
+import 'globals.dart';
 import 'gota_scored.dart';
 import 'green_score.dart';
 import 'hbox_level3.dart';
@@ -118,9 +120,11 @@ class Trash_Item extends SpriteComponent
     if(is_colliding) {
       if((ratio*50 - ratio*type.size[1]) == position.y) {
         position = Vector2(position.x, ratio*140 - ratio*type.size[1]);
+        FlameAudio.play(Globals.itemsClick);
       }
       else if((ratio*140 - ratio*type.size[1]) == position.y) {
         position = Vector2(position.x, ratio*230 - ratio*type.size[1]);
+        FlameAudio.play(Globals.itemsClick);
       }
       else{
         position = Vector2(position.x, ratio*330 - ratio*type.size[1]);
@@ -145,11 +149,43 @@ class Trash_Item extends SpriteComponent
       if(other.hole_no == 0) {
         is_colliding = true;
       }
+      // else if(other is hbox_level2){
+      //   h_move_effect.removeFromParent();
+      //   h_move_effect_new = MoveEffect.to(
+      //     Vector2(size[0], y_loc),
+      //     EffectController(
+      //         startDelay: 0,
+      //         duration: speed,
+      //         infinite: true,
+      //         alternate: true
+      //     ),
+      //   );
+      //   add(h_move_effect_new);
+      // }
+
+
       else if((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper")){
         is_colliding = true;
       }
 
-    } else if (other is Trash_Item ) {
+    }
+
+    // else if(other is hbox_level2){
+    //   print("this is hbox l2");
+    //   h_move_effect.removeFromParent();
+    //   h_move_effect_new = MoveEffect.to(
+    //     Vector2(size[0], y_loc),
+    //     EffectController(
+    //         startDelay: 0,
+    //         duration: speed,
+    //         infinite: true,
+    //         alternate: true
+    //     ),
+    //   );
+    //   add(h_move_effect_new);
+    // }
+
+    else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
       final allPositionComponents = parent.children.query<PositionComponent>();
@@ -209,6 +245,7 @@ class Trash_Item extends SpriteComponent
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
+                  FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
                 position = Vector2(position.x, position.y - ratio*100);
@@ -246,6 +283,7 @@ class Trash_Item extends SpriteComponent
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
+                  FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
                 position = Vector2(position.x, position.y - 100);
@@ -279,12 +317,13 @@ class Trash_Item extends SpriteComponent
                 if (grey_score != null && gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   grey_scored = true;
-                  score.updateScore(1);
-                  grey_score.updateScore(1);
+                  score.updateScore(10);
+                  grey_score.updateScore(10);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
+                  FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
                 position = Vector2(position.x, position.y - 100);

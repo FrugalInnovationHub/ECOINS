@@ -7,8 +7,11 @@ import 'package:flame/collisions.dart';
 import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
 import 'package:flame/rendering.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
+
+import 'globals.dart';
 
 class Yellow_Score_Disp extends PositionComponent with HasGameRef {
   late Yellow_ScoreVal _yellow_score_val;
@@ -117,6 +120,7 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
       YellowLevel4.size.y = gameSize[1]*(0.082 - (yellow_score - 10)*0.0082);
       if(yellow_score == 40){
         YellowLevel4.removeFromParent();
+        FlameAudio.play(Globals.completeBin);
       }
     }
   }

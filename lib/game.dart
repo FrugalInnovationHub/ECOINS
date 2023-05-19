@@ -25,11 +25,10 @@ import 'pause_btn.dart';
 import 'score_disp.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
+class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, HasGameRef{
 
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
-
 
   final Basureros _basureros = Basureros();
   final Pause_Btn _pause_btn = Pause_Btn();
@@ -43,11 +42,13 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   // final Score_Board _score_board = Score_Board();
   final _random = new Random();
   late PowerUp_Type_Comp type;
-  late var focusedItem;
+  var focusedItem = "Plastico" ;
   late final total_trash_items;
   late var ratio;
   late OpacityEffect h_opacity_blink_effect_yellow;
   late OpacityEffect h_opacity_blink_effect_grey;
+  late MoveEffect h_move_effect_new;
+  late double speed = 20;
   Cocina _cocina = Cocina();
   ImageSprite Sol = ImageSprite();
   ImageSprite agua = ImageSprite();
@@ -69,8 +70,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
   Future<void> onLoad() async {
     super.onLoad();
     children.register<PositionComponent>();
-    var y = (size[0] / 16)*9;
-    camera.viewport = FixedResolutionViewport(Vector2(size[0], y));
     ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
     // debugMode = true;
     focusedItem = "Plastico";
@@ -81,6 +80,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     await add(_pause_btn);
     await add(hbox_level3(size: Vector2(ratio*20 ,ratio*50), position: Vector2(-(ratio*50),ratio*200)));
     await add(hbox_level3(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*200)));
+    await add(hbox_level2(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*100)));
+    await add(hbox_level2(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);
@@ -256,7 +257,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
               Trash_Type.values[focused_indexes[j]],
               i*4,
               size[1]*0.11,
-              0
+              0,
+              speed
           );
         belt1_trash_items.add(t);
         j = _random.nextInt(focused_indexes.length);
@@ -264,7 +266,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
             Trash_Type.values[focused_indexes[j]],
             i*4,
             size[1]*0.31,
-            0
+            0,
+            speed
         );
         belt2_trash_items.add(t);
     }
@@ -275,7 +278,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           Trash_Type.values[rest_indexes[j]],
           i*4,
           size[1]*0.11,
-          0
+          0,
+          speed
       );
       belt1_trash_items.add(t);
       j = _random.nextInt(rest_indexes.length);
@@ -283,7 +287,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
           Trash_Type.values[rest_indexes[j]],
           i*4,
           size[1]*0.31,
-          0
+          0,
+          speed
       );
       belt2_trash_items.add(t);
     }
@@ -347,6 +352,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
     }
   }
 
+
   @override
   void onChildrenChanged(Component child, ChildrenChangeType type) {
     // TODO: implement onChildrenChanged
@@ -382,7 +388,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
             Trash_Type.values[focused_indexes[j]],
             _random.nextDouble(),
             size[1]*0.11,
-            0
+            0,
+            speed
         );
       }
       else {
@@ -391,7 +398,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
             Trash_Type.values[rest_indexes[j]],
             _random.nextDouble(),
             size[1]*0.11,
-            0
+            0,
+            speed
         );
       }
       if(belt1_item_count < total_trash_items){
@@ -405,6 +413,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
+        final belt_items = children.query<Trash_Item>();
+        speed = 13;
 
         for(var i in allBandaT){
           if(i.hole_no == 1){
@@ -414,6 +424,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         for (var i in allLock){
           if(i.type == "yellow"){
             i.removeFromParent();
+            FlameAudio.play(Globals.newBinUnlock);
             _basureros.Yellow.add(h_opacity_blink_effect_yellow);
             Future.delayed(Duration(seconds: 3), () {
               yellow_score_disp.addLevels();
@@ -430,6 +441,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
+        speed = 8;
 
         for(var i in allBandaT){
           if(i.hole_no == 2){
@@ -439,6 +451,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
         for (var i in allLock){
           if(i.type == "gray"){
             i.removeFromParent();
+            FlameAudio.play(Globals.newBinUnlock);
             _basureros.Grey.add(h_opacity_blink_effect_grey);
             Future.delayed(Duration(seconds: 3), () {
               gray_score_disp.addLevels();
@@ -475,15 +488,4 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection{
 
     }
   }
-
-  // @override
-  // void onGameResize(Vector2 size) {
-  //   // TODO: implement onGameResize
-  //   super.onGameResize(size);
-  //   _cocina.size = size;
-  //   Sol.position = Vector2(size[0]*0.05, size[1]*0.75);
-  //   Sol.size = Vector2(size[0]*0.09, size[1]*0.15);
-  //   agua.position = Vector2(size[0]*0.160, size[1]*0.75);
-  //   agua.size = Vector2(size[0]*0.06, size[1]*0.15);
-  // }
 }

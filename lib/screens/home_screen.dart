@@ -34,6 +34,7 @@ class HomeScreen extends FlameGame with HasTappables {
   @override
   Future<void> onLoad() async {
     super.onLoad();
+    var ratio = size[0]/size[1];
     var y = (size[0] / 16)*9;
     camera.viewport = FixedResolutionViewport(Vector2(size[0], y));
     ecoins = ImageSprite(asset: 'ecoins_logo.png',

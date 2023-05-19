@@ -20,7 +20,7 @@ import 'hbox_level3.dart';
 import 'score_disp.dart';
 
 enum Trash_Type implements Comparable<Trash_Type> {
-  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [0.025, 0.095], priority: 3),
+  Botella_Plastico(type: "Plastico", src: 'botella_plastico.png', size: [0.025, 0.085], priority: 3),
   Plastic_BOTTLE(type: "Plastico", src: 'Plastic_BOTTLE.png', size: [0.025, 0.095], priority: 3),
   Botella_Refresco(type: "Plastico", src: 'Botella_Refresco.png', size: [0.025, 0.095], priority: 3),
   Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [0.035, 0.065], priority: 3),
@@ -86,13 +86,13 @@ class Trash_Item extends SpriteComponent
     gameSize = gameRef.size;
     // ratio = double.parse((gameRef.size[0]/gameRef.size[1]).toStringAsFixed(1));
     category = type.type;
-    y_loc = y_loc - gameSize[1]*type.size[1];
+    y_loc = y_loc - gameSize[1]*(type.size[1] - 0.01);
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-(gameSize[0]*0.08), y_loc);
     size = Vector2(gameSize[0]*type.size[0], gameSize[1]*type.size[1]);
     priority = type.priority;
 
-    add(RectangleHitbox());
+    add(RectangleHitbox(isSolid: true));
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 0.75, startDelay: 3));
     h_opacity_blink_effect = OpacityEffect.to(2, EffectController(duration: 1, repeatCount: 3, startDelay: 5));
     h_move_effect = MoveEffect.to(
@@ -111,13 +111,12 @@ class Trash_Item extends SpriteComponent
   @override
   bool onTapDown(TapDownInfo info) {
     // info.handled = true
-
     if(is_colliding) {
-      if((gameSize[1]*0.11 - gameSize[1]*type.size[1]) == position.y) {
-        position = Vector2(position.x, gameSize[1]*0.31 - gameSize[1]*type.size[1]);
+      if((gameSize[1]*0.11 - gameSize[1]*(type.size[1] - 0.01)) == position.y) {
+        position = Vector2(position.x, gameSize[1]*0.31 - gameSize[1]*(type.size[1] - 0.01));
       }
-      else if((gameSize[1]*0.31 - gameSize[1]*type.size[1]) == position.y) {
-        position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*type.size[1]);
+      else if((gameSize[1]*0.31 - gameSize[1]*(type.size[1] - 0.01)) == position.y) {
+        position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
       }
       else{
         position = Vector2(position.x, gameSize[1]*0.7 - gameSize[1]*type.size[1]);
@@ -138,7 +137,6 @@ class Trash_Item extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
-
     if (other is Banda_T_Hole) {
       if(other.hole_no == 0) {
         is_colliding = true;

@@ -1,3 +1,4 @@
+import 'package:ecoins/trash_items.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/geometry.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'basureros.dart';
 import 'globals.dart';
+import 'hbox_level2.dart';
 
 class Blue_Score_Disp extends PositionComponent with HasGameRef {
   late Blue_ScoreVal _blue_score_val;
@@ -92,6 +94,8 @@ class Blue_Score_Disp extends PositionComponent with HasGameRef {
         BlueLevel4.size.y = gameSize[1]*(0.082 - (blue_score - 30)*0.0082);
         if(blue_score == 40){
           BlueLevel4.removeFromParent();
+          // add(hbox_level2(size: Vector2(ratio,ratio*50), position: Vector2(-(ratio*50),ratio*100)));
+          // add(hbox_level2(size: Vector2(ratio,ratio*50), position: Vector2(-(ratio*50),ratio)));
           FlameAudio.play(Globals.completeBin);
         }
       }

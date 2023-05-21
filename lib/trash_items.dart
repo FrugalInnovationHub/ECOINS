@@ -110,6 +110,16 @@ class Trash_Item extends SpriteComponent
       ),
     );
     h_remove_effect = RemoveEffect(delay: 4);
+
+    h_move_effect_new = MoveEffect.to(
+            Vector2(size[0], y_loc),
+            EffectController(
+                startDelay: 0,
+                duration: speed,
+                infinite: true,
+                alternate: true
+            ),
+          );
     update_move();
   }
 
@@ -120,12 +130,15 @@ class Trash_Item extends SpriteComponent
     if(is_colliding) {
       if((gameSize[1]*0.11 - gameSize[1]*(type.size[1] - 0.01)) == position.y) {
         position = Vector2(position.x, gameSize[1]*0.31 - gameSize[1]*(type.size[1] - 0.01));
+        FlameAudio.play(Globals.itemsClick);
       }
       else if((gameSize[1]*0.31 - gameSize[1]*(type.size[1] - 0.01)) == position.y) {
         position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
+        FlameAudio.play(Globals.itemsClick);
       }
       else{
         position = Vector2(position.x, gameSize[1]*0.7 - gameSize[1]*type.size[1]);
+        // FlameAudio.play(Globals.itemsClick);
       }
     }
     return false;
@@ -136,6 +149,7 @@ class Trash_Item extends SpriteComponent
       add(h_move_effect);
     } else {
       h_move_effect.removeFromParent();
+      h_move_effect_new.removeFromParent();
       Future.delayed(Duration(seconds: 2), () {
         removeFromParent();      });
     }
@@ -143,12 +157,42 @@ class Trash_Item extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
-
+    final allPositionComponents = parent.children.query<PositionComponent>();
+    Gota_Score_Disp ?gota_score_disp;
+    Sol_Score_Disp ?sol_score_disp;
+    Sol_Score_Disp ?get_Solscore;
+    Gota_Score_Disp ?get_Gotascore;
+    int solScore = 0;
+    int gotaScore = 0;
+    Score_Disp ?score;
+    for (PositionComponent p in allPositionComponents){
+      if (p is Gota_Score_Disp) {
+        gota_score_disp = p;
+      }
+      if (p is Sol_Score_Disp) {
+        sol_score_disp = p;
+      }
+      if (p is Sol_Score_Disp) {
+        get_Solscore = p;
+      }
+      if (p is Gota_Score_Disp) {
+        get_Gotascore = p;
+      }
+      if (p is Score_Disp) {
+        score = p;
+      }
+    }
+    if(get_Solscore != null){
+      solScore = get_Solscore.getSolScore();
+    }
+    if(get_Gotascore != null){
+      gotaScore = get_Gotascore.getGotaScore();
+    }
     if (other is Banda_T_Hole) {
       if(other.hole_no == 0) {
         is_colliding = true;
       }
-      else if((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper")){
+      else if(((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper" ))&& solScore > 0 && gotaScore > 0) {
         is_colliding = true;
       }
 
@@ -172,37 +216,7 @@ class Trash_Item extends SpriteComponent
     else if (other is Trash_Item ) {
       // position = Vector2(position.x - 20 , position.y);
     } else if (other is Basureros_HBox) {
-      final allPositionComponents = parent.children.query<PositionComponent>();
-      Gota_Score_Disp ?gota_score_disp;
-      Sol_Score_Disp ?sol_score_disp;
-      Sol_Score_Disp ?get_Solscore;
-      Gota_Score_Disp ?get_Gotascore;
-      int solScore = 0;
-      int gotaScore = 0;
-      Score_Disp ?score;
-      for (PositionComponent p in allPositionComponents){
-        if (p is Gota_Score_Disp) {
-          gota_score_disp = p;
-        }
-        if (p is Sol_Score_Disp) {
-          sol_score_disp = p;
-        }
-        if (p is Sol_Score_Disp) {
-          get_Solscore = p;
-        }
-        if (p is Gota_Score_Disp) {
-          get_Gotascore = p;
-        }
-        if (p is Score_Disp) {
-          score = p;
-        }
-      }
-      if(get_Solscore != null){
-        solScore = get_Solscore.getSolScore();
-      }
-      if(get_Gotascore != null){
-        gotaScore = get_Gotascore.getGotaScore();
-      }
+
 
       if (!blue_scored && type.type == "Plastico") {
         Blue_Score_Disp ?blue_score;
@@ -229,6 +243,7 @@ class Trash_Item extends SpriteComponent
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
                   add(h_remove_effect);
+                  FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
                 position = Vector2(position.x, gameSize[1]*0.505 );
@@ -284,6 +299,7 @@ class Trash_Item extends SpriteComponent
 
       if (!grey_scored && type.type == "Paper") {
         Gray_Score_Disp ?grey_score;
+        speed = 5;
         for (PositionComponent p in allPositionComponents) {
           if (p is Gray_Score_Disp) {
             grey_score = p;

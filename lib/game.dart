@@ -16,6 +16,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
+import 'globals.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';
 import 'hbox_level2.dart';
@@ -72,6 +73,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     super.onLoad();
     children.register<PositionComponent>();
     ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
+    var y = (size[0] / 16)*9;
+    camera.viewport = FixedResolutionViewport(Vector2(size[0], y));
     // debugMode = true;
     focusedItem = "Plastico";
     total_trash_items = 5;
@@ -81,8 +84,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     await add(_pause_btn);
     await add(hbox_level3(size: Vector2(ratio*20 ,ratio*50), position: Vector2(-(ratio*50),ratio*200)));
     await add(hbox_level3(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*200)));
-    await add(hbox_level2(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*100)));
-    await add(hbox_level2(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);

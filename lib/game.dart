@@ -109,14 +109,14 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     var _banda_wheels = [];
 
     var wheel_pos = [
-      Vector2(size[0]*0.01, size[1]*0.061),
-      Vector2(size[0]*0.155, size[1]*0.061),
-      Vector2(size[0]*0.31, size[1]*0.061),
-      Vector2(size[0]*0.45, size[1]*0.061),
-      Vector2(size[0]*0.01, size[1]*0.163),
-      Vector2(size[0]*0.155, size[1]*0.163),
-      Vector2(size[0]*0.31, size[1]*0.163),
-      Vector2(size[0]*0.45, size[1]*0.163),
+      Vector2(size[0]*0.01, size[1]*0.062),
+      Vector2(size[0]*0.155, size[1]*0.062),
+      Vector2(size[0]*0.31, size[1]*0.062),
+      Vector2(size[0]*0.45, size[1]*0.062),
+      Vector2(size[0]*0.01, size[1]*0.162),
+      Vector2(size[0]*0.155, size[1]*0.162),
+      Vector2(size[0]*0.31, size[1]*0.162),
+      Vector2(size[0]*0.45, size[1]*0.162),
       Vector2(size[0]*0.01, size[1]*0.26),
       Vector2(size[0]*0.155, size[1]*0.26),
       // Vector2(ratio*225, ratio*128),
@@ -205,7 +205,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
       while(start_x < end_x){
         if((start_x + size[0]*0.1)  <= end_x) {
           Banda_T _bt = Banda_T(asset: 'conveyor_belt.png', position: Vector2(start_x, info[0][1]),
-              size: Vector2(size[0]*0.1, info[1][1]));
+              size: Vector2(size[0]*0.101, info[1][1]));
           _banda_ts.add(_bt);
           start_x += size[0]*0.1;
         }
@@ -388,7 +388,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         j = _random.nextInt(focused_indexes.length);
         t = Trash_Item(
             Trash_Type.values[focused_indexes[j]],
-            _random.nextDouble(),
+            _random.nextDouble() + _random.nextInt(5),
             size[1]*0.11,
             0,
             speed
@@ -398,7 +398,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         j = _random.nextInt(rest_indexes.length);
         t = Trash_Item(
             Trash_Type.values[rest_indexes[j]],
-            _random.nextDouble(),
+            _random.nextDouble() + _random.nextInt(5),
             size[1]*0.11,
             0,
             speed

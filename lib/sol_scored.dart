@@ -37,29 +37,29 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
 
     SolLevel1
       ..sprite = await gameRef.loadSprite('SOL1.png')
-      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.04)
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.0401)
       ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.75);
 
     // add(SolLevel1);
 
     SolLevel2
       ..sprite = await gameRef.loadSprite('SOL2.png')
-      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.035)
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.0401)
       ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.79);
 
     // add(SolLevel2);
 
     SolLevel3
       ..sprite = await gameRef.loadSprite('SOL3.png')
-      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.04)
-      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.825);
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.0403)
+      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.830);
 
     // add(SolLevel3);
 
     SolLevel4
       ..sprite = await gameRef.loadSprite('SOL4.png')
-      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.035)
-      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.865);
+      ..size = Vector2(gameSize[0]*0.09, gameSize[1]*0.0401)
+      ..position = Vector2(gameSize[0]*0.05, gameSize[1]*0.87);
 
     // add(SolLevel4);
 

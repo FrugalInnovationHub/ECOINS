@@ -87,13 +87,13 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
       }
     }
     else if(gray_score <= 30){
-      GrayLevel3.size.y = gameSize[1]*(0.076 - (gray_score - 10)*0.0076);
+      GrayLevel3.size.y = gameSize[1]*(0.076 - (gray_score - 20)*0.0076);
       if(gray_score == 30){
         GrayLevel3.removeFromParent();
       }
     }
     else if(gray_score <= 40){
-      GrayLevel4.size.y = gameSize[1]*(0.082 - (gray_score - 10)*0.0082);
+      GrayLevel4.size.y = gameSize[1]*(0.082 - (gray_score - 30)*0.0082);
       if(gray_score == 40){
         GrayLevel4.removeFromParent();
         FlameAudio.play(Globals.gameComplete);

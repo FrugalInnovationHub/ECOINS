@@ -111,13 +111,13 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
       }
     }
     else if(yellow_score <= 30){
-      YellowLevel3.size.y = gameSize[1]*(0.076 - (yellow_score - 10)*0.0076);
+      YellowLevel3.size.y = gameSize[1]*(0.076 - (yellow_score - 20)*0.0076);
       if(yellow_score == 30){
         YellowLevel3.removeFromParent();
       }
     }
     else if(yellow_score <= 40){
-      YellowLevel4.size.y = gameSize[1]*(0.082 - (yellow_score - 10)*0.0082);
+      YellowLevel4.size.y = gameSize[1]*(0.082 - (yellow_score - 30)*0.0082);
       if(yellow_score == 40){
         YellowLevel4.removeFromParent();
         FlameAudio.play(Globals.completeBin);

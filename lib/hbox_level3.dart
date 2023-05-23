@@ -7,7 +7,7 @@ import 'package:flame/components.dart';
 class hbox_level3 extends RectangleComponent with HasGameRef{
   hbox_level3({required size, required position})
     : super(size: size, position: position){
-    debugMode = true;
+    // debugMode = true;
   }
   @override
   Future<void> onLoad() async {

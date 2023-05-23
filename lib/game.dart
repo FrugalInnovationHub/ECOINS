@@ -211,7 +211,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         }
         else {
           Banda_T _bt = Banda_T(asset: 'uno_conveyor_belt.png', position: Vector2(start_x, info[0][1]),
-              size: Vector2(size[0] * 0.005, info[1][1]));
+              size: Vector2(size[0] * 0.006, info[1][1]));
           _banda_ts.add(_bt);
           start_x += size[0] * 0.005;
         }
@@ -225,7 +225,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
       Banda_T _bt;
       while(start_x < end_x){
         _bt = Banda_T(asset: 'uno_conveyor_belt.png', position: Vector2(start_x, hole[0][1]),
-            size: Vector2(size[0] * 0.005, size[1]*0.085), hole_no: hole_no);
+            size: Vector2(size[0] * 0.006, size[1]*0.085), hole_no: hole_no);
         _banda_ts.add(_bt);
         start_x += size[0] * 0.005;
       }

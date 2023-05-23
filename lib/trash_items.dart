@@ -192,7 +192,7 @@ class Trash_Item extends SpriteComponent
       if(other.hole_no == 0) {
         is_colliding = true;
       }
-      else if(((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper" ))&& solScore > 0 && gotaScore > 0) {
+      else if(((other.hole_no == 1 && this.type.type == "Plastico") || (other.hole_no == 2 && this.type.type == "Aluminio") || (other.hole_no == 3 && this.type.type == "Paper" )) && solScore > 0 && gotaScore > 0) {
         is_colliding = true;
       }
 

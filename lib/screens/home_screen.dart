@@ -2,6 +2,7 @@ import 'package:ecoins/components/ImageSprite.dart';
 import 'package:ecoins/components/playButton.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +20,10 @@ class HomeScreen extends FlameGame with HasTappables {
   ImageSprite whale = ImageSprite();
   ImageSprite turtle = ImageSprite();
   ImageSprite pelican = ImageSprite();
+  ImageSprite data = ImageSprite();
   late PlayButton button;
   late PolygonComponent triangle;
+  final OpacityEffect h_opacity_effect = OpacityEffect.to(0.25, EffectController(duration: 1, startDelay: 0));
 
   Paint blue = Paint()
     ..color = const Color(0xFF3A9BDC);
@@ -31,6 +34,17 @@ class HomeScreen extends FlameGame with HasTappables {
 
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
+
+  void onClick() {
+    ecoins.addOpacity();
+    pelican.addOpacity();
+    whale.addOpacity();
+    dolphin1.addOpacity();
+    dolphin2.addOpacity();
+    triangle.add(h_opacity_effect);
+    data = ImageSprite(asset: 'data.png', position: Vector2(size[0] * 0.25, size[1] * 0.275), size: Vector2(size[0] * 0.5, size[1] * 0.4));
+    Future.delayed(Duration(seconds: 1) ,() => add(data));
+  }
 
   @override
   Future<void> onLoad() async {
@@ -78,7 +92,9 @@ class HomeScreen extends FlameGame with HasTappables {
     button = PlayButton(radius: size[0] * 0.037,
         position: Vector2(size[0] * 0.565, size[1] * 0.49),
         // paint: green,
-        context: this.context);
+        context: this.context,
+      onClick: onClick
+    );
     triangle = PolygonComponent([
       Vector2(0, 0),
       Vector2(size[0] * 0.030, size[1] * 0.033),

@@ -1,8 +1,9 @@
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 /// Flutter code sample for [TextField].
 
-class TextFieldExampleApp extends StatelessWidget {
+class TextFieldExampleApp extends StatelessWidget{
   const TextFieldExampleApp({super.key});
 
   @override
@@ -20,7 +21,7 @@ class TextFieldExample extends StatefulWidget {
   State<TextFieldExample> createState() => _TextFieldExampleState();
 }
 
-class _TextFieldExampleState extends State<TextFieldExample> {
+class _TextFieldExampleState extends State<TextFieldExample>{
   late TextEditingController _controller;
 
   @override
@@ -38,7 +39,10 @@ class _TextFieldExampleState extends State<TextFieldExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        width: MediaQuery.of(context).size.width/4.5,
+        height: MediaQuery.of(context).size.width/20,
         child: TextField(
           controller: _controller,
           onSubmitted: (String value) async {
@@ -47,8 +51,6 @@ class _TextFieldExampleState extends State<TextFieldExample> {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: const Text('Thanks!'),
-                  content: Text(
-                      'You typed "$value", which has length ${value.characters.length}.'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {

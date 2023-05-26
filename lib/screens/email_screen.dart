@@ -42,13 +42,14 @@ class Email_Screen extends FlameGame with HasTappables{
     h_opacity_effect_new = OpacityEffect.to(1, EffectController(duration: 1, startDelay: 3));
 
     // emailScreen2.add(h_opacity_effect_new);
-    overlays.add("textField");
+
 
     await add(emailScreen2);
     await add(emailScreen1);
     emailScreen1.add(h_opacity_effect);
     await add(box);
     box.add(h_opacity_effect_new);
+    overlays.add("textField");
 
 
   }

@@ -1,3 +1,4 @@
+import 'package:ecoins/components/CustomTextField.dart';
 import 'package:ecoins/screens/home_screen.dart';
 import 'package:ecoins/screens/pause_menu.dart';
 import 'package:ecoins/screens/videoPlayerScreen.dart';
@@ -20,7 +21,14 @@ class app extends StatelessWidget {
       title: "ECOINS",
       initialRoute: "/",
       routes: {
-        '/': (context) => GameWidget(game: HomeScreen(context: context)),
+        '/': (context) => GameWidget(
+            game: HomeScreen(context: context),
+          overlayBuilderMap: {
+              "EnterData": (BuildContext context, HomeScreen game) {
+                return Text("Enter Data");
+              }
+          },
+        ),
         "/video": (context) =>  VideoPlayerScreen(),
         "/game": (context) => GameWidget(
             game: EcoinsGame(),

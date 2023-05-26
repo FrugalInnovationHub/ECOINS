@@ -49,7 +49,8 @@ class Email_Screen extends FlameGame with HasTappables{
     emailScreen1.add(h_opacity_effect);
     await add(box);
     box.add(h_opacity_effect_new);
-    overlays.add("textField");
+    Future.delayed(const Duration(milliseconds: 3500), () { overlays.add("textField"); });
+
 
 
   }

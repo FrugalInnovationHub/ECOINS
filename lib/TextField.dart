@@ -42,7 +42,7 @@ class _TextFieldExampleState extends State<TextFieldExample>{
       backgroundColor: Colors.transparent,
       body: Container(
         width: MediaQuery.of(context).size.width/4.5,
-        height: MediaQuery.of(context).size.width/20,
+        height: MediaQuery.of(context).size.width/30,
         child: TextField(
           controller: _controller,
           onSubmitted: (String value) async {

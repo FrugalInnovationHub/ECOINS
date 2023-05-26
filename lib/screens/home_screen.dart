@@ -44,6 +44,7 @@ class HomeScreen extends FlameGame with HasTappables {
     triangle.add(h_opacity_effect);
     data = ImageSprite(asset: 'data.png', position: Vector2(size[0] * 0.25, size[1] * 0.275), size: Vector2(size[0] * 0.5, size[1] * 0.4));
     Future.delayed(Duration(seconds: 1) ,() => add(data));
+    overlays.add("EnterData");
   }
 
   @override

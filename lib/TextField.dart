@@ -69,18 +69,11 @@ class _TextFieldExampleState extends State<TextFieldExample>{
               },
             ),
           ),
-          SizedBox(height:1, width: 1,), // Add some spacing between the TextField and FlatButton
-          InkWell(
-            onTap: () {}, // Image tapped
-            splashColor: Colors.white10, // Splash color over image
-            child: Ink.image(
-              fit: BoxFit.fill, // Fixes border issues
-              width: 120,
-              height: 50,
-              image: AssetImage(
-                  'images/enter_button.png',
-              ),
-            ),
+          TextButton(
+            onPressed: () {
+              print('I got clicked');
+            },
+            child: Image.asset('images/enter_button.png'),
           ),
         ],
       ),

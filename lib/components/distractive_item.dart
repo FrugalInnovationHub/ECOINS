@@ -61,7 +61,7 @@ class DistractiveItem extends SpriteComponent with HasGameRef, Tappable{
 
     add(RectangleHitbox());
     // h_opacity_blink_effect = OpacityEffect.to(2, EffectController(duration: 3, repeatCount: 3, startDelay: 40 + delay));
-    h_remove_effect = RemoveEffect(delay: 50 + delay);
+    h_remove_effect = RemoveEffect(delay: 35 + delay);
     h_move_effect = MoveEffect.to(
       Vector2(gameRef.size.length, y),
       EffectController(

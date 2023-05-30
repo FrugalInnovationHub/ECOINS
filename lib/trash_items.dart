@@ -246,7 +246,7 @@ class Trash_Item extends SpriteComponent
                   FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
-                position = Vector2(position.x, gameSize[1]*0.505 );
+                position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
               }
               // blue_scored = false;
               break;
@@ -254,7 +254,7 @@ class Trash_Item extends SpriteComponent
               {}
           }
         } else{
-          position = Vector2(position.x, gameSize[1]*0.505);
+          position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
         }
       }
       if (!yellow_scored && type.type == "Aluminio") {
@@ -284,7 +284,7 @@ class Trash_Item extends SpriteComponent
                   FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
-                position = Vector2(position.x, gameSize[1]*0.505);
+                position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
               }
               break;
 
@@ -293,7 +293,7 @@ class Trash_Item extends SpriteComponent
           }
         }
         else{
-          position = Vector2(position.x, gameSize[1]*0.505);
+          position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
         }
       }
 
@@ -325,7 +325,7 @@ class Trash_Item extends SpriteComponent
                   FlameAudio.play(Globals.items_inside_container);
                 }
               } else {
-                position = Vector2(position.x, gameSize[1]*0.505);
+                position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
               }
               // blue_scored = false;
               break;
@@ -335,7 +335,7 @@ class Trash_Item extends SpriteComponent
           }
         }
         else{
-          position = Vector2(position.x, gameSize[1]*0.505);
+          position = Vector2(position.x, gameSize[1]*0.505 - gameSize[1]*(type.size[1] - 0.01));
         }
       }
 

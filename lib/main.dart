@@ -1,10 +1,11 @@
+import 'package:ecoins/components/DataTextField.dart';
 import 'package:ecoins/screens/email_screen.dart';
 import 'package:ecoins/screens/home_screen.dart';
 import 'package:ecoins/screens/pause_menu.dart';
 import 'package:ecoins/screens/videoPlayerScreen.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'TextField.dart';
+import 'components/EmailTextField.dart';
 import 'game.dart';
 import 'screens/main_menu.dart';
 
@@ -22,12 +23,19 @@ class app extends StatelessWidget {
       title: "ECOINS",
       initialRoute: "/",
       routes: {
-        '/': (context) => GameWidget(game: HomeScreen(context: context)),
+        '/': (context) => GameWidget(
+            game: HomeScreen(context: context),
+          overlayBuilderMap: {
+              "EnterData": (BuildContext context, HomeScreen game) {
+                return DataTextField();
+              }
+          },
+        ),
         "/video": (context) =>  VideoPlayerScreen(),
         "/email": (context) => GameWidget(game: Email_Screen(context: context), overlayBuilderMap: {
           'textField':
               (BuildContext context, Email_Screen game) {
-            return TextFieldExample();
+            return EmailTextField();
           }
         }),
         "/game": (context) => GameWidget(

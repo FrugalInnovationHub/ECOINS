@@ -35,8 +35,8 @@ class Email_Screen extends FlameGame with HasTappables{
         position: Vector2(0,0),
         size: Vector2(size[0], size[1]));
     box = ImageSprite(asset: 'box.png',
-        position: Vector2(size[0] * 0.52 ,size[1] * 0.3),
-        size: Vector2(size[0] * 0.45, size[1] * 0.35));
+        position: Vector2(size[0] * 0.47 ,size[1] * 0.24),
+        size: Vector2(size[0] * 0.51, size[1] * 0.4));
     box.opacity = 0;
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 1, startDelay: 3));
     h_opacity_effect_new = OpacityEffect.to(1, EffectController(duration: 1, startDelay: 3));

@@ -27,7 +27,7 @@ class app extends StatelessWidget {
         "/email": (context) => GameWidget(game: Email_Screen(context: context), overlayBuilderMap: {
           'textField':
               (BuildContext context, Email_Screen game) {
-            return TextFieldExampleApp();
+            return TextFieldExample();
           }
         }),
         "/game": (context) => GameWidget(

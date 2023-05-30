@@ -3,17 +3,6 @@ import 'package:flutter/material.dart';
 
 /// Flutter code sample for [TextField].
 
-class TextFieldExampleApp extends StatelessWidget{
-  const TextFieldExampleApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: TextFieldExample(),
-    );
-  }
-}
-
 class TextFieldExample extends StatefulWidget {
   const TextFieldExample({super.key});
 

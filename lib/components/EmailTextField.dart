@@ -53,7 +53,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
                         child: TextField(
                           style: TextStyle(
                               color: Colors.blue[700],
-                              fontSize: min(MediaQuery.of(context).size.height*0.03,24),
+                              fontSize: min(MediaQuery.of(context).size.height*0.03,18),
                               fontWeight: FontWeight.bold
                           ),
                           decoration: InputDecoration(

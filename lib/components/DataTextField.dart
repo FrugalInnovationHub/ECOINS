@@ -155,10 +155,15 @@ class _DataTextFieldState extends State<DataTextField> {
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height*0.02),
-                      Container(
-                        // color: Colors.green,
-                        height: MediaQuery.of(context).size.height*0.075,
-                        width: MediaQuery.of(context).size.width*0.1,
+                      InkWell(
+                        child: Container(
+                          // color: Colors.green,
+                          height: MediaQuery.of(context).size.height*0.075,
+                          width: MediaQuery.of(context).size.width*0.1,
+                        ),
+                        onTap: () {
+                          Navigator.pushReplacementNamed(this.context, '/video');
+                        },
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height*0.03),
                     ],

@@ -50,7 +50,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
   late OpacityEffect h_opacity_blink_effect_yellow;
   late OpacityEffect h_opacity_blink_effect_grey;
   late MoveEffect h_move_effect_new;
-  late double speed = 20;
+  late double speed = 20.0;
   Cocina _cocina = Cocina();
   ImageSprite Sol = ImageSprite();
   ImageSprite agua = ImageSprite();
@@ -72,7 +72,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
   Future<void> onLoad() async {
     super.onLoad();
     children.register<PositionComponent>();
-    ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
+    // ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
     var y = (size[0] / 16)*9;
     camera.viewport = FixedResolutionViewport(Vector2(size[0], y));
     // debugMode = true;
@@ -82,8 +82,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     _cocina = Cocina(size: Vector2(size[0], size[1]));
     await add(_cocina);
     await add(_pause_btn);
-    await add(hbox_level3(size: Vector2(ratio*20 ,ratio*50), position: Vector2(-(ratio*50),ratio*200)));
-    await add(hbox_level3(size: Vector2(ratio*200,ratio*50), position: Vector2(size[0],ratio*200)));
+    await add(hbox_level3(size: Vector2(size[0]*0.025 ,size[1]*0.1), position: Vector2(-(size[0]*0.06),size[1]*0.45)));
+    await add(hbox_level3(size: Vector2(size[0]*0.22,size[1]*0.1), position: Vector2(size[0],size[1]*0.45)));
     await add(_score_disp);
     await add(_basureros);
     await add(blue_score_disp);
@@ -132,11 +132,11 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
 
     // FlameAudio.bgm.play("MUSICGAME.mp3");
 
-    // FlameAudio.bgm.initialize();
-    // if (!musicPlaying) {
-    //   FlameAudio.bgm.play("MUSICGAME.mp3");
-    //   musicPlaying = true;
-    // }
+    FlameAudio.bgm.initialize();
+    if (!musicPlaying) {
+      FlameAudio.bgm.play("BackgroundMusic.mp3");
+      musicPlaying = true;
+    }
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
     _banda_t_hole.position = hole_pos[0][0];
@@ -318,8 +318,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     belt1_trash_items.shuffle();
     belt2_trash_items.shuffle();
     for(int i = 0; i < belt1_trash_items.length; i++) {
-      belt1_trash_items[i].delay = i*3 + _random.nextInt(3);
-      belt2_trash_items[i].delay = i*3 + _random.nextInt(3);
+      belt1_trash_items[i].delay = (i*3 + _random.nextInt(3)).toDouble();
+      belt2_trash_items[i].delay = (i*3 + _random.nextInt(3)).toDouble();
       await add(belt1_trash_items[i]);
       await add(belt2_trash_items[i]);
     }
@@ -416,7 +416,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
         final belt_items = children.query<Trash_Item>();
-        speed = 13;
+        speed = 16.0;
 
         for(var i in allBandaT){
           if(i.hole_no == 1){
@@ -443,7 +443,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
-        speed = 8;
+        speed = 12.0;
 
         for(var i in allBandaT){
           if(i.hole_no == 2){

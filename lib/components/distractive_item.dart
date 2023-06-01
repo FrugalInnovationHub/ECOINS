@@ -56,7 +56,7 @@ class DistractiveItem extends SpriteComponent with HasGameRef, Tappable{
     sprite = await gameRef.loadSprite(type.src);
     position = Vector2(-(gameSize[0] * 0.1), y);
     size = Vector2(gameSize[0] * type.size[0], gameSize[1] * type.size[1]);
-    angle = type.angle;
+    angle = type.angle.toDouble();
     priority = type.priority;
 
     add(RectangleHitbox());

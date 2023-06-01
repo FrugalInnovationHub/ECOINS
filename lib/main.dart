@@ -5,8 +5,14 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'game.dart';
 import 'screens/main_menu.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
   runApp(app());
   
 }

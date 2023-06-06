@@ -5,6 +5,7 @@ import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:ecoins/components/distractive_item.dart';
 import 'package:ecoins/hbox_level3.dart';
 import 'package:ecoins/powerUpComponent.dart';
+import 'package:ecoins/screens/pause_menu.dart';
 import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
@@ -27,7 +28,7 @@ import 'pause_btn.dart';
 import 'score_disp.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, HasGameRef{
+class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, HasGameRef, WidgetsBindingObserver{
 
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
@@ -72,7 +73,9 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
   Future<void> onLoad() async {
     super.onLoad();
     children.register<PositionComponent>();
+    WidgetsBinding.instance.addObserver(this);
     // ratio = double.parse((size[0]/size[1]).toStringAsFixed(1));
+
     var y = (size[0] / 16)*9;
     camera.viewport = FixedResolutionViewport(Vector2(size[0], y));
     // debugMode = true;
@@ -351,6 +354,19 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     });
     for(PowerUpComponent i in _powerup_items) {
       await add(i);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (state == AppLifecycleState.inactive || state == AppLifecycleState.detached) return;
+
+    final isBackground = state == AppLifecycleState.paused;
+    if (isBackground) {
+      print("paused");
+      overlays.add("pause_menu");
     }
   }
 

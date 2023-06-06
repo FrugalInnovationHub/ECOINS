@@ -365,8 +365,10 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
 
     final isBackground = state == AppLifecycleState.paused;
     if (isBackground) {
-      print("paused");
-      overlays.add("pause_menu");
+      overlays.add("PauseMenu");
+      pauseEngine();
+      FlameAudio.bgm.pause();
+
     }
   }
 

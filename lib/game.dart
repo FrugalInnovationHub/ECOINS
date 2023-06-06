@@ -368,7 +368,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
       overlays.add("PauseMenu");
       pauseEngine();
       FlameAudio.bgm.pause();
-
     }
   }
 

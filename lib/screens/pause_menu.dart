@@ -39,7 +39,7 @@ class pause_menu extends StatelessWidget{
                   onPressed: () {
                     this.game.overlays.remove(pauseOverlayIdentifier);
                     this.game.resumeEngine();
-                    FlameAudio.bgm.play('MUSICGAME.mp3');
+                    FlameAudio.bgm.resume();
                   },
                   child: const Text(
                     'Resume',

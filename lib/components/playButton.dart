@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 
 class PlayButton extends CircleComponent with Tappable, HasGameRef {
   late BuildContext context;
+  late Function onClick;
 
-  PlayButton({ super.position, super.paint, super.radius, required this.context });
+  PlayButton({ super.position, super.paint, super.radius, required this.context, required this.onClick  });
 
   @override
   Future<void> onLoad() async {
@@ -19,7 +20,7 @@ class PlayButton extends CircleComponent with Tappable, HasGameRef {
 
   @override
   bool onTapDown(TapDownInfo info) {
-    Navigator.pushReplacementNamed(this.context, '/video');
+    onClick();
     return false;
   }
 }

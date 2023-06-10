@@ -8,19 +8,19 @@ import 'package:flutter/material.dart';
 class HomeScreen extends FlameGame with HasTappables {
 
   late BuildContext context;
-  ImageSprite ecoins = ImageSprite();
-  ImageSprite cangrejo2 = ImageSprite();
-  ImageSprite cangrejo1 = ImageSprite();
-  ImageSprite cangrejo3 = ImageSprite();
-  ImageSprite dolphin1 = ImageSprite();
-  ImageSprite dolphin2 = ImageSprite();
-  ImageSprite girl = ImageSprite();
-  ImageSprite whale = ImageSprite();
-  ImageSprite turtle = ImageSprite();
-  ImageSprite pelican = ImageSprite();
+  // ImageSprite ecoins = ImageSprite();
+  // ImageSprite cangrejo2 = ImageSprite();
+  // ImageSprite cangrejo1 = ImageSprite();
+  // ImageSprite cangrejo3 = ImageSprite();
+  // ImageSprite dolphin1 = ImageSprite();
+  // ImageSprite dolphin2 = ImageSprite();
+  // ImageSprite girl = ImageSprite();
+  // ImageSprite whale = ImageSprite();
+  // ImageSprite turtle = ImageSprite();
+  // ImageSprite pelican = ImageSprite();
   ImageSprite homeScreen1 = ImageSprite();
   late PlayButton button;
-  late PolygonComponent triangle;
+  // late PolygonComponent triangle;
 
   Paint blue = Paint()
     ..color = const Color(0xFF3A9BDC);

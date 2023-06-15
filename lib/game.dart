@@ -83,7 +83,14 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     // debugMode = true;
     focusedItem = "Plastico";
     total_trash_items = 5;
-    animation = TutorialAnimation(text_url: "start_playing_text.png", position: Vector2(0, 0), size: Vector2(600, 200));
+
+    animation = TutorialAnimation(
+        text_url: "start_playing.png",
+        position: Vector2(size[0]*0.13, size[1]*0.37),
+        size: Vector2(size[0]*0.4, size[1]*0.25),
+        audio_url: "start_playing.mp3",
+        align: "left",
+        is_girl_image: true);
 
     _cocina = Cocina(size: Vector2(size[0], size[1]));
     await add(_cocina);
@@ -101,6 +108,8 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     await add(agua);
     await add(_sol_score_disp);
     await add(_gota_score_disp);
+
+    Future.delayed(Duration(seconds: 1), () async { await add(animation);  } );
 
 
     lock = BasuresosLock(position: Vector2(size[0]*0.605, size[1]*0.655), size: Vector2(size[0]*0.104, size[1]*0.33), type: "yellow");
@@ -358,7 +367,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     for(PowerUpComponent i in _powerup_items) {
       await add(i);
     }
-    await add(animation);
+
   }
 
   @override
@@ -380,7 +389,31 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
   void onChildrenChanged(Component child, ChildrenChangeType type) {
     // TODO: implement onChildrenChanged
     super.onChildrenChanged(child, type);
+    if(child is TutorialAnimation && type == ChildrenChangeType.removed){
+      if(child.text_url == "Lvl3_1.png") {
+        animation = TutorialAnimation(
+            text_url: "Lvl3_2.png",
+            position: Vector2(size[0]*0.37, size[1]*0.25),
+            size: Vector2(size[0]*0.5, size[1]*0.23),
+            audio_url: "Lvl3_2.mp3",
+            align: "right",
+            is_girl_image: true);
+        add(animation);
+      }
+    }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
+      if((blue_score_disp.blue_score == 2) || (yellow_score_disp.yellow_score == 2) || (gray_score_disp.gray_score == 2)){
+        animation = TutorialAnimation(
+            text_url: "SUN_AND_WATER.png",
+            position: Vector2(size[0]*0.37, size[1]*0.25),
+            size: Vector2(size[0]*0.5, size[1]*0.23),
+            audio_url: "SUN_AND_WATER.mp3",
+            align: "right",
+            is_girl_image: true);
+        add(animation);
+      }
+
+
       final allTrashItems = children.query<Trash_Item>();
       var focused_items_count = 0;
       var belt1_item_count = 0;
@@ -433,6 +466,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         add(t);
       }
       if(blue_score_disp.blue_score >= 40 && focusedItem != "Aluminio"){
+        print("entered yellow");
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
@@ -454,6 +488,15 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
             });
           }
         }
+        animation = TutorialAnimation(
+            text_url: "Lvl2_1.png",
+            position: Vector2(size[0]*0.13, size[1]*0.37),
+            size: Vector2(size[0]*0.45, size[1]*0.25),
+            audio_url: "Lvl2_1.mp3",
+            align: "left",
+            is_girl_image: true);
+        Future.delayed(Duration(seconds: 3), () { add(animation); });
+
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[4][0];
         _banda_t_hole.size = Vector2(size[0]*0.06, size[1]*0.02);
@@ -461,6 +504,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         add(_banda_t_hole);
       }
       if(yellow_score_disp.yellow_score >= 40 && focusedItem != "Paper"){
+        print("entered gray");
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
@@ -481,11 +525,60 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
             });
           }
         }
+        animation = TutorialAnimation(
+            text_url: "Lvl3_1.png",
+            position: Vector2(size[0]*0.13, size[1]*0.37),
+            size: Vector2(size[0]*0.45, size[1]*0.25),
+            audio_url: "Lvl3_1.mp3",
+            align: "left",
+            is_girl_image: true);
+        Future.delayed(Duration(seconds: 3), () { add(animation); });
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[5][0];
         _banda_t_hole.size = Vector2(size[0]*0.06, size[1]*0.02);
         _banda_t_hole.hole_no = 3;
         add(_banda_t_hole);
+      }
+      if(blue_score_disp.blue_score == 30) {
+        animation = TutorialAnimation(
+            text_url: "Lvl1_2.png",
+            position: Vector2(size[0]*0.37, size[1]*0.25),
+            size: Vector2(size[0]*0.5, size[1]*0.23),
+            audio_url: "Lvl1_2.mp3",
+            align: "right",
+            is_girl_image: true);
+        add(animation);
+      }
+
+      if(yellow_score_disp.yellow_score == 10){
+        animation = TutorialAnimation(
+            text_url: "Lvl2_2.png",
+            position: Vector2(size[0]*0.37, size[1]*0.25),
+            size: Vector2(size[0]*0.5, size[1]*0.25),
+            audio_url: "Lvl2_2.mp3",
+            align: "right",
+            is_girl_image: true);
+        add(animation);
+      }
+      if(yellow_score_disp.yellow_score == 30){
+        animation = TutorialAnimation(
+            text_url: "Lvl2_3.png",
+            position: Vector2(size[0]*0.37, size[1]*0.25),
+            size: Vector2(size[0]*0.5, size[1]*0.25),
+            audio_url: "Lvl2_3.mp3",
+            align: "right",
+            is_girl_image: true);
+        add(animation);
+      }
+      if(gray_score_disp.gray_score == 30){
+        animation = TutorialAnimation(
+            text_url: "Lvl3_3.png",
+            position: Vector2(size[0]*0.37, size[1]*0.25),
+            size: Vector2(size[0]*0.5, size[1]*0.23),
+            audio_url: "Lvl3_3.mp3",
+            align: "right",
+            is_girl_image: true);
+        add(animation);
       }
     }
 

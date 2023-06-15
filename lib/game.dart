@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:ecoins/blue_score.dart';
+import 'package:ecoins/components/TutorialAnimation.dart';
 import 'package:ecoins/components/ImageSprite.dart';
 import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:ecoins/components/distractive_item.dart';
@@ -55,6 +56,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
   Cocina _cocina = Cocina();
   ImageSprite Sol = ImageSprite();
   ImageSprite agua = ImageSprite();
+  late TutorialAnimation animation;
 
   bool musicPlaying = false;
 
@@ -81,6 +83,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     // debugMode = true;
     focusedItem = "Plastico";
     total_trash_items = 5;
+    animation = TutorialAnimation(text_url: "start_playing_text.png", position: Vector2(0, 0), size: Vector2(600, 200));
 
     _cocina = Cocina(size: Vector2(size[0], size[1]));
     await add(_cocina);
@@ -355,6 +358,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     for(PowerUpComponent i in _powerup_items) {
       await add(i);
     }
+    await add(animation);
   }
 
   @override

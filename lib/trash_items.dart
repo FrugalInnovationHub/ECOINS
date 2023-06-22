@@ -9,7 +9,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame_audio/flame_audio.dart';
 
 import 'package:flutter/material.dart';
-
+import 'package:flame/events.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
 import 'basureros_hbox.dart';
@@ -59,7 +59,7 @@ enum Trash_Type implements Comparable<Trash_Type> {
 }
 
 class Trash_Item extends SpriteComponent
-    with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
+    with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame>, DragCallbacks {
   late MoveEffect h_move_effect;
   // late final ratio;
   late OpacityEffect h_opacity_effect;
@@ -142,6 +142,12 @@ class Trash_Item extends SpriteComponent
       }
     }
     return false;
+  }
+
+  @override
+  void onDragStart(DragStartEvent event) {
+    super.onDragStart(event);
+    print(event);
   }
 
   update_move() {

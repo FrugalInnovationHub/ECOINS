@@ -17,18 +17,25 @@ class TutorialAnimation extends PositionComponent with HasGameRef{
     var audio;
     priority = 10;
     SpriteComponent textSprite;
-    SpriteComponent girlSprite = SpriteComponent(sprite: await gameRef.loadSprite("NINA_POP_UP.png"), size: Vector2(gameRef.size[0]*0.20, gameRef.size[1]*0.35));
+
     var sprite = await gameRef.loadSprite(this.text_url);
     textSprite = SpriteComponent(sprite: sprite, position: Vector2.all(0), size: size);
 
-    if(align == "left") {
-      girlSprite.position = Vector2(-gameRef.size[0]*0.16, gameRef.size[1]*0.05);
-    }
-    else {
-      girlSprite.position = Vector2(size[0] - gameRef.size[0]*0.05 , gameRef.size[1]*0.05);
+    if(this.is_girl_image) {
+      SpriteComponent girlSprite = SpriteComponent(
+          sprite: await gameRef.loadSprite("NINA_POP_UP.png"),
+          size: Vector2(gameRef.size[0] * 0.20, gameRef.size[1] * 0.35));
+
+      if(align == "left") {
+        girlSprite.position = Vector2(-gameRef.size[0]*0.16, gameRef.size[1]*0.05);
+      }
+      else {
+        girlSprite.position = Vector2(size[0] - gameRef.size[0]*0.05 , gameRef.size[1]*0.05);
+      }
+
+      add(girlSprite);
     }
 
-    add(girlSprite);
     add(textSprite);
     FlameAudio.bgm.pause();
     audio = await FlameAudio.play(this.audio_url);

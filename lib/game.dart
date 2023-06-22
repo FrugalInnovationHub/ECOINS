@@ -29,7 +29,7 @@ import 'pause_btn.dart';
 import 'score_disp.dart';
 import 'package:flame_audio/flame_audio.dart';
 
-class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, HasGameRef, WidgetsBindingObserver{
+class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollisionDetection, HasGameRef, WidgetsBindingObserver{
 
   @override
   Color backgroundColor() => const Color(0xFFFFFFFF);
@@ -52,7 +52,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
   late OpacityEffect h_opacity_blink_effect_yellow;
   late OpacityEffect h_opacity_blink_effect_grey;
   late MoveEffect h_move_effect_new;
-  late double speed = 20.0;
+  late double speed = 24.0;
   Cocina _cocina = Cocina();
   ImageSprite Sol = ImageSprite();
   ImageSprite agua = ImageSprite();
@@ -109,7 +109,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
     await add(_sol_score_disp);
     await add(_gota_score_disp);
 
-    Future.delayed(Duration(seconds: 1), () async { await add(animation);  } );
+    Future.delayed(Duration(seconds: 3), () async { await add(animation);  } );
 
 
     lock = BasuresosLock(position: Vector2(size[0]*0.605, size[1]*0.655), size: Vector2(size[0]*0.104, size[1]*0.33), type: "yellow");
@@ -402,7 +402,7 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
       }
     }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
-      if((blue_score_disp.blue_score == 2) || (yellow_score_disp.yellow_score == 2) || (gray_score_disp.gray_score == 2)){
+      if((blue_score_disp.blue_score == 2) || (yellow_score_disp.yellow_score == 2 && child.category == "Aluminio") || (gray_score_disp.gray_score == 2 && child.category == "Paper")){
         animation = TutorialAnimation(
             text_url: "SUN_AND_WATER.png",
             position: Vector2(size[0]*0.37, size[1]*0.25),
@@ -466,7 +466,6 @@ class EcoinsGame extends FlameGame with HasTappables, HasCollisionDetection, Has
         add(t);
       }
       if(blue_score_disp.blue_score >= 40 && focusedItem != "Aluminio"){
-        print("entered yellow");
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();

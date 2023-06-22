@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:ecoins/components/TutorialAnimation.dart';
 
 class HomeScreen extends FlameGame with HasTappables {
 
@@ -20,6 +21,7 @@ class HomeScreen extends FlameGame with HasTappables {
   // ImageSprite pelican = ImageSprite();
   ImageSprite homeScreen1 = ImageSprite();
   late PlayButton button;
+  late TutorialAnimation animation;
   // late PolygonComponent triangle;
 
   Paint blue = Paint()
@@ -33,7 +35,15 @@ class HomeScreen extends FlameGame with HasTappables {
   Color backgroundColor() => const Color(0xFFFFFFFF);
 
   void onClick() {
-    Navigator.pushReplacementNamed(this.context, '/video');
+    animation = TutorialAnimation(
+        text_url: "INTRO_1.png",
+        position: Vector2(size[0]*0.3, size[1]*0.01),
+        size: Vector2(size[0]*0.5, size[1]*0.2),
+        audio_url: "INTRO_1.mp3",
+        align: "left",
+        is_girl_image: false);
+    add(animation);
+    // Navigator.pushReplacementNamed(this.context, '/video');
   //   ecoins.addOpacity();
   //   pelican.addOpacity();
   //   whale.addOpacity();

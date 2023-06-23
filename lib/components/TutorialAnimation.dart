@@ -41,7 +41,9 @@ class TutorialAnimation extends PositionComponent with HasGameRef{
     audio = await FlameAudio.play(this.audio_url);
 
     audio.onPlayerStateChanged.listen((event) {
-      removeFromParent();
+      textSprite.removeFromParent();
+
+      this.removeFromParent();
       gameRef.resumeEngine();
       FlameAudio.bgm.resume();
     });

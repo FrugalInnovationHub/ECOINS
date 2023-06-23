@@ -98,6 +98,7 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
   }
 
   void changeSpriteLevel() {
+    print(yellow_score);
     if(yellow_score <= 10){
       YellowLevel1.size.y = gameSize[1]*(0.088 - yellow_score*0.0088);
       if(yellow_score == 10){
@@ -113,6 +114,8 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
     else if(yellow_score <= 30){
       YellowLevel3.size.y = gameSize[1]*(0.076 - (yellow_score - 20)*0.0076);
       if(yellow_score == 30){
+        print("this is inside");
+        print(yellow_score);
         YellowLevel3.removeFromParent();
       }
     }

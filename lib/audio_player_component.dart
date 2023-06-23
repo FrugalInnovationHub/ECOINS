@@ -9,7 +9,7 @@ class AudioPlayerComponent extends Component {
     FlameAudio.bgm.initialize();
     
     FlameAudio.audioCache.loadAll([
-      'MUSICGAME.mp3',
+      'INTRO.mp3',
       'GAME_SFX.mp3'
     ]);
     

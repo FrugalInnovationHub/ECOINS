@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../components/ImageSprite.dart';
 import '../palette.dart';
-
+import 'package:flame_audio/flame_audio.dart';
 
 
 class Email_Screen extends FlameGame with HasTappables{
@@ -39,18 +39,27 @@ class Email_Screen extends FlameGame with HasTappables{
         size: Vector2(size[0] * 0.45, size[1] * 0.35));
     box.opacity = 0;
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 1, startDelay: 3));
-    h_opacity_effect_new = OpacityEffect.to(1, EffectController(duration: 1, startDelay: 3));
-
-    // emailScreen2.add(h_opacity_effect_new);
-
-
+    h_opacity_effect_new = OpacityEffect.to(1, EffectController(duration: 1, startDelay: 0));
     await add(emailScreen2);
     await add(emailScreen1);
-    emailScreen1.add(h_opacity_effect);
-    await add(box);
-    box.add(h_opacity_effect_new);
-    overlays.add("textField");
+    // emailScreen2.add(h_opacity_effect_new);
+    ImageSprite textSprite1 = ImageSprite(asset: "Ending_1.png",position: Vector2(size[0]*0.5, size[1]*0.01), size: Vector2(size[0]*0.45, size[1]*0.2));
+    ImageSprite textSprite2 = ImageSprite(asset: "Ending_2.png",position: Vector2(size[0]*0.5, size[1]*0.01), size: Vector2(size[0]*0.45, size[1]*0.2));
 
+    add(textSprite1);
+    Future.delayed(Duration(seconds: 16), () { textSprite1.removeFromParent(); add(textSprite2);});
+    var audio = await FlameAudio.play("Ending.mp3");
+    audio.onPlayerStateChanged.listen((event) {
+      textSprite2.removeFromParent();
 
+      Future.delayed(Duration(milliseconds: 30) ,() {
+        emailScreen1.add(h_opacity_effect);
+        add(box);
+        box.add(h_opacity_effect_new);
+        overlays.add("textField");
+        FlameAudio.audioCache.clear("Ending.mp3");
+      });
+
+    });
   }
 }

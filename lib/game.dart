@@ -410,8 +410,6 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
       }
     }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
-      print(focusedItem == "Paper");
-      print(yellow_score_disp.yellow_score);
       if((blue_score_disp.blue_score == 2) || (yellow_score_disp.yellow_score == 2 && child.category == "Aluminio") || (gray_score_disp.gray_score == 2 && child.category == "Paper")){
         animation = TutorialAnimation(
             text_url: "SUN_AND_WATER.png",
@@ -475,7 +473,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         t.y_loc = size[1]*0.31;
         add(t);
       }
-      if(blue_score_disp.blue_score >= 40 && focusedItem != "Aluminio"){
+      if(blue_score_disp.blue_score >= 40 && focusedItem == "Plastico"){
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
@@ -512,8 +510,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         _banda_t_hole.hole_no = 2;
         add(_banda_t_hole);
       }
-      if((yellow_score_disp.yellow_score >= 40) && (focusedItem != "Paper")){
-        print("entered gray");
+      if((yellow_score_disp.yellow_score >= 40) && (focusedItem == "Aluminio")){
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
@@ -534,14 +531,14 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             });
           }
         }
-        // animation = TutorialAnimation(
-        //     text_url: "Lvl3_1.png",
-        //     position: Vector2(size[0]*0.13, size[1]*0.37),
-        //     size: Vector2(size[0]*0.45, size[1]*0.25),
-        //     audio_url: "Lvl3_1.mp3",
-        //     align: "left",
-        //     is_girl_image: true);
-        // Future.delayed(Duration(seconds: 3), () { add(animation); });
+        animation = TutorialAnimation(
+            text_url: "Lvl3_1.png",
+            position: Vector2(size[0]*0.13, size[1]*0.37),
+            size: Vector2(size[0]*0.45, size[1]*0.25),
+            audio_url: "Lvl3_1.mp3",
+            align: "left",
+            is_girl_image: true);
+        Future.delayed(Duration(seconds: 3), () { add(animation); });
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[5][0];
         _banda_t_hole.size = Vector2(size[0]*0.06, size[1]*0.02);
@@ -549,7 +546,9 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         add(_banda_t_hole);
       }
       if(gray_score_disp.gray_score == 40){
-        FlameAudio.play(Globals.gameComplete);
+        // FlameAudio.play(Globals.gameComplete);
+        FlameAudio.bgm.stop();
+        FlameAudio.bgm.dispose();
         Navigator.pushReplacementNamed(context, '/email');
       }
 

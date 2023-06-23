@@ -46,6 +46,7 @@ class TutorialAnimation extends PositionComponent with HasGameRef{
       this.removeFromParent();
       gameRef.resumeEngine();
       FlameAudio.bgm.resume();
+      FlameAudio.audioCache.clear(this.audio_url);
     });
 
     Future.delayed(Duration(seconds: 1), () async { gameRef.pauseEngine(); } );

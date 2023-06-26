@@ -39,9 +39,9 @@ class app extends StatelessWidget {
         ),
         "/video": (context) =>  VideoPlayerScreen(),
         "/email": (context) => GameWidget(game: Email_Screen(context: context), overlayBuilderMap: {
-          'textField':
+          'Email':
               (BuildContext context, Email_Screen game) {
-            return EmailTextField();
+            return EmailTextField(game: game);
           }
         }),
         "/game": (context) => GameWidget(

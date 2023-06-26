@@ -11,7 +11,7 @@ import '../palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 
 
-class Email_Screen extends FlameGame with HasTappables{
+class Email_Screen extends FlameGame with HasTappables, HasGameRef{
   ImageSprite emailScreen1 = ImageSprite();
   ImageSprite emailScreen2 = ImageSprite();
   ImageSprite box = ImageSprite();
@@ -35,8 +35,8 @@ class Email_Screen extends FlameGame with HasTappables{
         position: Vector2(0,0),
         size: Vector2(size[0], size[1]));
     box = ImageSprite(asset: 'box.png',
-        position: Vector2(size[0] * 0.52 ,size[1] * 0.3),
-        size: Vector2(size[0] * 0.45, size[1] * 0.35));
+        position: Vector2(size[0] * 0.49 ,size[1] * 0.30),
+        size: Vector2(size[0] * 0.49, size[1] * 0.4));
     box.opacity = 0;
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 1, startDelay: 3));
     h_opacity_effect_new = OpacityEffect.to(1, EffectController(duration: 1, startDelay: 0));
@@ -53,11 +53,19 @@ class Email_Screen extends FlameGame with HasTappables{
       textSprite2.removeFromParent();
 
       Future.delayed(Duration(milliseconds: 30) ,() {
-        emailScreen1.add(h_opacity_effect);
+        emailScreen1.removeFromParent();
         add(box);
         box.add(h_opacity_effect_new);
-        overlays.add("textField");
+        overlays.add("Email");
         FlameAudio.audioCache.clear("Ending.mp3");
+        Future.delayed(Duration(seconds: 1), () {
+          Future.delayed(Duration(seconds: 1), () {
+            box.removeFromParent();
+            add(emailScreen1);
+            emailScreen2.removeFromParent();
+          });
+          gameRef.pauseEngine();
+        });
       });
 
     });

@@ -157,7 +157,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
     // }
     FlameAudio.bgm.initialize();
     if (!musicPlaying) {
-      FlameAudio.bgm.play("INTRO.mp3");
+      FlameAudio.bgm.play("BackgroundMusic.mp3");
       musicPlaying = true;
     }
 

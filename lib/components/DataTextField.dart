@@ -34,27 +34,32 @@ class _DataTextFieldState extends State<DataTextField> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Center(
+      body: Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: double.infinity,
+        child: AspectRatio(
+          aspectRatio: 16/9,
           child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
+            child: new LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints){
+              return Center(
+                child: Container(
+                  height: constraints.maxHeight*0.4,
+                  width: constraints.maxWidth*0.45,
                   // color: Colors.blue,
                   child: Column(
                     children: [
-                      SizedBox(height: MediaQuery.of(context).size.height*0.03),
+                      SizedBox(height: constraints.maxHeight*0.05),
                       Container(
-                        width: MediaQuery.of(context).size.width*0.25,
-                        height: MediaQuery.of(context).size.height*0.04,
-                        margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.1, 0, 0, 0),
-                        padding: EdgeInsets.all(4),
+                        width: constraints.maxWidth*0.25,
+                        height: constraints.maxHeight*0.04,
+                        margin: EdgeInsets.fromLTRB(constraints.maxWidth*0.1, 0, 0, 0),
+                        padding: EdgeInsets.fromLTRB(0,0,0,8),
                         // color: Colors.green,
                         child: TextField(
                           style: TextStyle(
                               color: Colors.blue[700],
-                              fontSize: min(MediaQuery.of(context).size.height*0.03,24),
+                              fontSize: constraints.maxHeight*0.025,
                               fontWeight: FontWeight.bold
                           ),
                           decoration: InputDecoration(
@@ -81,17 +86,17 @@ class _DataTextFieldState extends State<DataTextField> {
                           },
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height*0.04),
+                      SizedBox(height: constraints.maxHeight*0.04),
                       Container(
-                        width: MediaQuery.of(context).size.width*0.25,
-                        height: MediaQuery.of(context).size.height*0.04,
-                        margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.1, 0, 0, 0),
-                        padding: EdgeInsets.all(4),
+                        width: constraints.maxWidth*0.25,
+                        height: constraints.maxHeight*0.04,
+                        margin: EdgeInsets.fromLTRB(constraints.maxWidth*0.1, 0, 0, 0),
+                        padding: EdgeInsets.fromLTRB(0,0,0,8),
                         // color: Colors.green,
                         child: TextField(
                           style: TextStyle(
                               color: Colors.blue[700],
-                              fontSize: min(MediaQuery.of(context).size.height*0.03,24),
+                              fontSize: constraints.maxHeight*0.025,
                               fontWeight: FontWeight.bold
                           ),
                           decoration: InputDecoration(
@@ -118,17 +123,17 @@ class _DataTextFieldState extends State<DataTextField> {
                           },
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height*0.04),
+                      SizedBox(height: constraints.maxHeight*0.04),
                       Container(
-                        width: MediaQuery.of(context).size.width*0.25,
-                        height: MediaQuery.of(context).size.height*0.04,
-                        margin: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width*0.1, 0, 0, 0),
-                        padding: EdgeInsets.all(4),
+                        width: constraints.maxWidth*0.25,
+                        height: constraints.maxHeight*0.04,
+                        margin: EdgeInsets.fromLTRB(constraints.maxWidth*0.1, 0, 0, 0),
+                        padding: EdgeInsets.fromLTRB(0,0,0,8),
                         // color: Colors.green,
                         child: TextField(
                           style: TextStyle(
                               color: Colors.blue[700],
-                              fontSize: min(MediaQuery.of(context).size.height*0.03,24),
+                              fontSize: constraints.maxHeight*0.025,
                               fontWeight: FontWeight.bold
                           ),
                           decoration: InputDecoration(
@@ -155,27 +160,26 @@ class _DataTextFieldState extends State<DataTextField> {
                           },
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height*0.02),
+                      SizedBox(height: constraints.maxHeight*0.025),
                       InkWell(
-                          child: Container(
-                            // color: Colors.green,
-                            height: MediaQuery.of(context).size.height*0.075,
-                            width: MediaQuery.of(context).size.width*0.1,
-                          ),
+                        child: Container(
+                          // color: Colors.green,
+                          height: constraints.maxHeight*0.075,
+                          width: constraints.maxWidth*0.1,
+                        ),
                         onTap: () {
-                            // widget.game.overlays.remove("EnterData");
+                          // widget.game.overlays.remove("EnterData");
                           Navigator.pushReplacementNamed(this.context, '/video');
                         },
                       ),
-
-                      SizedBox(height: MediaQuery.of(context).size.height*0.03),
                     ],
                   ),
                 )
-              ],
-            ),
+              );
+            }),
           ),
-      ),
+        ),
+      )
     );
   }
 }

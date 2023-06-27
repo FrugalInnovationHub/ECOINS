@@ -224,7 +224,7 @@ class _DataTextFieldState extends State<DataTextField> {
                       //     },
                       //   ),
                       // ),
-                      SizedBox(height: constraints.maxHeight*0.04),
+                      SizedBox(height: constraints.maxHeight*0.035),
                       Container(
                         width: constraints.maxWidth*0.25,
                         height: constraints.maxHeight*0.043,

@@ -23,6 +23,7 @@ class _CustomSelectDropDownState extends State<CustomSelectDropDown> {
       elevation: 0,
       isExpanded: true,
       style: widget.textStyle,
+      focusColor: Colors.transparent,
       underline: Container(
         height: 0,
       ),

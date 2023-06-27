@@ -32,23 +32,23 @@ class HomeScreen extends FlameGame with HasTappables {
         size: Vector2(size[0], size[1])
     );
     ImageSprite data = ImageSprite(asset: 'data.png', position: Vector2(size[0] * 0.25, size[1] * 0.275), size: Vector2(size[0] * 0.5, size[1] * 0.4));
-    // ImageSprite textSprite = ImageSprite(asset: "INTRO_1.png",position: Vector2(size[0]*0.3, size[1]*0.01), size: Vector2(size[0]*0.5, size[1]*0.2));
-    // add(textSprite);
-    // var audio = await FlameAudio.play("INTRO_1.mp3");
-    // audio.onPlayerStateChanged.listen((event) {
-    //   textSprite.removeFromParent();
-    //
-    //   Future.delayed(Duration(milliseconds: 30) ,() {
-    //     add(homeScreen2);
-    //     add(data);
-    //     homeScreen1.removeFromParent();
-    //   });
-    //   overlays.add("EnterData");
-    // });
-    add(homeScreen2);
-    add(data);
-    homeScreen1.removeFromParent();
-    overlays.add("EnterData");
+    ImageSprite textSprite = ImageSprite(asset: "INTRO_1.png",position: Vector2(size[0]*0.3, size[1]*0.01), size: Vector2(size[0]*0.5, size[1]*0.2));
+    add(textSprite);
+    var audio = await FlameAudio.play("INTRO_1.mp3");
+    audio.onPlayerStateChanged.listen((event) {
+      textSprite.removeFromParent();
+
+      Future.delayed(Duration(milliseconds: 30) ,() {
+        add(homeScreen2);
+        add(data);
+        homeScreen1.removeFromParent();
+      });
+      overlays.add("EnterData");
+    });
+    // add(homeScreen2);
+    // add(data);
+    // homeScreen1.removeFromParent();
+    // overlays.add("EnterData");
   }
 
   @override

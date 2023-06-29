@@ -28,7 +28,7 @@ enum Trash_Type implements Comparable<Trash_Type> {
   Bola_Papel(type: "Paper", src: 'Bola_papel.png', size: [0.035, 0.065], priority: 3),
   Caja_Carton(type: "Paper", src: 'Caja_Carton.png', size: [0.07, 0.095], priority: 1),
   Botella_Agua(type: "Plastico", src: 'Botella_Agua.png', size: [0.025, 0.095], priority: 3),
-  Botella_Agua_Grande(type: "Plastico", src: 'Botella_Agua_Grande.png', size: [0.035, 0.095], priority: 1),
+  Botella_Agua_Grande(type: "Plastico", src: 'Botella_agua_grande.png', size: [0.035, 0.095], priority: 1),
   Botella_Jabon(type: "Plastico", src: 'Botella_jabon.png', size: [0.03, 0.095], priority: 2),
   Cilindro_Papel(type: "Paper", src: 'Cilindro_papel.png', size: [0.025, 0.095], priority: 2),
   LATA_2(type: "Aluminio", src: 'LATA_2.png', size: [0.025, 0.095], priority: 3),
@@ -59,7 +59,7 @@ enum Trash_Type implements Comparable<Trash_Type> {
 }
 
 class Trash_Item extends SpriteComponent
-    with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame>, DragCallbacks {
+    with HasGameRef, Tappable, CollisionCallbacks, ParentIsA<EcoinsGame> {
   late MoveEffect h_move_effect;
   // late final ratio;
   late OpacityEffect h_opacity_effect;
@@ -142,12 +142,6 @@ class Trash_Item extends SpriteComponent
       }
     }
     return false;
-  }
-
-  @override
-  void onDragStart(DragStartEvent event) {
-    super.onDragStart(event);
-    print(event);
   }
 
   update_move() {

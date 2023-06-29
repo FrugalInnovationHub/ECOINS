@@ -148,13 +148,6 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
       hole_pos.add([Vector2(size[0]*(0.487 + i*0.135) , size[1]*0.505), i+1]);
     }
 
-    // FlameAudio.bgm.play("MUSICGAME.mp3");
-
-    // FlameAudio.bgm.initialize();
-    // if (!musicPlaying) {
-    //   FlameAudio.bgm.play("BackgroundMusic.mp3");
-    //   musicPlaying = true;
-    // }
     FlameAudio.bgm.initialize();
     if (!musicPlaying) {
       FlameAudio.bgm.play("BackgroundMusic.mp3");
@@ -478,7 +471,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
         final belt_items = children.query<Trash_Item>();
-        speed = 16.0;
+        speed = 19.0;
 
         for(var i in allBandaT){
           if(i.hole_no == 1){
@@ -514,7 +507,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         focusedItem = "Paper";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
-        speed = 12.0;
+        speed = 14.0;
 
         for(var i in allBandaT){
           if(i.hole_no == 2){

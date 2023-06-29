@@ -15,6 +15,8 @@ class HomeScreen extends FlameGame with HasTappables {
   ImageSprite homeScreen2 = ImageSprite();
   late PlayButton button;
   late TutorialAnimation animation;
+  ImageSprite data = ImageSprite();
+  ImageSprite textSprite = ImageSprite();
 
   Paint blue = Paint()
     ..color = const Color(0xFF3A9BDC);
@@ -27,12 +29,7 @@ class HomeScreen extends FlameGame with HasTappables {
   Color backgroundColor() => const Color(0xFFFFFFFF);
 
   void onClick() async {
-    homeScreen2 = ImageSprite(asset: 'HomeScreen_2.jpeg',
-        position: Vector2(0,0),
-        size: Vector2(size[0], size[1])
-    );
-    ImageSprite data = ImageSprite(asset: 'data.png', position: Vector2(size[0] * 0.25, size[1] * 0.275), size: Vector2(size[0] * 0.5, size[1] * 0.4));
-    ImageSprite textSprite = ImageSprite(asset: "INTRO_1.png",position: Vector2(size[0]*0.3, size[1]*0.01), size: Vector2(size[0]*0.5, size[1]*0.2));
+
     add(textSprite);
     var audio = await FlameAudio.play("INTRO_1.mp3");
     audio.onPlayerStateChanged.listen((event) {
@@ -62,6 +59,13 @@ class HomeScreen extends FlameGame with HasTappables {
       size: Vector2(size[0], size[1])
     );
 
+    homeScreen2 = ImageSprite(asset: 'HomeScreen_2.jpeg',
+        position: Vector2(0,0),
+        size: Vector2(size[0], size[1])
+    );
+    data = ImageSprite(asset: 'data.png', position: Vector2(size[0] * 0.25, size[1] * 0.275), size: Vector2(size[0] * 0.5, size[1] * 0.4));
+    textSprite = ImageSprite(asset: "INTRO_1.png",position: Vector2(size[0]*0.3, size[1]*0.01), size: Vector2(size[0]*0.5, size[1]*0.2));
+    await FlameAudio.audioCache.load('INTRO_1.mp3');
     button = PlayButton(radius: size[0] * 0.037,
         position: Vector2(size[0] * 0.54, size[1] * 0.49),
         // paint: green,

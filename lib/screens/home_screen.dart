@@ -1,5 +1,6 @@
 import 'package:ecoins/components/ImageSprite.dart';
 import 'package:ecoins/components/playButton.dart';
+import 'package:ecoins/globals.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -31,7 +32,7 @@ class HomeScreen extends FlameGame with HasTappables {
   void onClick() async {
 
     add(textSprite);
-    var audio = await FlameAudio.play("INTRO_1.mp3");
+    var audio = await FlameAudio.playLongAudio(Globals.INTRO_1);
     audio.onPlayerStateChanged.listen((event) {
       textSprite.removeFromParent();
 

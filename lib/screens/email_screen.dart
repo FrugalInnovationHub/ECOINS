@@ -48,7 +48,7 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
 
     add(textSprite1);
     Future.delayed(Duration(seconds: 16), () { textSprite1.removeFromParent(); add(textSprite2);});
-    var audio = await FlameAudio.play("Ending.mp3");
+    var audio = await FlameAudio.playLongAudio("Ending.mp3");
     audio.onPlayerStateChanged.listen((event) {
       textSprite2.removeFromParent();
 

@@ -7,4 +7,7 @@ class Globals {
   static const String completeBin = 'COMPLETE_CONTAINER.mp3';
   static const String newBinUnlock = 'UNLOCK_CONTAINER.mp3';
   static const String gameComplete = 'GAME_COMPLETED.mp3';
+  static const String wrong = 'WRONG.mp3';
+  static const String INTRO_1 = 'INTRO_1.mp3';
+
 }

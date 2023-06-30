@@ -91,7 +91,6 @@ class _EmailTextFieldState extends State<EmailTextField>{
                         SizedBox(height: constraints.maxHeight*0.085,),
                         InkWell(
                           onTap: () {
-                            print("Pressed");
                             widget.game.overlays.remove("Email");
                             widget.game.resumeEngine();
                           },

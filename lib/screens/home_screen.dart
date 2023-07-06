@@ -36,17 +36,14 @@ class HomeScreen extends FlameGame with HasTappables {
     audio.onPlayerStateChanged.listen((event) {
       textSprite.removeFromParent();
 
-      Future.delayed(Duration(milliseconds: 30) ,() {
-        add(homeScreen2);
-        add(data);
+      Future.delayed(Duration(milliseconds: 30) ,() async {
+        await add(homeScreen2);
+        await add(data);
         homeScreen1.removeFromParent();
+        overlays.add("EnterData");
       });
-      overlays.add("EnterData");
+
     });
-    // add(homeScreen2);
-    // add(data);
-    // homeScreen1.removeFromParent();
-    // overlays.add("EnterData");
   }
 
   @override
@@ -66,7 +63,6 @@ class HomeScreen extends FlameGame with HasTappables {
     );
     data = ImageSprite(asset: 'data.png', position: Vector2(size[0] * 0.25, size[1] * 0.275), size: Vector2(size[0] * 0.5, size[1] * 0.4));
     textSprite = ImageSprite(asset: "INTRO_1.png",position: Vector2(size[0]*0.3, size[1]*0.01), size: Vector2(size[0]*0.5, size[1]*0.2));
-    await FlameAudio.audioCache.load('INTRO_1.mp3');
     button = PlayButton(radius: size[0] * 0.037,
         position: Vector2(size[0] * 0.54, size[1] * 0.49),
         // paint: green,

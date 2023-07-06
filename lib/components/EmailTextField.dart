@@ -68,24 +68,6 @@ class _EmailTextFieldState extends State<EmailTextField>{
                                 border: InputBorder.none,
                             ),
                             controller: _controller,
-                            onSubmitted: (String value) async {
-                              await showDialog<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Thanks!'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
                           ),
                         ),
                         SizedBox(height: constraints.maxHeight*0.085,),

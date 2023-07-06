@@ -96,6 +96,8 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         is_girl_image: true);
 
     _cocina = Cocina(size: Vector2(size[0], size[1]));
+    FlameAudio.bgm.initialize();
+
     await add(_cocina);
     await add(_pause_btn);
     await add(hbox_level3(size: Vector2(size[0]*0.025 ,size[1]*0.1), position: Vector2(-(size[0]*0.06),size[1]*0.45)));
@@ -111,8 +113,6 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
     await add(agua);
     await add(_sol_score_disp);
     await add(_gota_score_disp);
-
-    Future.delayed(Duration(seconds: 3), () async { await add(animation);  } );
 
 
     lock = BasuresosLock(position: Vector2(size[0]*0.605, size[1]*0.655), size: Vector2(size[0]*0.104, size[1]*0.33), type: "yellow");
@@ -146,12 +146,6 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
     // hole_pos.add(Vector2(ratio*(390) , ratio*230));
     for(var i=0; i<3; i++){
       hole_pos.add([Vector2(size[0]*(0.487 + i*0.135) , size[1]*0.505), i+1]);
-    }
-
-    FlameAudio.bgm.initialize();
-    if (!musicPlaying) {
-      FlameAudio.bgm.play("BackgroundMusic.mp3");
-      musicPlaying = true;
     }
 
     Banda_T_Hole _banda_t_hole = Banda_T_Hole();
@@ -369,6 +363,13 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
       await add(i);
     }
 
+    if (!musicPlaying) {
+      FlameAudio.bgm.play("BackgroundMusic.mp3");
+      musicPlaying = true;
+    }
+
+    Future.delayed(Duration(seconds: 3), () async { await add(animation);  } );
+
   }
 
   @override
@@ -388,7 +389,6 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
 
   @override
   void onChildrenChanged(Component child, ChildrenChangeType type) {
-    // TODO: implement onChildrenChanged
     super.onChildrenChanged(child, type);
     if(child is TutorialAnimation && type == ChildrenChangeType.removed){
       if(child.text_url == "Lvl3_1.png") {

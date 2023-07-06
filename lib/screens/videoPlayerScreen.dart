@@ -45,7 +45,18 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       setState(() {
         if (!_controller.value.isPlaying && _controller.value.isInitialized &&
             (_controller.value.duration ==_controller.value.position)) {//checking the duration and position every time
-          Navigator.pushReplacementNamed(this.context, '/game');
+          // Navigator.pushReplacementNamed(this.context, '/game');
+          Navigator.pushReplacement(context, MaterialPageRoute(
+            builder: (BuildContext context) => GameWidget(
+                game: EcoinsGame(context: context),
+                overlayBuilderMap: {
+                  'PauseMenu':
+                      (BuildContext context, EcoinsGame game) {
+                    return pause_menu(game: game);
+                  }
+                }
+            ),
+          ));
         }
       });
     });
@@ -84,21 +95,32 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           Visibility(
               visible: _isVisible,
               child: FloatingActionButton(
-            heroTag: "Skip",
-            tooltip: "Skip",
-            onPressed: () {
-              // Wrap the play or pause in a call to `setState`. This ensures the
-              // correct icon is shown.
-              setState(() {
-                // If the video is playing, pause it.
-                if (_controller.value.isPlaying) {
-                  _controller.pause();
-                }
-                Navigator.pushReplacementNamed(this.context, '/game');
-              });
-            },
-            // Display the correct icon depending on the state of the player.
-            child: Icon(Icons.refresh_rounded),
+                heroTag: "Skip",
+                tooltip: "Skip",
+                onPressed: () {
+                  // Wrap the play or pause in a call to `setState`. This ensures the
+                  // correct icon is shown.
+                  setState(() {
+                    // If the video is playing, pause it.
+                    if (_controller.value.isPlaying) {
+                      _controller.pause();
+                    }
+                    // Navigator.pushReplacementNamed(this.context, '/game');
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (BuildContext context) => GameWidget(
+                          game: EcoinsGame(context: context),
+                          overlayBuilderMap: {
+                            'PauseMenu':
+                                (BuildContext context, EcoinsGame game) {
+                              return pause_menu(game: game);
+                            }
+                          }
+                      ),
+                    ));
+                  });
+                },
+                // Display the correct icon depending on the state of the player.
+                child: Icon(Icons.refresh_rounded),
           )),
 
           SizedBox(

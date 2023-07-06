@@ -11,6 +11,7 @@ class pause_menu extends StatelessWidget{
   final game;
   const pause_menu({Key? key, this.game, EcoinsGame}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -19,21 +20,20 @@ class pause_menu extends StatelessWidget{
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.0)),
         child: Padding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 100.0, vertical: 50.0),
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1 , vertical: MediaQuery.of(context).size.height*0.1),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
+                Text(
                   'Paused',
                   style: TextStyle(
-                    fontSize: 50,
+                    fontSize: MediaQuery.of(context).size.height*0.08,
                     color: Colors.white,
                   ),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: MediaQuery.of(context).size.height*0.08,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -41,10 +41,10 @@ class pause_menu extends StatelessWidget{
                     this.game.resumeEngine();
                     FlameAudio.bgm.resume();
                   },
-                  child: const Text(
+                  child: Text(
                     'Resume',
                     style: TextStyle(
-                      fontSize: 30,
+                      fontSize: MediaQuery.of(context).size.height*0.05,
                     ),
                   ),
                 ),

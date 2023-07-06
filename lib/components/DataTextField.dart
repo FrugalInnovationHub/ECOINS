@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ecoins/components/CustomSelectDropDown.dart';
+import 'package:ecoins/screens/videoPlayerScreen.dart';
 
 class DataTextField extends StatefulWidget {
   final game;
@@ -288,7 +289,10 @@ class _DataTextFieldState extends State<DataTextField> {
                         ),
                         onTap: () {
                           // widget.game.overlays.remove("EnterData");
-                          Navigator.pushReplacementNamed(this.context, '/video');
+                          // Navigator.pushReplacementNamed(this.context, '/video');
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (BuildContext context) => VideoPlayerScreen(),
+                          ));
                         },
                       ),
                     ],

@@ -25,6 +25,10 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
     super.onLoad();
     var y = (size[0] / 16)*9;
     camera.viewport = FixedResolutionViewport(Vector2(size[0], y));
+    if(FlameAudio.bgm.isPlaying) {
+      FlameAudio.bgm.stop();
+      FlameAudio.bgm.dispose();
+    }
     emailScreen1 = ImageSprite(asset: 'EndScreen_1.jpeg',
         position: Vector2(0,0),
         size: Vector2(size[0], size[1]));

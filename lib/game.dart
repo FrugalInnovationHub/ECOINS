@@ -51,7 +51,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
   var focusedItem = "Plastico" ;
   late final total_trash_items;
   late var ratio;
-  late int finalEcoins;
+  static int finalEcoins = 0;
   late OpacityEffect h_opacity_blink_effect_yellow;
   late OpacityEffect h_opacity_blink_effect_grey;
   late MoveEffect h_move_effect_new;

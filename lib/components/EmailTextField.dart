@@ -5,7 +5,7 @@ import 'package:ecoins/game.dart';
 import 'package:ecoins/score_disp.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ecoins/components/DataTextField.dart';
 import '../game.dart';
 import '../score_disp.dart';
 import 'api.dart';
@@ -22,9 +22,10 @@ class EmailTextField extends StatefulWidget {
 
 class _EmailTextFieldState extends State<EmailTextField>{
   late TextEditingController _controller;
+  int ecoins = EcoinsGame.finalEcoins;
 
   _register(email) async {
-    var response = await CallApi().postDataEnd(email, 'ecoins_ganados');
+    var response = await CallApi().postDataEnd(email, ecoins, 'ecoins_ganados');
     var body = json.decode(response.body);
     print(body['mensaje']);
   }
@@ -105,7 +106,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
                         InkWell(
                           onTap: () {
                             print("Pressed");
-                            _register(_controller);
+                            _register(_controller.text);
                             widget.game.overlays.remove("Email");
                             widget.game.resumeEngine();
                           },

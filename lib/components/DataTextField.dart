@@ -9,7 +9,6 @@ import 'api.dart';
 class DataTextField extends StatefulWidget {
   final game;
   const DataTextField({Key? key, this.game}) : super(key: key);
-
   @override
   State<DataTextField> createState() => _DataTextFieldState();
 }
@@ -18,6 +17,7 @@ class _DataTextFieldState extends State<DataTextField> {
   late TextEditingController _age_controller;
   late TextEditingController _country_controller;
   late TextEditingController _gender_controller;
+
 
   _register(age, country, gender) async {
     var response = await CallApi().postDataStart(age, country, gender, 'datos_jugador');

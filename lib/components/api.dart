@@ -22,5 +22,4 @@ class CallApi{
           headers: {'Content-Type':'application/json'}
       );
     }
-
 }

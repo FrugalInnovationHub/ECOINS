@@ -222,8 +222,8 @@ class Trash_Item extends SpriteComponent
                     gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   blue_scored = true;
-                  score.updateScore(20);
-                  blue_score.blue_updateScore(20);
+                  score.updateScore(2);
+                  blue_score.blue_updateScore(2);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
@@ -260,8 +260,8 @@ class Trash_Item extends SpriteComponent
                 if (yellow_score != null && gota_score_disp != null &&
                 sol_score_disp != null && score != null) {
                   yellow_scored = true;
-                  score.updateScore(20);
-                  yellow_score.updateScore(20);
+                  score.updateScore(2);
+                  yellow_score.updateScore(2);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
@@ -303,8 +303,8 @@ class Trash_Item extends SpriteComponent
                 if (grey_score != null && gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   grey_scored = true;
-                  score.updateScore(20);
-                  grey_score.updateScore(20);
+                  score.updateScore(2);
+                  grey_score.updateScore(2);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);

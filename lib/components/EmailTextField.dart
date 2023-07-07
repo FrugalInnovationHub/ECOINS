@@ -15,6 +15,7 @@ import 'api.dart';
 class EmailTextField extends StatefulWidget {
   final game;
   const EmailTextField({super.key, this.game});
+
   @override
   State<EmailTextField> createState() => _EmailTextFieldState();
 }

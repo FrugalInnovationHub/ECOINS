@@ -1,7 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
-import 'package:flame_svg/flame_svg.dart';
-import 'package:flutter/material.dart';
 
 import 'palette.dart';
 

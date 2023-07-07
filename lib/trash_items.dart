@@ -3,22 +3,16 @@ import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/yellow_score.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/experimental.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame_audio/flame_audio.dart';
-
-import 'package:flutter/material.dart';
 import 'package:flame/events.dart';
 import 'banda_t_hole.dart';
-import 'basureros.dart';
 import 'basureros_hbox.dart';
 import 'blue_score.dart';
 import 'game.dart';
 import 'globals.dart';
 import 'gota_scored.dart';
-import 'green_score.dart';
 import 'hbox_level3.dart';
 import 'score_disp.dart';
 
@@ -260,8 +254,8 @@ class Trash_Item extends SpriteComponent
                 if (yellow_score != null && gota_score_disp != null &&
                 sol_score_disp != null && score != null) {
                   yellow_scored = true;
-                  score.updateScore(2);
-                  yellow_score.updateScore(2);
+                  score.updateScore(10);
+                  yellow_score.updateScore(10);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);
@@ -303,8 +297,8 @@ class Trash_Item extends SpriteComponent
                 if (grey_score != null && gota_score_disp != null &&
                     sol_score_disp != null && score != null) {
                   grey_scored = true;
-                  score.updateScore(2);
-                  grey_score.updateScore(2);
+                  score.updateScore(10);
+                  grey_score.updateScore(10);
                   gota_score_disp.recycleLevel(1);
                   sol_score_disp.recycleLevel(1);
                   add(h_opacity_effect);

@@ -1,13 +1,10 @@
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
-import 'package:flame/src/text/text_renderer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../components/ImageSprite.dart';
-import '../palette.dart';
 import 'package:flame_audio/flame_audio.dart';
 
 

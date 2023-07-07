@@ -2,9 +2,6 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flame/game.dart';
-
-import 'package:ecoins/game.dart';
 
 class pause_menu extends StatelessWidget{
   static final pauseOverlayIdentifier = 'PauseMenu';

@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ecoins/components/CustomSelectDropDown.dart';
 import 'package:ecoins/screens/videoPlayerScreen.dart';

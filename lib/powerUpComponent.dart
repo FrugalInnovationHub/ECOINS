@@ -1,15 +1,13 @@
 import 'dart:math';
-import 'package:ecoins/basureros_hbox.dart';
 import 'package:ecoins/game.dart';
 import 'package:ecoins/sol_scored.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/animation.dart';
+
 
 import 'globals.dart';
 import 'gota_scored.dart';
@@ -57,7 +55,6 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   Future<void> onLoad() async {
     await super.onLoad();
     var gameSize = gameRef.size;
-    var ratio = gameSize[0]/gameSize[1];
     final double _spriteHeight = gameSize[1]*0.080;
     final double _spriteWidth = gameSize[0]*0.045;
     sprite = await gameRef.loadSprite(type.src);
@@ -143,21 +140,14 @@ class PowerUpComponent extends SpriteComponent with HasGameRef, ParentIsA<Ecoins
   }
   @override
   void onCollision(Set<Vector2> points, PositionComponent other) {
+    is_colliding_sol = true;
+  }
 
-      is_colliding_sol = true;
-
-      }
   Vector2 _createRandomPosition() {
-    var gameSize = gameRef.size;
-    var ratio = gameSize[0]/gameSize[1];
     final double x = _random.nextInt(gameRef.size.x.toInt()).toDouble();
     final double y = _random.nextInt(gameRef.size.y.toInt()).toDouble()/2;
 
     return Vector2(x, y);
-  }
-  @override
-  void onCollisionEnd(PositionComponent other) {
-
   }
 }
 

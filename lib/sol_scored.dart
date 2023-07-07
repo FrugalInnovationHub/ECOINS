@@ -1,16 +1,9 @@
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
-import 'package:flame/collisions.dart';
-import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
-import 'package:flame/rendering.dart';
 
-import 'package:flutter/material.dart';
 
 class Sol_Score_Disp extends PositionComponent with HasGameRef {
-  late Sol_ScoreVal _sol_score_val;
   int sol_score = 4;
   int i = 4;
 
@@ -108,16 +101,5 @@ class Sol_Score_Disp extends PositionComponent with HasGameRef {
       add(SolLevel1);
     }
     return true;
-  }
-}
-
-class Sol_ScoreVal extends TextComponent with HasGameRef {
-  late int sol_score;
-
-  Sol_ScoreVal({super.textRenderer, super.position}) : sol_score = 0;
-
-  @override
-  void render(Canvas canvas) {
-    textRenderer.render(canvas, '$sol_score', Vector2.zero());
   }
 }

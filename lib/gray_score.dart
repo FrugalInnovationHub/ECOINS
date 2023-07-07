@@ -1,20 +1,11 @@
-import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
-import 'package:flame/collisions.dart';
-import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
-import 'package:flame/rendering.dart';
 import 'package:flame_audio/flame_audio.dart';
-
-import 'package:flutter/material.dart';
 
 import 'globals.dart';
 
 class Gray_Score_Disp extends PositionComponent with HasGameRef {
-  late Gray_ScoreVal _gray_score_val;
   int gray_score = 0;
   SpriteComponent GrayLevel1 = SpriteComponent();
   SpriteComponent GrayLevel2 = SpriteComponent();
@@ -99,16 +90,5 @@ class Gray_Score_Disp extends PositionComponent with HasGameRef {
         FlameAudio.play(Globals.gameComplete);
       }
     }
-  }
-}
-
-class Gray_ScoreVal extends TextComponent with HasGameRef {
-  late int gray_score;
-
-  Gray_ScoreVal({super.textRenderer, super.position}) : gray_score = 0;
-
-  @override
-  void render(Canvas canvas) {
-    textRenderer.render(canvas, '$gray_score', Vector2.zero());
   }
 }

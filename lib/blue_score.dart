@@ -1,22 +1,11 @@
-import 'package:ecoins/trash_items.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
-import 'package:flame/collisions.dart';
-import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
-import 'package:flame/rendering.dart';
 import 'package:flame_audio/flame_audio.dart';
-
 import 'package:flutter/material.dart';
-
-import 'basureros.dart';
 import 'globals.dart';
-import 'hbox_level2.dart';
 
 class Blue_Score_Disp extends PositionComponent with HasGameRef {
-  late Blue_ScoreVal _blue_score_val;
   int blue_score = 0;
   int i = 0;
 

@@ -1,7 +1,5 @@
 
-import 'package:flame/flame.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/material.dart';
 import 'package:flame_audio/flame_audio.dart';
 
 class TutorialAnimation extends PositionComponent with HasGameRef{

@@ -1,20 +1,11 @@
-import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
-import 'package:flame/collisions.dart';
-import 'package:flame/palette.dart';
 import 'package:flame/game.dart';
-import 'package:flame/rendering.dart';
 import 'package:flame_audio/flame_audio.dart';
-
-import 'package:flutter/material.dart';
 
 import 'globals.dart';
 
 class Yellow_Score_Disp extends PositionComponent with HasGameRef {
-  late Yellow_ScoreVal _yellow_score_val;
   int yellow_score = 0;
   int i = 0;
   SpriteComponent YellowLevel1 = SpriteComponent();
@@ -123,16 +114,5 @@ class Yellow_Score_Disp extends PositionComponent with HasGameRef {
         FlameAudio.play(Globals.completeBin);
       }
     }
-  }
-}
-
-class Yellow_ScoreVal extends TextComponent with HasGameRef {
-  late int yellow_score;
-
-  Yellow_ScoreVal({super.textRenderer, super.position}) : yellow_score = 0;
-
-  @override
-  void render(Canvas canvas) {
-    textRenderer.render(canvas, '$yellow_score', Vector2.zero());
   }
 }

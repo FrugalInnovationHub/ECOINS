@@ -6,7 +6,6 @@ import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:ecoins/components/distractive_item.dart';
 import 'package:ecoins/hbox_level3.dart';
 import 'package:ecoins/powerUpComponent.dart';
-import 'package:ecoins/screens/pause_menu.dart';
 import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
@@ -21,7 +20,6 @@ import 'banda_t.dart';
 import 'globals.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';
-import 'hbox_level2.dart';
 import 'trash_items.dart';
 import 'banda_t_hole.dart';
 import 'basureros.dart';
@@ -388,7 +386,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
 
 
   @override
-  void onChildrenChanged(Component child, ChildrenChangeType type) {
+  void onChildrenChanged(Component child, ChildrenChangeType type) async {
     super.onChildrenChanged(child, type);
     if(child is TutorialAnimation && type == ChildrenChangeType.removed){
       if(child.text_url == "Lvl3_1.png") {
@@ -399,7 +397,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl3_2.mp3",
             align: "right",
             is_girl_image: true);
-        Future.delayed(Duration(seconds: 2), () => add(animation));
+        Future.delayed(Duration(seconds: 2), () async => await add(animation));
       }
     }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
@@ -411,7 +409,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "SUN_AND_WATER.mp3",
             align: "right",
             is_girl_image: true);
-        add(animation);
+        await add(animation);
       }
 
 
@@ -470,7 +468,6 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         focusedItem = "Aluminio";
         final allBandaT = children.query<Banda_T>();
         final allLock = children.query<BasuresosLock>();
-        final belt_items = children.query<Trash_Item>();
         speed = 19.0;
 
         for(var i in allBandaT){
@@ -495,7 +492,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl2_1.mp3",
             align: "left",
             is_girl_image: true);
-        Future.delayed(Duration(seconds: 3), () { add(animation); });
+        Future.delayed(Duration(seconds: 3), () async { await add(animation); });
 
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[4][0];
@@ -531,7 +528,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl3_1.mp3",
             align: "left",
             is_girl_image: true);
-        Future.delayed(Duration(seconds: 3), () { add(animation); });
+        Future.delayed(Duration(seconds: 3), () async { await add(animation); });
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[5][0];
         _banda_t_hole.size = Vector2(size[0]*0.06, size[1]*0.02);
@@ -553,7 +550,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl1_2.mp3",
             align: "right",
             is_girl_image: true);
-        add(animation);
+        await add(animation);
       }
 
       if(yellow_score_disp.yellow_score == 10 && child.category == "Aluminio"){
@@ -564,7 +561,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl2_2.mp3",
             align: "right",
             is_girl_image: true);
-        add(animation);
+        await add(animation);
       }
       if(yellow_score_disp.yellow_score == 30 && child.category == "Aluminio"){
         animation = TutorialAnimation(
@@ -574,7 +571,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl2_3.mp3",
             align: "right",
             is_girl_image: true);
-        add(animation);
+        await add(animation);
       }
       if(gray_score_disp.gray_score == 30 && child.category == "Paper"){
         animation = TutorialAnimation(
@@ -584,7 +581,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl3_3.mp3",
             align: "right",
             is_girl_image: true);
-        add(animation);
+        await add(animation);
       }
     }
 

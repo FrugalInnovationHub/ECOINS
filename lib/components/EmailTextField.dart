@@ -1,20 +1,32 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:ecoins/game.dart';
+import 'package:ecoins/score_disp.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+
+import '../game.dart';
+import '../score_disp.dart';
+import 'api.dart';
 
 
 
 class EmailTextField extends StatefulWidget {
   final game;
   const EmailTextField({super.key, this.game});
-
   @override
   State<EmailTextField> createState() => _EmailTextFieldState();
 }
 
 class _EmailTextFieldState extends State<EmailTextField>{
   late TextEditingController _controller;
+
+  _register(email) async {
+    var response = await CallApi().postDataEnd(email, 'ecoins_ganados');
+    var body = json.decode(response.body);
+    print(body['mensaje']);
+  }
 
   @override
   void initState() {
@@ -92,6 +104,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
                         InkWell(
                           onTap: () {
                             print("Pressed");
+                            _register(_controller);
                             widget.game.overlays.remove("Email");
                             widget.game.resumeEngine();
                           },

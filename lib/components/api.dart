@@ -1,0 +1,24 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+class CallApi{
+    final String _token = "U2FsdGVkX19v3p/y/4GqKQEjXBD/+xlcN6VEK6XadPM=";
+    final String _url = "https://demos.conexus-group.com/ApiEcoinsJuegoUAT/api/v1/";
+    postDataStart(age, country, gender, apiURL) async {
+      var fullURL = _url+apiURL+"/?token="+_token+"&pais="+country+"&edad="+age+"&genero="+gender;
+      print(fullURL);
+      return await http.post(
+        Uri.parse(fullURL),
+          headers: {'Content-Type':'application/json'}
+      );
+    }
+    postDataEnd(email, apiURL) async {
+      var fullURL = _url+apiURL+"/?token="+_token+"&pais="+"&email="+email+"&ecoins=";
+      print(fullURL);
+      return await http.post(
+          Uri.parse(fullURL),
+          headers: {'Content-Type':'application/json'}
+      );
+    }
+
+}

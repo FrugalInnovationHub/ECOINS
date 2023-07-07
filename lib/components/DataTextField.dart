@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ecoins/components/CustomSelectDropDown.dart';
+
+import 'api.dart';
 
 class DataTextField extends StatefulWidget {
   final game;
@@ -15,6 +18,12 @@ class _DataTextFieldState extends State<DataTextField> {
   late TextEditingController _age_controller;
   late TextEditingController _country_controller;
   late TextEditingController _gender_controller;
+
+  _register(age, country, gender) async {
+    var response = await CallApi().postDataStart(age, country, gender, 'datos_jugador');
+    var body = json.decode(response.body);
+    print(body['mensaje']);
+  }
 
   var countryList = [
     "Argentina",
@@ -288,6 +297,8 @@ class _DataTextFieldState extends State<DataTextField> {
                         ),
                         onTap: () {
                           // widget.game.overlays.remove("EnterData");
+
+                          _register(ageValue, countryValue, genderValue);
                           Navigator.pushReplacementNamed(this.context, '/video');
                         },
                       ),

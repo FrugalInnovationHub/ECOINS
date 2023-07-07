@@ -47,8 +47,8 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
     ImageSprite textSprite1 = ImageSprite(asset: "Ending_1.png",position: Vector2(size[0]*0.5, size[1]*0.01), size: Vector2(size[0]*0.45, size[1]*0.2));
     ImageSprite textSprite2 = ImageSprite(asset: "Ending_2.png",position: Vector2(size[0]*0.5, size[1]*0.01), size: Vector2(size[0]*0.45, size[1]*0.2));
 
-    add(textSprite1);
-    Future.delayed(Duration(seconds: 16), () { textSprite1.removeFromParent(); add(textSprite2);});
+    await add(textSprite1);
+    Future.delayed(Duration(seconds: 16), () async { textSprite1.removeFromParent(); await add(textSprite2);});
     var audio = await FlameAudio.playLongAudio("Ending.mp3");
     audio.onPlayerStateChanged.listen((event) {
       textSprite2.removeFromParent();

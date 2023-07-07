@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ecoins/components/DataTextField.dart';
+import '../game.dart';
+import '../score_disp.dart';
+import 'api.dart';
+import 'dart:convert';
+
 
 class EmailTextField extends StatefulWidget {
   final game;
@@ -10,6 +16,47 @@ class EmailTextField extends StatefulWidget {
 
 class _EmailTextFieldState extends State<EmailTextField>{
   late TextEditingController _controller;
+  int ecoins = EcoinsGame.finalEcoins;
+  var _errorMessage = "";
+  bool isError = false;
+
+  bool validateEmail(String val) {
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(p);
+    if(val.isEmpty){
+      setState(() {
+        _errorMessage = "Email can not be empty";
+      });
+      return false;
+    }else if(!regExp.hasMatch(val)){
+      setState(() {
+        _errorMessage = "Invalid Email Address";
+      });
+      return false;
+    }else{
+      setState(() {
+        _errorMessage = "";
+      });
+      return true;
+    }
+  }
+
+  _register(email) async {
+    if(validateEmail(email)) {
+      var response = await CallApi().postDataEnd(
+          email, ecoins, 'ecoins_ganados');
+      print(response.statusCode);
+      var body = json.decode(response.body);
+      print(body['mensaje']);
+      widget.game.overlays.remove("Email");
+      widget.game.resumeEngine();
+    }
+    else {
+      setState(() {
+        isError = true;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -65,11 +112,13 @@ class _EmailTextFieldState extends State<EmailTextField>{
                             controller: _controller,
                           ),
                         ),
-                        SizedBox(height: constraints.maxHeight*0.085,),
+                        isError ?
+                          Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 12),)
+                            :
+                          SizedBox(height: constraints.maxHeight*0.085,),
                         InkWell(
                           onTap: () {
-                            widget.game.overlays.remove("Email");
-                            widget.game.resumeEngine();
+                            _register(_controller.text);
                           },
                           child: Container(
                             // color: Colors.green,

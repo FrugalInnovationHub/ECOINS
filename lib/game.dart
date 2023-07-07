@@ -17,6 +17,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
+import 'components/EmailTextField.dart';
 import 'globals.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';
@@ -48,6 +49,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
   var focusedItem = "Plastico" ;
   late final total_trash_items;
   late var ratio;
+  static int finalEcoins = 0;
   late OpacityEffect h_opacity_blink_effect_yellow;
   late OpacityEffect h_opacity_blink_effect_grey;
   late MoveEffect h_move_effect_new;
@@ -539,6 +541,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         // FlameAudio.play(Globals.gameComplete);
         FlameAudio.bgm.stop();
         FlameAudio.bgm.dispose();
+        finalEcoins = _score_disp.score;
         Navigator.pushReplacementNamed(context, '/email');
       }
 
@@ -607,4 +610,5 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
 
     }
   }
+
 }

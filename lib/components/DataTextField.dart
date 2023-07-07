@@ -1,6 +1,10 @@
+import 'dart:math';
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ecoins/components/CustomSelectDropDown.dart';
 import 'package:ecoins/screens/videoPlayerScreen.dart';
+import 'dart:convert';
+import 'api.dart';
 
 class DataTextField extends StatefulWidget {
   final game;
@@ -14,6 +18,24 @@ class _DataTextFieldState extends State<DataTextField> {
   late TextEditingController _age_controller;
   late TextEditingController _country_controller;
   late TextEditingController _gender_controller;
+  bool isError = false;
+
+  Future<bool> _register(age, country, gender) async {
+    if(age == null || country == null || gender == null){
+      setState(() {
+        isError = true;
+      });
+    }
+    else {
+      var response = await CallApi().postDataStart(
+          age, country, gender, 'datos_jugador');
+      var body = json.decode(response.body);
+      print(body['mensaje']);
+      print(response.statusCode);
+      return true;
+    }
+    return false;
+  }
 
   var countryList = [
     "Argentina",
@@ -55,6 +77,9 @@ class _DataTextFieldState extends State<DataTextField> {
   var ageValue;
 
   void onValueChanged (type, value) {
+    setState(() {
+      isError = false;
+    });
     if(type == "country") {
       setState(() {
         countryValue = value;
@@ -131,43 +156,6 @@ class _DataTextFieldState extends State<DataTextField> {
                           constraints: constraints,
                         ),
                       ),
-
-                      // Container(
-                      //   width: constraints.maxWidth*0.25,
-                      //   height: constraints.maxHeight*0.04,
-                      //   margin: EdgeInsets.fromLTRB(constraints.maxWidth*0.1, 0, 0, 0),
-                      //   padding: EdgeInsets.fromLTRB(0,0,0,8),
-                      //   // color: Colors.green,
-                      //   child: TextField(
-                      //     style: TextStyle(
-                      //         color: Colors.blue[700],
-                      //         fontSize: constraints.maxHeight*0.025,
-                      //         fontWeight: FontWeight.bold
-                      //     ),
-                      //     decoration: InputDecoration(
-                      //         border: InputBorder.none
-                      //     ),
-                      //     controller: _country_controller,
-                      //     onSubmitted: (String value) async {
-                      //       await showDialog<void>(
-                      //         context: context,
-                      //         builder: (BuildContext context) {
-                      //           return AlertDialog(
-                      //             title: const Text('Thanks!'),
-                      //             actions: <Widget>[
-                      //               TextButton(
-                      //                 onPressed: () {
-                      //                   Navigator.pop(context);
-                      //                 },
-                      //                 child: const Text('OK'),
-                      //               ),
-                      //             ],
-                      //           );
-                      //         },
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
                       SizedBox(height: constraints.maxHeight*0.04),
                       Container(
                         width: constraints.maxWidth*0.25,
@@ -187,42 +175,6 @@ class _DataTextFieldState extends State<DataTextField> {
                           constraints: constraints,
                         ),
                       ),
-                      // Container(
-                      //   width: constraints.maxWidth*0.25,
-                      //   height: constraints.maxHeight*0.04,
-                      //   margin: EdgeInsets.fromLTRB(constraints.maxWidth*0.1, 0, 0, 0),
-                      //   padding: EdgeInsets.fromLTRB(0,0,0,8),
-                      //   // color: Colors.green,
-                      //   child: TextField(
-                      //     style: TextStyle(
-                      //         color: Colors.blue[700],
-                      //         fontSize: constraints.maxHeight*0.025,
-                      //         fontWeight: FontWeight.bold
-                      //     ),
-                      //     decoration: InputDecoration(
-                      //         border: InputBorder.none
-                      //     ),
-                      //     controller: _age_controller,
-                      //     onSubmitted: (String value) async {
-                      //       await showDialog<void>(
-                      //         context: context,
-                      //         builder: (BuildContext context) {
-                      //           return AlertDialog(
-                      //             title: const Text('Thanks!'),
-                      //             actions: <Widget>[
-                      //               TextButton(
-                      //                 onPressed: () {
-                      //                   Navigator.pop(context);
-                      //                 },
-                      //                 child: const Text('OK'),
-                      //               ),
-                      //             ],
-                      //           );
-                      //         },
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
                       SizedBox(height: constraints.maxHeight*0.035),
                       Container(
                         width: constraints.maxWidth*0.25,
@@ -242,42 +194,9 @@ class _DataTextFieldState extends State<DataTextField> {
                           constraints: constraints,
                         ),
                       ),
-                      // Container(
-                      //   width: constraints.maxWidth*0.25,
-                      //   height: constraints.maxHeight*0.04,
-                      //   margin: EdgeInsets.fromLTRB(constraints.maxWidth*0.1, 0, 0, 0),
-                      //   padding: EdgeInsets.fromLTRB(0,0,0,8),
-                      //   // color: Colors.green,
-                      //   child: TextField(
-                      //     style: TextStyle(
-                      //         color: Colors.blue[700],
-                      //         fontSize: constraints.maxHeight*0.025,
-                      //         fontWeight: FontWeight.bold
-                      //     ),
-                      //     decoration: InputDecoration(
-                      //         border: InputBorder.none
-                      //     ),
-                      //     controller: _gender_controller,
-                      //     onSubmitted: (String value) async {
-                      //       await showDialog<void>(
-                      //         context: context,
-                      //         builder: (BuildContext context) {
-                      //           return AlertDialog(
-                      //             title: const Text('Thanks!'),
-                      //             actions: <Widget>[
-                      //               TextButton(
-                      //                 onPressed: () {
-                      //                   Navigator.pop(context);
-                      //                 },
-                      //                 child: const Text('OK'),
-                      //               ),
-                      //             ],
-                      //           );
-                      //         },
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
+                      isError ?
+                      Text("Please select all the values", style: TextStyle(color: Colors.red, fontSize: constraints.maxHeight*0.02, fontWeight: FontWeight.bold),)
+                          :
                       SizedBox(height: constraints.maxHeight*0.025),
                       InkWell(
                         child: Container(
@@ -288,9 +207,13 @@ class _DataTextFieldState extends State<DataTextField> {
                         onTap: () {
                           // widget.game.overlays.remove("EnterData");
                           // Navigator.pushReplacementNamed(this.context, '/video');
-                          Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (BuildContext context) => VideoPlayerScreen(),
-                          ));
+                          if(_register(ageValue, countryValue, genderValue) == true) {
+                            Navigator.pushReplacement(
+                                context, MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  VideoPlayerScreen(),
+                            ));
+                          }
                         },
                       ),
                     ],

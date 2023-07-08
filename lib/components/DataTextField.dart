@@ -298,31 +298,8 @@ class _DataTextFieldState extends State<DataTextField> {
                         ),
                         onTap: () {
                           // widget.game.overlays.remove("EnterData");
-                          if(ageValue != null && countryValue != null && genderValue != null){
                             _register(ageValue, countryValue, genderValue);
                             Navigator.pushReplacementNamed(this.context, '/video');
-                          }
-                          else{
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => AlertDialog(
-                                title: const Text("Datos perdidos!"),
-                                content: const Text("Por favor, introduzca los detalles que faltan"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                    },
-                                    child: Container(
-                                      color: Colors.green,
-                                      padding: const EdgeInsets.all(14),
-                                      child: const Text("okay"),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
                         },
                       ),
                     ],

@@ -23,11 +23,47 @@ class EmailTextField extends StatefulWidget {
 class _EmailTextFieldState extends State<EmailTextField>{
   late TextEditingController _controller;
   int ecoins = EcoinsGame.finalEcoins;
+  var _errorMessage = "";
+  bool isError = false;
+
+  bool validateEmail(String val) {
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(p);
+    if(val.isEmpty){
+      setState(() {
+        _errorMessage = "Email can not be empty";
+      });
+      return false;
+    }else if(!regExp.hasMatch(val)){
+      setState(() {
+        _errorMessage = "Invalid Email Address";
+      });
+      return false;
+    }else{
+      setState(() {
+        _errorMessage = "";
+      });
+      return true;
+    }
+  }
 
   _register(email) async {
-    var response = await CallApi().postDataEnd(email, ecoins, 'ecoins_ganados');
-    var body = json.decode(response.body);
-    print(body['mensaje']);
+    if(validateEmail(email)) {
+      var response = await CallApi().postDataEnd(
+          email, ecoins, 'ecoins_ganados');
+      print(response.statusCode);
+      var body = json.decode(response.body);
+      print(body['mensaje']);
+      widget.game.overlays.remove("Email");
+      widget.game.resumeEngine();
+    }
+    else {
+      setState(() {
+        isError = true;
+      });
+      print("Not Valid");
+      print(_errorMessage);
+    }
   }
 
   @override
@@ -82,56 +118,19 @@ class _EmailTextFieldState extends State<EmailTextField>{
                                 border: InputBorder.none,
                             ),
                             controller: _controller,
-                            onSubmitted: (String value) async {
-                              await showDialog<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Thanks!'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
+                            onChanged: (val) {
+                              setState(() {
+                                isError = false;
+                                _errorMessage = "";
+                              });
                             },
                           ),
                         ),
+                        isError ? Text(_errorMessage) :
                         SizedBox(height: constraints.maxHeight*0.085,),
                         InkWell(
                           onTap: () {
-                            if(_controller.text.isNotEmpty){
-                              _register(_controller.text);
-                              widget.game.overlays.remove("Email");
-                              widget.game.resumeEngine();
-                            }
-                            else{
-                              showDialog(
-                                  context: context,
-                                  builder: (ctx) => AlertDialog(
-                                title: const Text("Datos perdidos!"),
-                                content: const Text("Por favor ingrese su identificación de correo electrónico"),
-                                actions: <Widget>[
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                    },
-                                    child: Container(
-                                      color: Colors.green,
-                                      padding: const EdgeInsets.all(14),
-                                      child: const Text("okay"),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              );
-                            }
-
+                            _register(_controller.text);
                           },
                           child: Container(
                             // color: Colors.green,

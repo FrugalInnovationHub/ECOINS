@@ -15,7 +15,7 @@ class CallApi{
       );
     }
     postDataEnd(email, ecoins, apiURL) async {
-      var fullURL = _url+apiURL+"/?token="+_token+"&pais="+Finalcountry+"&email="+email+"&ecoins="+ecoins.toString();
+      var fullURL = _url + apiURL + "/?token=" + _token + "&pais=" +Finalcountry +"&email=" + email + "&ecoins=" + ecoins.toString();
       print(fullURL);
       return await http.post(
           Uri.parse(fullURL),

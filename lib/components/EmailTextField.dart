@@ -105,9 +105,33 @@ class _EmailTextFieldState extends State<EmailTextField>{
                         SizedBox(height: constraints.maxHeight*0.085,),
                         InkWell(
                           onTap: () {
-                            _register(_controller.text);
-                            widget.game.overlays.remove("Email");
-                            widget.game.resumeEngine();
+                            if(_controller.text.isNotEmpty){
+                              _register(_controller.text);
+                              widget.game.overlays.remove("Email");
+                              widget.game.resumeEngine();
+                            }
+                            else{
+                              showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                title: const Text("Datos perdidos!"),
+                                content: const Text("Por favor ingrese su identificación de correo electrónico"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(ctx).pop();
+                                    },
+                                    child: Container(
+                                      color: Colors.green,
+                                      padding: const EdgeInsets.all(14),
+                                      child: const Text("okay"),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              );
+                            }
+
                           },
                           child: Container(
                             // color: Colors.green,

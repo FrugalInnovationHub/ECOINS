@@ -19,22 +19,33 @@ class _DataTextFieldState extends State<DataTextField> {
   late TextEditingController _country_controller;
   late TextEditingController _gender_controller;
   bool isError = false;
+  var _errorMessage = "Please select all the values";
 
-  Future<bool> _register(age, country, gender) async {
+  _register(age, country, gender) async {
     if(age == null || country == null || gender == null){
       setState(() {
         isError = true;
+        _errorMessage = "";
       });
     }
     else {
       var response = await CallApi().postDataStart(
           age, country, gender, 'datos_jugador');
       var body = json.decode(response.body);
-      print(body['mensaje']);
-      print(response.statusCode);
-      return true;
+      if(response.statusCode == 200) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(
+          builder: (BuildContext context) =>
+              VideoPlayerScreen(),
+        ));
+      }
+      else {
+        setState(() {
+          isError = true;
+          _errorMessage = "Internal Server Error! Please try again";
+        });
+      }
     }
-    return false;
   }
 
   var countryList = [
@@ -79,6 +90,7 @@ class _DataTextFieldState extends State<DataTextField> {
   void onValueChanged (type, value) {
     setState(() {
       isError = false;
+      _errorMessage = "";
     });
     if(type == "country") {
       setState(() {
@@ -195,7 +207,7 @@ class _DataTextFieldState extends State<DataTextField> {
                         ),
                       ),
                       isError ?
-                      Text("Please select all the values", style: TextStyle(color: Colors.red, fontSize: constraints.maxHeight*0.02, fontWeight: FontWeight.bold),)
+                      Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: constraints.maxHeight*0.02, fontWeight: FontWeight.bold),)
                           :
                       SizedBox(height: constraints.maxHeight*0.025),
                       InkWell(
@@ -207,13 +219,8 @@ class _DataTextFieldState extends State<DataTextField> {
                         onTap: () {
                           // widget.game.overlays.remove("EnterData");
                           // Navigator.pushReplacementNamed(this.context, '/video');
-                          if(_register(ageValue, countryValue, genderValue) == true) {
-                            Navigator.pushReplacement(
-                                context, MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  VideoPlayerScreen(),
-                            ));
-                          }
+                          _register(ageValue, countryValue, genderValue);
+
                         },
                       ),
                     ],

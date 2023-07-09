@@ -11,7 +11,7 @@ class CallApi{
       print(fullURL);
       return await http.post(
         Uri.parse(fullURL),
-          headers: {'Content-Type':'application/json'}
+          headers: {'Content-Type':'text/plain'}
       );
     }
     postDataEnd(email, ecoins, apiURL) async {
@@ -19,7 +19,7 @@ class CallApi{
       print(fullURL);
       return await http.post(
           Uri.parse(fullURL),
-          headers: {'Content-Type':'application/json'}
+          headers: {'Content-Type':'text/plain'}
       );
     }
 }

@@ -45,11 +45,17 @@ class _EmailTextFieldState extends State<EmailTextField>{
     if(validateEmail(email)) {
       var response = await CallApi().postDataEnd(
           email, ecoins, 'ecoins_ganados');
-      print(response.statusCode);
       var body = json.decode(response.body);
-      print(body['mensaje']);
-      widget.game.overlays.remove("Email");
-      widget.game.resumeEngine();
+      if(response.statusCode == 200) {
+        widget.game.overlays.remove("Email");
+        widget.game.resumeEngine();
+      }
+      else {
+        setState(() {
+          isError = true;
+          _errorMessage = "Internal Server Error! Please try again";
+        });
+      }
     }
     else {
       setState(() {

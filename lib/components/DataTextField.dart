@@ -18,6 +18,7 @@ class _DataTextFieldState extends State<DataTextField> {
   late TextEditingController _gender_controller;
   bool isError = false;
   var _errorMessage = "Por favor seleccione todos los valores";
+  bool isLoading = false;
 
   _register(age, country, gender) async {
     if(age == null || country == null || gender == null){
@@ -27,10 +28,16 @@ class _DataTextFieldState extends State<DataTextField> {
       });
     }
     else {
+      setState(() {
+        isLoading = true;
+      });
       var response = await CallApi().postDataStart(
           age, country, gender, 'datos_jugador');
       var body = json.decode(response.body);
-      if(response.statusCode == 200 || int.parse(body["codigo"]) == 00) {
+      if(response.statusCode == 200 && int.parse(body["codigo"]) == 00) {
+        setState(() {
+          isLoading = false;
+        });
         Navigator.pushReplacement(
             context, MaterialPageRoute(
           builder: (BuildContext context) =>
@@ -39,6 +46,7 @@ class _DataTextFieldState extends State<DataTextField> {
       }
       else {
         setState(() {
+          isLoading = false;
           isError = true;
           _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
         });
@@ -208,6 +216,9 @@ class _DataTextFieldState extends State<DataTextField> {
                       Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: constraints.maxHeight*0.02, fontWeight: FontWeight.bold),)
                           :
                       SizedBox(height: constraints.maxHeight*0.025),
+                      isLoading ?
+                      CircularProgressIndicator()
+                          :
                       InkWell(
                         child: Container(
                           // color: Colors.green,

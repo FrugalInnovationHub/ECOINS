@@ -48,7 +48,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
   var focusedItem = "Plastico" ;
   late final total_trash_items;
   late var ratio;
-  static int finalEcoins = 0;
+  static int finalEcoins = 1;
   late OpacityEffect h_opacity_blink_effect_yellow;
   late OpacityEffect h_opacity_blink_effect_grey;
   late MoveEffect h_move_effect_new;
@@ -59,6 +59,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
   late TutorialAnimation animation;
 
   bool musicPlaying = false;
+  bool isAnimationPlaying = false;
 
   var hole_pos = [
     // Vector2(850, 100),
@@ -389,6 +390,9 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
   @override
   void onChildrenChanged(Component child, ChildrenChangeType type) async {
     super.onChildrenChanged(child, type);
+    if(child is TutorialAnimation && type == ChildrenChangeType.added) {
+      _pause_btn.removeFromParent();
+    }
     if(child is TutorialAnimation && type == ChildrenChangeType.removed){
       if(child.text_url == "Lvl3_1.png") {
         animation = TutorialAnimation(
@@ -400,6 +404,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             is_girl_image: true);
         Future.delayed(Duration(seconds: 2), () async => await add(animation));
       }
+      add(_pause_btn);
     }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
       if((blue_score_disp.blue_score == 2) || (yellow_score_disp.yellow_score == 2 && child.category == "Aluminio") || (gray_score_disp.gray_score == 2 && child.category == "Paper")){

@@ -49,16 +49,35 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
 
     await add(textSprite1);
     Future.delayed(Duration(seconds: 16), () async { textSprite1.removeFromParent(); await add(textSprite2);});
-    var audio = await FlameAudio.playLongAudio("Ending.mp3");
-    audio.onPlayerStateChanged.listen((event) {
-      textSprite2.removeFromParent();
+    try {
+      var audio = await FlameAudio.playLongAudio("Ending.mp3");
+      audio.onPlayerStateChanged.listen((event) {
+        textSprite2.removeFromParent();
 
-      Future.delayed(Duration(milliseconds: 30) ,() {
+        Future.delayed(Duration(milliseconds: 30), () {
+          emailScreen1.removeFromParent();
+          add(box);
+          box.add(h_opacity_effect_new);
+          overlays.add("Email");
+          FlameAudio.audioCache.clear("Ending.mp3");
+          Future.delayed(Duration(seconds: 1), () {
+            Future.delayed(Duration(seconds: 1), () {
+              box.removeFromParent();
+              add(emailScreen1);
+              emailScreen2.removeFromParent();
+            });
+            gameRef.pauseEngine();
+          });
+        });
+      });
+    }
+    catch (e){
+      Future.delayed(Duration(seconds: 30), () {
+        textSprite2.removeFromParent();
         emailScreen1.removeFromParent();
         add(box);
         box.add(h_opacity_effect_new);
         overlays.add("Email");
-        FlameAudio.audioCache.clear("Ending.mp3");
         Future.delayed(Duration(seconds: 1), () {
           Future.delayed(Duration(seconds: 1), () {
             box.removeFromParent();
@@ -68,7 +87,7 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
           gameRef.pauseEngine();
         });
       });
-
-    });
+      print(e);
+    }
   }
 }

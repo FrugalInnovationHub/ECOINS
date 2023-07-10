@@ -17,6 +17,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
   int ecoins = EcoinsGame.finalEcoins;
   var _errorMessage = "";
   bool isError = false;
+  bool isLoading = false;
 
   bool validateEmail(String val) {
     String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -41,15 +42,20 @@ class _EmailTextFieldState extends State<EmailTextField>{
 
   _register(email) async {
     if(validateEmail(email)) {
+      setState(() {
+        isLoading = true;
+      });
       var response = await CallApi().postDataEnd(
           email, ecoins, 'ecoins_ganados');
       var body = json.decode(response.body);
-      if(response.statusCode == 200 || int.parse(body["codigo"]) == 00) {
+      print(body["codigo"]);
+      if(response.statusCode == 200 && int.parse(body["codigo"]) == 00) {
         widget.game.overlays.remove("Email");
         widget.game.resumeEngine();
       }
       else {
         setState(() {
+          isLoading = false;
           isError = true;
           _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
         });
@@ -120,6 +126,9 @@ class _EmailTextFieldState extends State<EmailTextField>{
                           Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 12),)
                             :
                           SizedBox(height: constraints.maxHeight*0.085,),
+                        isLoading ?
+                        CircularProgressIndicator()
+                            :
                         InkWell(
                           onTap: () {
                             _register(_controller.text);

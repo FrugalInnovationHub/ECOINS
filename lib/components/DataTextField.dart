@@ -1,5 +1,3 @@
-import 'dart:math';
-import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:ecoins/components/CustomSelectDropDown.dart';
 import 'package:ecoins/screens/videoPlayerScreen.dart';
@@ -32,7 +30,7 @@ class _DataTextFieldState extends State<DataTextField> {
       var response = await CallApi().postDataStart(
           age, country, gender, 'datos_jugador');
       var body = json.decode(response.body);
-      if(response.statusCode == 200) {
+      if(response.statusCode == 200 || int.parse(body["codigo"]) == 00) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(
           builder: (BuildContext context) =>

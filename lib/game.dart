@@ -17,7 +17,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'cocina.dart';
 import 'banda_t.dart';
-import 'components/EmailTextField.dart';
 import 'globals.dart';
 import 'gota_scored.dart';
 import 'gray_score.dart';

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ecoins/components/DataTextField.dart';
 import '../game.dart';
-import '../score_disp.dart';
 import 'api.dart';
 import 'dart:convert';
 
@@ -46,7 +44,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
       var response = await CallApi().postDataEnd(
           email, ecoins, 'ecoins_ganados');
       var body = json.decode(response.body);
-      if(response.statusCode == 200) {
+      if(response.statusCode == 200 || int.parse(body["codigo"]) == 00) {
         widget.game.overlays.remove("Email");
         widget.game.resumeEngine();
       }

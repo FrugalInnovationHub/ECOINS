@@ -25,12 +25,12 @@ class _EmailTextFieldState extends State<EmailTextField>{
     RegExp regExp = new RegExp(p);
     if(val.isEmpty){
       setState(() {
-        _errorMessage = "Email can not be empty";
+        _errorMessage = "Por favor agregar correo electrónico";
       });
       return false;
     }else if(!regExp.hasMatch(val)){
       setState(() {
-        _errorMessage = "Invalid Email Address";
+        _errorMessage = "Dirección de correo electrónico no válido";
       });
       return false;
     }else{
@@ -53,7 +53,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
       else {
         setState(() {
           isError = true;
-          _errorMessage = "Internal Server Error! Please try again";
+          _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
         });
       }
     }

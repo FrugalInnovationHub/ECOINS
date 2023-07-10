@@ -19,7 +19,7 @@ class _DataTextFieldState extends State<DataTextField> {
   late TextEditingController _country_controller;
   late TextEditingController _gender_controller;
   bool isError = false;
-  var _errorMessage = "Please select all the values";
+  var _errorMessage = "Por favor seleccione todos los valores";
 
   _register(age, country, gender) async {
     if(age == null || country == null || gender == null){
@@ -42,7 +42,7 @@ class _DataTextFieldState extends State<DataTextField> {
       else {
         setState(() {
           isError = true;
-          _errorMessage = "Internal Server Error! Please try again";
+          _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
         });
       }
     }

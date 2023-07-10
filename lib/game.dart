@@ -538,11 +538,10 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         add(_banda_t_hole);
       }
       if(gray_score_disp.gray_score == 40){
-        // FlameAudio.play(Globals.gameComplete);
         FlameAudio.bgm.stop();
         FlameAudio.bgm.dispose();
         finalEcoins = _score_disp.score;
-        Navigator.pushReplacementNamed(context, '/email');
+        Future.delayed(Duration(seconds: 2), () { Navigator.pushReplacementNamed(context, '/email'); });
       }
 
       if(blue_score_disp.blue_score == 30) {

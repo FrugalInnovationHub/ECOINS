@@ -17,14 +17,14 @@ class _DataTextFieldState extends State<DataTextField> {
   late TextEditingController _country_controller;
   late TextEditingController _gender_controller;
   bool isError = false;
-  var _errorMessage = "Por favor seleccione todos los valores";
+  var _errorMessage = "";
   bool isLoading = false;
 
   _register(age, country, gender) async {
     if(age == null || country == null || gender == null){
       setState(() {
         isError = true;
-        _errorMessage = "";
+        _errorMessage = "Por favor seleccione todos los valores";
       });
     }
     else {

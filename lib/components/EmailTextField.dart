@@ -123,7 +123,8 @@ class _EmailTextFieldState extends State<EmailTextField>{
                           ),
                         ),
                         isError ?
-                          Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 12),)
+                          SizedBox(height: constraints.maxHeight*0.08,
+                            child: Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 12),))
                             :
                           SizedBox(height: constraints.maxHeight*0.085,),
                         isLoading ?

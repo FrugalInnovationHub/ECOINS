@@ -391,7 +391,9 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
   void onChildrenChanged(Component child, ChildrenChangeType type) async {
     super.onChildrenChanged(child, type);
     if(child is TutorialAnimation && type == ChildrenChangeType.added) {
-      _pause_btn.removeFromParent();
+      if(_pause_btn.isMounted) {
+        _pause_btn.removeFromParent();
+      }
     }
     if(child is TutorialAnimation && type == ChildrenChangeType.removed){
       if(child.text_url == "Lvl3_1.png") {
@@ -402,9 +404,11 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl3_2.mp3",
             align: "right",
             is_girl_image: true);
-        Future.delayed(Duration(seconds: 2), () async => await add(animation));
+        Future.delayed(Duration(seconds: 5), () async => await add(animation));
       }
-      add(_pause_btn);
+      if(_pause_btn.isRemoved) {
+        await add(_pause_btn);
+      }
     }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
       if((blue_score_disp.blue_score == 2) || (yellow_score_disp.yellow_score == 2 && child.category == "Aluminio") || (gray_score_disp.gray_score == 2 && child.category == "Paper")){

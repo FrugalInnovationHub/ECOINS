@@ -28,28 +28,35 @@ class _DataTextFieldState extends State<DataTextField> {
       });
     }
     else {
-      setState(() {
-        isLoading = true;
-      });
-      var response = await CallApi().postDataStart(
-          age, country, gender, 'datos_jugador');
-      var body = json.decode(response.body);
-      if(response.statusCode == 200 && int.parse(body["codigo"]) == 00) {
+      try {
         setState(() {
-          isLoading = false;
+          isLoading = true;
         });
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(
-          builder: (BuildContext context) =>
-              VideoPlayerScreen(),
-        ));
+        var response = await CallApi().postDataStart(
+            age, country, gender, 'datos_jugador');
+        var body = json.decode(response.body);
+        if (response.statusCode == 200 && int.parse(body["codigo"]) == 00) {
+          setState(() {
+            isLoading = false;
+          });
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(
+            builder: (BuildContext context) =>
+                VideoPlayerScreen(),
+          ));
+        }
+        else {
+          setState(() {
+            isLoading = false;
+            isError = true;
+            _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
+          });
+        }
       }
-      else {
-        setState(() {
-          isLoading = false;
-          isError = true;
-          _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
-        });
+      catch (e) {
+        isLoading = false;
+        isError = true;
+        _errorMessage = e.toString();
       }
     }
   }

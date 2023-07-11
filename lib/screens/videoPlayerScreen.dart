@@ -120,7 +120,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                   });
                 },
                 // Display the correct icon depending on the state of the player.
-                child: Icon(Icons.refresh_rounded),
+                child: Icon(Icons.fast_forward),
           )),
 
           SizedBox(

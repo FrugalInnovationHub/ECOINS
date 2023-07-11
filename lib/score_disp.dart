@@ -25,7 +25,7 @@ class Score_Disp extends SpriteComponent with HasGameRef {
     size = Vector2(gameRef.size[0]*0.09, gameRef.size[1]*0.21);
     _score_val = ScoreVal(
         textRenderer: _paint,
-        position: Vector2(gameRef.size[0]*0.03, gameRef.size[1]*0.07)
+        position: Vector2(gameRef.size[0]*0.045, gameRef.size[1]*0.1)
     );
 
     await add(_score_val);
@@ -53,6 +53,6 @@ class ScoreVal extends TextComponent with HasGameRef {
 
   @override
   void render(Canvas canvas) {
-    textRenderer.render(canvas, '$score', Vector2.zero());
+    textRenderer.render(canvas, '$score', Vector2.zero(), anchor: Anchor.center);
   }
 }

@@ -83,6 +83,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: false,
       body: Container(
         alignment: Alignment.center,
         width: double.infinity,
@@ -107,7 +108,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
                           width: constraints.maxWidth*0.25,
                           height: constraints.maxHeight*0.07,
                           margin: EdgeInsets.fromLTRB(constraints.maxWidth*0.1,0, 0, 0),
-                          padding: EdgeInsets.fromLTRB(0,0,0,14),
+                          padding: EdgeInsets.fromLTRB(0,0,0,constraints.maxHeight*0.03),
                           // color: Colors.green,
                           child: TextField(
                             style: TextStyle(

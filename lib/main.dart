@@ -24,7 +24,7 @@ class app extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "ECOINS",
-      initialRoute: "/email",
+      initialRoute: "/",
       routes: {
         '/': (context) => GameWidget(
             game: HomeScreen(context: context),

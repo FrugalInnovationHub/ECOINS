@@ -112,7 +112,7 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
 
         Future.delayed(Duration(milliseconds: 30), () {
           addPointsLeaf();
-          Future.delayed(Duration(seconds: 3), () { addEmailBox(); });
+          Future.delayed(Duration(seconds: 4), () { addEmailBox(); });
           FlameAudio.audioCache.clear("Ending.mp3");
         });
       });
@@ -121,7 +121,7 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
       Future.delayed(Duration(seconds: 30), () {
         textSprite2.removeFromParent();
         addPointsLeaf();
-        Future.delayed(Duration(seconds: 3), () { addEmailBox(); });
+        Future.delayed(Duration(seconds: 4), () { addEmailBox(); });
       });
       print(e);
     }

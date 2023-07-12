@@ -71,6 +71,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
     // [Vector2(0, 200), Vector2(350, 20)],
   ];
 
+  int animation_count = 1;
 
   EcoinsGame({required this.context});
 
@@ -404,14 +405,16 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl3_2.mp3",
             align: "right",
             is_girl_image: true);
-        Future.delayed(Duration(seconds: 5), () async => await add(animation));
+        Future.delayed(Duration(seconds: 5), () async { await add(animation); animation_count += 1; });
       }
       if(_pause_btn.isRemoved) {
         await add(_pause_btn);
       }
     }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
-      if((blue_score_disp.blue_score == 2) || (yellow_score_disp.yellow_score == 2 && child.category == "Aluminio") || (gray_score_disp.gray_score == 2 && child.category == "Paper")){
+      if((blue_score_disp.blue_score >= 2 && blue_score_disp.blue_score <= 6 && animation_count == 1)
+          || (yellow_score_disp.yellow_score >= 2 && yellow_score_disp.yellow_score <= 6 && child.category == "Aluminio" && animation_count == 3)
+          || (gray_score_disp.gray_score >= 2 && gray_score_disp.gray_score <= 6 && child.category == "Paper" && animation_count == 7)){
         animation = TutorialAnimation(
             text_url: "SUN_AND_WATER.png",
             position: Vector2(size[0]*0.37, size[1]*0.25),
@@ -420,6 +423,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             align: "right",
             is_girl_image: true);
         await add(animation);
+        animation_count += 1;
       }
 
 
@@ -538,7 +542,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             audio_url: "Lvl3_1.mp3",
             align: "left",
             is_girl_image: true);
-        Future.delayed(Duration(seconds: 3), () async { await add(animation); });
+        Future.delayed(Duration(seconds: 3), () async { await add(animation);});
         Banda_T_Hole _banda_t_hole = Banda_T_Hole();
         _banda_t_hole.position = hole_pos[5][0];
         _banda_t_hole.size = Vector2(size[0]*0.06, size[1]*0.02);
@@ -552,7 +556,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         Future.delayed(Duration(seconds: 2), () { Navigator.pushReplacementNamed(context, '/email'); });
       }
 
-      if(blue_score_disp.blue_score == 30) {
+      if(blue_score_disp.blue_score >= 30 && blue_score_disp.blue_score <= 34 && animation_count == 2) {
         animation = TutorialAnimation(
             text_url: "Lvl1_2.png",
             position: Vector2(size[0]*0.37, size[1]*0.25),
@@ -561,9 +565,10 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             align: "right",
             is_girl_image: true);
         await add(animation);
+        animation_count += 1;
       }
 
-      if(yellow_score_disp.yellow_score == 10 && child.category == "Aluminio"){
+      if(yellow_score_disp.yellow_score >= 10 && yellow_score_disp.yellow_score <= 14 && child.category == "Aluminio" && animation_count == 4){
         animation = TutorialAnimation(
             text_url: "Lvl2_2.png",
             position: Vector2(size[0]*0.37, size[1]*0.25),
@@ -572,8 +577,9 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             align: "right",
             is_girl_image: true);
         await add(animation);
+        animation_count += 1;
       }
-      if(yellow_score_disp.yellow_score == 30 && child.category == "Aluminio"){
+      if(yellow_score_disp.yellow_score >= 30 && yellow_score_disp.yellow_score <= 34 && child.category == "Aluminio" && animation_count == 5){
         animation = TutorialAnimation(
             text_url: "Lvl2_3.png",
             position: Vector2(size[0]*0.37, size[1]*0.25),
@@ -582,8 +588,9 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             align: "right",
             is_girl_image: true);
         await add(animation);
+        animation_count += 1;
       }
-      if(gray_score_disp.gray_score == 30 && child.category == "Paper"){
+      if(gray_score_disp.gray_score >= 30 && gray_score_disp.gray_score <= 34 && child.category == "Paper" && animation_count == 8){
         animation = TutorialAnimation(
             text_url: "Lvl3_3.png",
             position: Vector2(size[0]*0.37, size[1]*0.25),
@@ -592,6 +599,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             align: "right",
             is_girl_image: true);
         await add(animation);
+        animation_count += 1;
       }
     }
 

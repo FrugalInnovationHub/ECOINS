@@ -545,7 +545,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         _banda_t_hole.hole_no = 3;
         add(_banda_t_hole);
       }
-      if(gray_score_disp.gray_score == 40){
+      if(gray_score_disp.gray_score >= 40){
         FlameAudio.bgm.stop();
         FlameAudio.bgm.dispose();
         finalEcoins = _score_disp.score;

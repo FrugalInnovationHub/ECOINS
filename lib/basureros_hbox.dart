@@ -1,11 +1,9 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
-import 'package:flame_svg/flame_svg.dart';
-import 'package:flutter/material.dart';
 
 import 'palette.dart';
 
-enum Type {
+enum BHBox_Type {
   Green,
   Blue,
   Yellow,
@@ -26,7 +24,7 @@ class Basureros_HBox extends RectangleComponent {
   Future<void> onLoad() async {
     super.onLoad();
     this.paint = Palette.transp.paint();
-    var h_box = RectangleHitbox();
+    var h_box = RectangleHitbox(isSolid: true);
     add(h_box);
   }
 }

@@ -1,15 +1,14 @@
 import 'package:flame/components.dart';
-import 'package:flame_svg/flame_svg.dart';
 
 class Banda_T extends SpriteComponent with HasGameRef {
+  late final asset;
+  late final hole_no;
+  Banda_T({super.position, super.size, super.angle, required this.asset, this.hole_no = 0});
+
   @override
   Future<void> onLoad() async {
     super.onLoad();
-    // final svg = await Svg.load('images/banda_transportadora.svg');
-    // final sprite = SvgComponent(
-    //   svg: svg,
-    //   position: Vector2.all(100),
-    //   size: Vector2.all(100),
-    // );
+    sprite = await gameRef.loadSprite(asset);
   }
+
 }

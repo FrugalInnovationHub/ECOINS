@@ -22,7 +22,7 @@ class ImageSprite extends SpriteComponent with HasGameRef {
   void addText(score) async {
     final _style = TextStyle(
         color: BasicPalette.white.color,
-        fontSize: gameRef.size[0]*0.05,
+        fontSize: gameRef.size[0]*0.045,
         fontWeight: FontWeight.bold
     );
     final _paint = TextPaint(style: _style);

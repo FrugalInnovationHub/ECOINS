@@ -77,22 +77,22 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
         size: Vector2(size[0] * 0.49, size[1] * 0.4));
 
     leaf1 = ImageSprite(asset: "SCORE.png",
-        position: Vector2(size[0] * 0.52 ,size[1] * 0.25),
-        size: Vector2(size[0] * 0.20, size[1] * 0.4));
+        position: Vector2(size[0] * 0.55 ,size[1] * 0.25),
+        size: Vector2(size[0] * 0.18, size[1] * 0.35));
     leaf2 = ImageSprite(asset: "SCORE.png",
-        position: Vector2(size[0] * 0.71 ,size[1] * 0.28),
-        size: Vector2(size[0] * 0.21, size[1] * 0.42));
+        position: Vector2(size[0] * 0.72 ,size[1] * 0.28),
+        size: Vector2(size[0] * 0.19, size[1] * 0.37));
     tus_puntos = ImageSprite(asset: 'Tus_Puntos.png',
-        position: Vector2(size[0] * 0.55 ,size[1] * 0.34),
-        size: Vector2(size[0] * 0.15, size[1] * 0.07)
+        position: Vector2(size[0] * 0.58 ,size[1] * 0.34),
+        size: Vector2(size[0] * 0.13, size[1] * 0.07)
     );
     tus_ecoins = ImageSprite(asset: 'Tus_Ecoins.png',
-        position: Vector2(size[0] * 0.74 ,size[1] * 0.37),
-        size: Vector2(size[0] * 0.15, size[1] * 0.07)
+        position: Vector2(size[0] * 0.75 ,size[1] * 0.37),
+        size: Vector2(size[0] * 0.13, size[1] * 0.07)
     );
     icono_ecoins = ImageSprite(asset: 'ICONO_ECOINS.png',
-        position: Vector2(size[0] * 0.73 ,size[1] * 0.48),
-        size: Vector2(size[0] * 0.04, size[1] * 0.08)
+        position: Vector2(size[0] * 0.76 ,size[1] * 0.45),
+        size: Vector2(size[0] * 0.032, size[1] * 0.068)
     );
     box.opacity = 0;
     h_opacity_effect = OpacityEffect.to(0, EffectController(duration: 1, startDelay: 3));

@@ -28,36 +28,44 @@ class _DataTextFieldState extends State<DataTextField> {
       });
     }
     else {
-      try {
-        setState(() {
-          isLoading = true;
-        });
-        var response = await CallApi().postDataStart(
-            age, country, gender, 'datos_jugador');
-        var body = json.decode(response.body);
-        if (response.statusCode == 200 && int.parse(body["codigo"]) == 00) {
-          setState(() {
-            isLoading = false;
-          });
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(
-            builder: (BuildContext context) =>
-                VideoPlayerScreen(),
-          ));
-        }
-        else {
-          setState(() {
-            isLoading = false;
-            isError = true;
-            _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
-          });
-        }
-      }
-      catch (e) {
-        isLoading = false;
-        isError = true;
-        _errorMessage = e.toString();
-      }
+      var response = await CallApi().postDataStart(
+                age, country, gender, 'datos_jugador');
+            var body = json.decode(response.body);
+      Navigator.pushReplacement(
+                  context, MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    VideoPlayerScreen(),
+              ));
+      // try {
+      //   setState(() {
+      //     isLoading = true;
+      //   });
+      //   var response = await CallApi().postDataStart(
+      //       age, country, gender, 'datos_jugador');
+      //   var body = json.decode(response.body);
+      //   if (response.statusCode == 200 && int.parse(body["codigo"]) == 00) {
+      //     setState(() {
+      //       isLoading = false;
+      //     });
+      //     Navigator.pushReplacement(
+      //         context, MaterialPageRoute(
+      //       builder: (BuildContext context) =>
+      //           VideoPlayerScreen(),
+      //     ));
+      //   }
+      //   else {
+      //     setState(() {
+      //       isLoading = false;
+      //       isError = true;
+      //       _errorMessage = "¡Error Interno del Servidor! Inténtalo de nuevo";
+      //     });
+      //   }
+      // }
+      // catch (e) {
+      //   isLoading = false;
+      //   isError = true;
+      //   _errorMessage = e.toString();
+      // }
     }
   }
 

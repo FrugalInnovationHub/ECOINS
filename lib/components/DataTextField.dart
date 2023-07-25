@@ -28,9 +28,9 @@ class _DataTextFieldState extends State<DataTextField> {
       });
     }
     else {
-      var response = await CallApi().postDataStart(
-                age, country, gender, 'datos_jugador');
-            var body = json.decode(response.body);
+      // var response = await CallApi().postDataStart(
+      //           age, country, gender, 'datos_jugador');
+      //       var body = json.decode(response.body);
       Navigator.pushReplacement(
                   context, MaterialPageRoute(
                 builder: (BuildContext context) =>

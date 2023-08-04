@@ -100,7 +100,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
     FlameAudio.bgm.initialize();
 
     await add(_cocina);
-    await add(_pause_btn);
+    // await add(_pause_btn);
     await add(hbox_level3(size: Vector2(size[0]*0.025 ,size[1]*0.1), position: Vector2(-(size[0]*0.06),size[1]*0.45)));
     await add(hbox_level3(size: Vector2(size[0]*0.22,size[1]*0.1), position: Vector2(size[0],size[1]*0.45)));
     await add(_score_disp);
@@ -407,7 +407,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
             is_girl_image: true);
         Future.delayed(Duration(seconds: 5), () async { await add(animation); animation_count += 1; });
       }
-      if(_pause_btn.isRemoved) {
+      if(_pause_btn.isRemoved || children.query<Pause_Btn>().length == 0) {
         await add(_pause_btn);
       }
     }

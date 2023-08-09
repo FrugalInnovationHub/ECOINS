@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 class CallApi{
     final String _token = "U2FsdGVkX19v3p/y/4GqKQEjXBD/+xlcN6VEK6XadPM=";
-    final String _url = "https://demos.conexus-group.com/ApiEcoinsJuegoUAT/api/v1/";
+    final String _url = "https://apijuego.ecoinsapp.eco/api/v1/";
     static String Finalcountry = "";
     postDataStart(age, country, gender, apiURL) async {
       Finalcountry = country;

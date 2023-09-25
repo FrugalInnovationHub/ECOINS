@@ -19,19 +19,19 @@ class Pause_Btn extends PositionComponent with HasGameRef, Tappable {
     );
     final _paint = TextPaint(style: _style);
 
-    position = Vector2(0, 0);
-    size = Vector2(gameRef.size[1]*0.05, gameRef.size[0]*0.1);
+    position = Vector2(gameRef.size[1]*0.015, gameRef.size[0]*0.52);
+    size = Vector2(gameRef.size[1]*0.06, gameRef.size[0]*0.11);
 
     TextComponent _txt = TextComponent(
         text: '||',
         textRenderer: _paint,
-        position: Vector2(gameRef.size[1]*0.015, gameRef.size[0]*0.52)
+        position: Vector2(gameRef.size[0]*0.015, 0)
     );
     Paint _rect_paint = Paint();
     _rect_paint.color = Colors.white;
     RectangleComponent _rect = RectangleComponent(
-      size: Vector2(gameRef.size[1]*0.08, gameRef.size[0]*0.05),
-      position: Vector2(0, gameRef.size[0]*0.52),
+      size: Vector2(gameRef.size[1]*0.08, gameRef.size[0]),
+      // position: Vector2(gameRef.size[1]*0.015, gameRef.size[0]*0.52),
       paint: _rect_paint
     );
 

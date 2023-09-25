@@ -396,17 +396,17 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         _pause_btn.removeFromParent();
       }
     }
-    if(child is TutorialAnimation && type == ChildrenChangeType.removed){
-      if(child.text_url == "Lvl3_1.png") {
-        animation = TutorialAnimation(
-            text_url: "Lvl3_2.png",
-            position: Vector2(size[0]*0.37, size[1]*0.25),
-            size: Vector2(size[0]*0.5, size[1]*0.23),
-            audio_url: "Lvl3_2.mp3",
-            align: "right",
-            is_girl_image: true);
-        Future.delayed(Duration(seconds: 5), () async { await add(animation); animation_count += 1; });
-      }
+    // if(child is TutorialAnimation && type == ChildrenChangeType.removed){
+    //   if(child.text_url == "Lvl3_1.png") {
+    //     animation = TutorialAnimation(
+    //         text_url: "Lvl3_2.png",
+    //         position: Vector2(size[0]*0.37, size[1]*0.25),
+    //         size: Vector2(size[0]*0.5, size[1]*0.23),
+    //         audio_url: "Lvl3_2.mp3",
+    //         align: "right",
+    //         is_girl_image: true);
+    //     Future.delayed(Duration(seconds: 5), () async { await add(animation); animation_count += 1; });
+    //   }
       if(_pause_btn.isRemoved || children.query<Pause_Btn>().length == 0) {
         await add(_pause_btn);
       }
@@ -568,28 +568,28 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
         animation_count += 1;
       }
 
-      if(yellow_score_disp.yellow_score >= 10 && yellow_score_disp.yellow_score <= 14 && child.category == "Aluminio" && animation_count == 4){
-        animation = TutorialAnimation(
-            text_url: "Lvl2_2.png",
-            position: Vector2(size[0]*0.37, size[1]*0.25),
-            size: Vector2(size[0]*0.5, size[1]*0.25),
-            audio_url: "Lvl2_2.mp3",
-            align: "right",
-            is_girl_image: true);
-        await add(animation);
-        animation_count += 1;
-      }
-      if(yellow_score_disp.yellow_score >= 30 && yellow_score_disp.yellow_score <= 34 && child.category == "Aluminio" && animation_count == 5){
-        animation = TutorialAnimation(
-            text_url: "Lvl2_3.png",
-            position: Vector2(size[0]*0.37, size[1]*0.25),
-            size: Vector2(size[0]*0.5, size[1]*0.25),
-            audio_url: "Lvl2_3.mp3",
-            align: "right",
-            is_girl_image: true);
-        await add(animation);
-        animation_count += 1;
-      }
+      // if(yellow_score_disp.yellow_score >= 10 && yellow_score_disp.yellow_score <= 14 && child.category == "Aluminio" && animation_count == 4){
+      //   animation = TutorialAnimation(
+      //       text_url: "Lvl2_2.png",
+      //       position: Vector2(size[0]*0.37, size[1]*0.25),
+      //       size: Vector2(size[0]*0.5, size[1]*0.25),
+      //       audio_url: "Lvl2_2.mp3",
+      //       align: "right",
+      //       is_girl_image: true);
+      //   await add(animation);
+      //   animation_count += 1;
+      // }
+      // if(yellow_score_disp.yellow_score >= 30 && yellow_score_disp.yellow_score <= 34 && child.category == "Aluminio" && animation_count == 5){
+      //   animation = TutorialAnimation(
+      //       text_url: "Lvl2_3.png",
+      //       position: Vector2(size[0]*0.37, size[1]*0.25),
+      //       size: Vector2(size[0]*0.5, size[1]*0.25),
+      //       audio_url: "Lvl2_3.mp3",
+      //       align: "right",
+      //       is_girl_image: true);
+      //   await add(animation);
+      //   animation_count += 1;
+      // }
       if(gray_score_disp.gray_score >= 30 && gray_score_disp.gray_score <= 34 && child.category == "Paper" && animation_count == 8){
         animation = TutorialAnimation(
             text_url: "Lvl3_3.png",

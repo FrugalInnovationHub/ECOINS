@@ -407,10 +407,10 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
     //         is_girl_image: true);
     //     Future.delayed(Duration(seconds: 5), () async { await add(animation); animation_count += 1; });
     //   }
-      if(_pause_btn.isRemoved || children.query<Pause_Btn>().length == 0) {
-        await add(_pause_btn);
-      }
-    }
+    //   if(_pause_btn.isRemoved || children.query<Pause_Btn>().length == 0) {
+    //     await add(_pause_btn);
+    //   }
+    // }
     if(child is Trash_Item && type == ChildrenChangeType.removed){
       if((blue_score_disp.blue_score >= 2 && blue_score_disp.blue_score <= 6 && animation_count == 1)
           || (yellow_score_disp.yellow_score >= 2 && yellow_score_disp.yellow_score <= 6 && child.category == "Aluminio" && animation_count == 3)

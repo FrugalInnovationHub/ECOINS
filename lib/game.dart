@@ -6,6 +6,7 @@ import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:ecoins/components/distractive_item.dart';
 import 'package:ecoins/hbox_level3.dart';
 import 'package:ecoins/powerUpComponent.dart';
+import 'package:ecoins/screens/email_screen.dart';
 import 'package:ecoins/sol_scored.dart';
 import 'package:ecoins/wheel.dart';
 import 'package:ecoins/yellow_score.dart';
@@ -41,6 +42,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
   final Blue_Score_Disp blue_score_disp = Blue_Score_Disp();
   final Yellow_Score_Disp yellow_score_disp = Yellow_Score_Disp();
   final Gray_Score_Disp gray_score_disp = Gray_Score_Disp();
+  final email_screen_playagain email_play = email_screen_playagain();
   late BasuresosLock lock;
   // final Score_Board _score_board = Score_Board();
   final _random = new Random();

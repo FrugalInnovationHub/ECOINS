@@ -1,4 +1,5 @@
 import 'package:ecoins/game.dart';
+import 'package:ecoins/screens/home_screen.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/game.dart';
@@ -125,5 +126,42 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
       });
       print(e);
     }
+  }
+}
+
+class email_screen_playagain extends StatelessWidget {
+  const email_screen_playagain({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Visibility(
+                visible: true,
+                child: FloatingActionButton(
+                  heroTag: "Skip",
+                  tooltip: "Skip",
+                  onPressed: () {
+                    // Wrap the play or pause in a call to `setState`. This ensures the
+                    // correct icon is shown.
+                    // Navigator.pushReplacementNamed(this.context, '/game');
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => GameWidget(
+                        game: HomeScreen(context: context),
+                      ),
+                    ));
+                  },
+                  // Display the correct icon depending on the state of the player.
+                  child: Icon(Icons.skip_next),
+                )),
+
+            SizedBox(
+              height: 10,
+            )
+          ],
+        )
+    );
   }
 }

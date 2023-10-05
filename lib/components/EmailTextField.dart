@@ -1,3 +1,4 @@
+import 'package:ecoins/screens/email_screen.dart';
 import 'package:flutter/material.dart';
 import '../game.dart';
 import 'api.dart';
@@ -133,6 +134,9 @@ class _EmailTextFieldState extends State<EmailTextField>{
                         InkWell(
                           onTap: () {
                             _register(_controller.text);
+                            Navigator.pushReplacement(context, MaterialPageRoute(
+                              builder: (BuildContext context) => const email_screen_playagain(),
+                            ));
                           },
                           child: Container(
                             // color: Colors.green,

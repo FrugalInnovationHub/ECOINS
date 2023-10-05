@@ -129,39 +129,85 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
   }
 }
 
-class email_screen_playagain extends StatelessWidget {
-  const email_screen_playagain({super.key});
+// class email_screen_playagain extends StatelessWidget {
+//   const email_screen_playagain({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         floatingActionButton: Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             Visibility(
+//                 visible: true,
+//                 child: FloatingActionButton(
+//                   heroTag: "Skip",
+//                   tooltip: "Skip",
+//                   onPressed: () {
+//                     // Wrap the play or pause in a call to `setState`. This ensures the
+//                     // correct icon is shown.
+//                     // Navigator.pushReplacementNamed(this.context, '/game');
+//                     Navigator.pushReplacement(context, MaterialPageRoute(
+//                       builder: (context) => GameWidget(
+//                         game: HomeScreen(context: context),
+//                       ),
+//                     ));
+//                   },
+//                   // Display the correct icon depending on the state of the player.
+//                   child: Icon(Icons.skip_next),
+//                 )),
+//
+//             SizedBox(
+//               height: 10,
+//             )
+//           ],
+//         )
+//     );
+//   }
+// }
 
+class playagain_card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Visibility(
-                visible: true,
-                child: FloatingActionButton(
-                  heroTag: "Skip",
-                  tooltip: "Skip",
+    return Center(
+      child: Card(
+        color: Colors.black.withOpacity(0.4),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1 , vertical: MediaQuery.of(context).size.height*0.1),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Play Again',
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height*0.08,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.08,
+                ),
+                ElevatedButton(
                   onPressed: () {
-                    // Wrap the play or pause in a call to `setState`. This ensures the
-                    // correct icon is shown.
-                    // Navigator.pushReplacementNamed(this.context, '/game');
                     Navigator.pushReplacement(context, MaterialPageRoute(
                       builder: (context) => GameWidget(
                         game: HomeScreen(context: context),
                       ),
                     ));
                   },
-                  // Display the correct icon depending on the state of the player.
-                  child: Icon(Icons.skip_next),
-                )),
-
-            SizedBox(
-              height: 10,
-            )
-          ],
-        )
+                  child: Text(
+                    'Play',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height*0.05,
+                    ),
+                  ),
+                ),
+              ]),
+        ),
+      ),
     );
   }
 }

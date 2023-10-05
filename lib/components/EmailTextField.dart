@@ -135,7 +135,7 @@ class _EmailTextFieldState extends State<EmailTextField>{
                           onTap: () {
                             _register(_controller.text);
                             Navigator.pushReplacement(context, MaterialPageRoute(
-                              builder: (BuildContext context) => const email_screen_playagain(),
+                              builder: (BuildContext context) => playagain_card(),
                             ));
                           },
                           child: Container(

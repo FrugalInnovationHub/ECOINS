@@ -12,6 +12,7 @@ class HomeScreen extends FlameGame with HasTappables {
   late BuildContext context;
   ImageSprite homeScreen1 = ImageSprite();
   ImageSprite homeScreen2 = ImageSprite();
+  ImageSprite cariberibbon = ImageSprite();
   late PlayButton button;
   late TutorialAnimation animation;
   ImageSprite data = ImageSprite();
@@ -67,8 +68,10 @@ class HomeScreen extends FlameGame with HasTappables {
         context: this.context,
         onClick: onClick
     );
+    cariberibbon = ImageSprite(asset: 'cariberibbon.png', position: Vector2(size[0] * 0.4, size[1] * 0.85), size: Vector2(size[0] * 0.42, size[1] * 0.115));
 
     await add(button);
     await add(homeScreen1);
+    await add(cariberibbon);
   }
 }

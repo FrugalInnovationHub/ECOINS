@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:ecoins/game.dart';
 import 'package:ecoins/screens/home_screen.dart';
 import 'package:flame/components.dart';
@@ -8,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../components/ImageSprite.dart';
 import 'package:flame_audio/flame_audio.dart';
+
+import '../main.dart';
 
 
 class Email_Screen extends FlameGame with HasTappables, HasGameRef{
@@ -167,6 +171,10 @@ class Email_Screen extends FlameGame with HasTappables, HasGameRef{
 // }
 
 class playagain_card extends StatelessWidget {
+  static final playagain_cardIdentifier = 'playagain';
+  final game;
+  const playagain_card({Key? key, this.game, EcoinsGame}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -187,24 +195,37 @@ class playagain_card extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height*0.08,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => GameWidget(
-                        game: HomeScreen(context: context),
-                      ),
-                    ));
-                  },
-                  child: Text(
-                    'Play',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height*0.05,
-                    ),
-                  ),
-                ),
+                FloatingActionButton(onPressed: () {
+
+                  // this.game.stop();
+                  // this.game.start();
+                  // this.game.overlays.remove(playagain_card.playagain_cardIdentifier);
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (Bucontext) => app()
+                          ));
+
+
+
+                },
+                child: Icon(Icons.skip_next),)
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height*0.08,
+                //   child: ElevatedButton(
+                //       onPressed: () {
+                //
+                //         // HasGameRef.overlays.remove(PauseOverlay.id);
+                //         // this.game.overlays.remove(playagain_card.)
+                //         // this.game.reset();
+                //         // this.game.startGame();
+                //         // this.game.resumeEngine();
+                //         Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //           builder: (context) => GameWidget(
+                //             game: HomeScreen(context: context),
+                //           ),
+                //         ));
+                //       }, child: Icon(Icons.skip_next)
+                //   ),
+                // ),
               ]),
         ),
       ),

@@ -174,61 +174,95 @@ class playagain_card extends StatelessWidget {
   static final playagain_cardIdentifier = 'playagain';
   final game;
   const playagain_card({Key? key, this.game, EcoinsGame}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        color: Colors.black.withOpacity(0.4),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0)),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1 , vertical: MediaQuery.of(context).size.height*0.1),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Play Again',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height*0.08,
-                    color: Colors.white,
-                  ),
-                ),
-                FloatingActionButton(onPressed: () {
-
-                  // this.game.stop();
-                  // this.game.start();
-                  // this.game.overlays.remove(playagain_card.playagain_cardIdentifier);
-                          Navigator.pushReplacement(context, MaterialPageRoute(
-                            builder: (Bucontext) => app()
-                          ));
-
-
-
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: 1200,
+            height: 900,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('images/HomeScreen_2.jpeg'),
+                fit: BoxFit.cover
+              )
+            ),
+          ),
+          Container(
+              child:InkWell(
+                onTap: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                                                        builder: (context) => app()
+                                                      ));
                 },
-                child: Icon(Icons.skip_next),)
-                // SizedBox(
-                //   height: MediaQuery.of(context).size.height*0.08,
-                //   child: ElevatedButton(
-                //       onPressed: () {
-                //
-                //         // HasGameRef.overlays.remove(PauseOverlay.id);
-                //         // this.game.overlays.remove(playagain_card.)
-                //         // this.game.reset();
-                //         // this.game.startGame();
-                //         // this.game.resumeEngine();
-                //         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                //           builder: (context) => GameWidget(
-                //             game: HomeScreen(context: context),
-                //           ),
-                //         ));
-                //       }, child: Icon(Icons.skip_next)
-                //   ),
-                // ),
-              ]),
-        ),
-      ),
-    );
-  }
+                child: ClipRRect(
+                  child: Image.asset('images/PLAYAGAIN.png',
+                      width: 700.0, height: 700.0),
+                ),
+              )
+          )
+        ],
+    ),
+  )
+  );
 }
+
+
+  // Widget build(BuildContext context) {
+  //   return Material(
+  //     children: Ink.image(
+  //       image: AssetImage('images/Playagain_screen.png'),
+  //       fit: BoxFit.cover,
+  //       child: InkWell(
+  //         onTap: () {
+  //           Navigator.pushReplacement(context, MaterialPageRoute(
+  //                                   builder: (context) => app()
+  //                                 ));
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //   // children: [
+  //     body:Container(
+  //         child: new LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints)
+  //     {
+  //       return Center(
+  //         child: Container(
+  //           height: constraints.maxHeight * 0.4,
+  //           width: constraints.maxWidth * 0.45,
+  //           // color: Colors.blue,
+  //           child: Column(
+  //             children: [
+  //               InkWell(
+  //                 child: Container(
+  //                   color: Colors.green,
+  //                   height: constraints.maxHeight*0.075,
+  //                   width: constraints.maxWidth*0.1,
+  //                 ),
+  //                 onTap: () {
+  //                   // widget.game.overlays.remove("EnterData");
+  //                   // Navigator.pushReplacementNamed(this.context, '/video');
+  //                   Navigator.pushReplacement(context, MaterialPageRoute(
+  //                     builder: (context) => app()
+  //                   ));
+  //
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         )
+  //       );
+  //     }),
+  //     ),
+  //   // ]
+  //   );
+  // }
+}
+

@@ -5,6 +5,7 @@ import 'package:ecoins/components/ImageSprite.dart';
 import 'package:ecoins/components/basuresos_lock.dart';
 import 'package:ecoins/components/distractive_item.dart';
 import 'package:ecoins/hbox_level3.dart';
+import 'package:ecoins/muteButton.dart';
 import 'package:ecoins/powerUpComponent.dart';
 import 'package:ecoins/screens/email_screen.dart';
 import 'package:ecoins/sol_scored.dart';
@@ -35,6 +36,7 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
 
   late BuildContext context;
   final Basureros _basureros = Basureros();
+  final Mute_Btn _mute_btn = Mute_Btn();
   final Pause_Btn _pause_btn = Pause_Btn();
   final Sol_Score_Disp _sol_score_disp = Sol_Score_Disp();
   final Gota_Score_Disp _gota_score_disp = Gota_Score_Disp();
@@ -101,7 +103,9 @@ class EcoinsGame extends FlameGame with HasTappables,HasDraggables, HasCollision
     FlameAudio.bgm.initialize();
 
     await add(_cocina);
+
     await add(_pause_btn);
+    await add(_mute_btn);
     await add(hbox_level3(size: Vector2(size[0]*0.025 ,size[1]*0.1), position: Vector2(-(size[0]*0.06),size[1]*0.45)));
     await add(hbox_level3(size: Vector2(size[0]*0.22,size[1]*0.1), position: Vector2(size[0],size[1]*0.45)));
     await add(_score_disp);

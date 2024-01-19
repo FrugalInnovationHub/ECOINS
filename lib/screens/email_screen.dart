@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:ecoins/game.dart';
 import 'package:ecoins/screens/home_screen.dart';

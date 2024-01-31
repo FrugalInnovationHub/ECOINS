@@ -48,7 +48,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/images/ecoins_icon_without.png"
+  image_path: "assets/images/APP-BALLENA-ELEGIDO.jpg"
 
 
 
